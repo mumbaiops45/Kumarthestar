@@ -30,7 +30,7 @@ export default function Navbar() {
                   className="h-12 w-12 rounded-full object-cover"
                 />
                 <div>
-                  <h1 className="text-xl font-bold text-indigo-700">
+                  <h1 className="text-xl font-bold text-[#1D2433]">
                    KumarTheStar
                   </h1>
                   {/* <p className="text-xs text-gray-500">
@@ -56,7 +56,7 @@ export default function Navbar() {
               <div className="hidden md:block">
                 <a
                   href="/admission"
-                  className="rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700"
+                  className="rounded-lg bg-[#1D2433] px-6 py-3 font-semibold text-white transition "
                 >
                   Admission
                 </a>

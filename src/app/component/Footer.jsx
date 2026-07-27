@@ -9,10 +9,10 @@ const Footer = () => {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h2 className="text-2xl font-bold text-white mb-4">
-              ABC College
+              KumarTheStar
             </h2>
             <p className="text-sm leading-7">
-              ABC College is committed to providing quality education,
+              KumarTheStar is committed to providing quality education,
               innovation, and career-focused learning to empower students for
               a successful future.
             </p>
@@ -115,7 +115,7 @@ const Footer = () => {
         </div>
         <div className="border-t border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm">
           <p>
-            © {new Date().getFullYear()} ABC College. All Rights Reserved.
+            © {new Date().getFullYear()} KumarTheStar. All Rights Reserved.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-indigo-400">
