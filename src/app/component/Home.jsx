@@ -1,14 +1,7 @@
-
 "use client";
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Award, Briefcase, ChevronDown, ChevronUp, Globe, GraduationCap, Languages, Phone, School, Star, Users, Video, CheckCircle2, Sparkles, Quote, Search, Trophy, MapPin, Clock3, ShieldCheck, HeartHandshake, BookOpenCheck, Medal, Mic2 } from 'lucide-react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { FiMessageCircle } from "react-icons/fi";
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-
-
-
 
 
 const fadeInUp = {
@@ -158,9 +151,9 @@ const Home = () => {
                                     <Sparkles className="w-4 h-4 text-[#C8A24D]" />
                                     A Trusted Name in Competitive Exam Coaching
                                 </motion.span>
-                                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.05]">
+                                <h1 className="font-display text-4xl md:text-6xl lg:text-6xl font-semibold leading-[1.05]">
                                     Where Ambition <br />
-                                    <span className="bg-gradient-to-r from-[#E4C275] via-[#C8A24D] to-[#E4C275] bg-clip-text text-transparent italic">
+                                    <span className="bg-gradient-to-r from-[#E4C275] via-[#C8A24D] to-[#E4C275] bg-clip-text text-transparent ">
                                         Earns Its Rank
                                     </span>
                                 </h1>
