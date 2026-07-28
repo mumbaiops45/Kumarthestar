@@ -188,24 +188,24 @@ const Home = () => {
                     <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 w-full">
                         <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid md:grid-cols-2 gap-12 items-center">
                             <motion.div variants={fadeInUp} className="space-y-6">
-                                <motion.span whileHover={{ scale: 1.05 }} className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium border border-[#C8A24D]/40">
+                                <motion.span whileHover={{ scale: 1.05 }} className="inline-flex items-center gap-2 bg-white backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium border border-[#C8A24D]/40">
                                     <Sparkles className="w-4 h-4 text-[#C8A24D]" />
                                     A Trusted Name in Competitive Exam Coaching
                                 </motion.span>
-                                <h1 className="font-display text-4xl md:text-6xl lg:text-6xl font-semibold leading-[1.05]">
+                                <h1 className="font-display text-4xl text-white md:text-6xl lg:text-6xl font-semibold leading-[1.05]">
                                     Where Ambition <br />
                                     <span className="bg-gradient-to-r from-[#E4C275] via-[#C8A24D] to-[#E4C275] bg-clip-text text-transparent ">
                                         Earns Its Rank
                                     </span>
                                 </h1>
-                                <p className="text-lg md:text-xl text-slate-900 max-w-lg">
+                                <p className="text-lg md:text-xl text-slate-50 max-w-lg">
                                     Structured coaching for NTSE, JEE, NEET, Olympiads and 50+ competitive exams — built on weekly mock tests, honest scorecards and mentors who've cleared the exam themselves.
                                 </p>
                                 <div className="flex flex-wrap gap-4">
-                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-[#C8A24D] text-[#0B1E3D] px-8 py-3 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#C8A24D]/30 transition-all duration-300 flex items-center gap-2">
+                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-[#C8A24D] text-white px-8 py-3 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#C8A24D]/30 transition-all duration-300 flex items-center gap-2">
                                         Explore Courses <ArrowRight className="w-5 h-5" />
                                     </motion.button>
-                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-[#C8A24D] text-[#0B1E3D] px-8 py-3 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#C8A24D]/30 transition-all duration-300 flex items-center gap-2">
+                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-[#C8A24D] text-white px-8 py-3 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#C8A24D]/30 transition-all duration-300 flex items-center gap-2">
                                         <Phone className="w-5 h-5" /> Book Free Counselling
                                     </motion.button>
                                 </div>
@@ -1000,204 +1000,58 @@ const Home = () => {
                     transition
                     "
                     >
-
                     {
                     faqOpen === index
-
                     ?
-
-                    <ChevronUp
-                    className="
-                    w-5
-                    h-5
-                    text-[#8C2F39]
-                    "
-                    />
-
+                    <ChevronUp className="w-5 h-5 text-[#8C2F39]"/>
                     :
-
-                    <ChevronDown
-                    className="
-                    w-5
-                    h-5
-                    text-[#8C2F39]
-                    "
-                    />
-
+                    <ChevronDown className="w-5 h-5 text-[#8C2F39]"/>
                     }
-
-
                     </div>
-
-
                 </button>
-
-
-
-
-
-
-
-
-                {/* Answer */}
-
-
                 <motion.div
-
                     initial={false}
-
                     animate={{
                         height:
                         faqOpen === index
                         ? "auto"
                         : 0,
-
                         opacity:
                         faqOpen === index
                         ? 1
                         : 0
                     }}
-
                     transition={{
                         duration:0.35
                     }}
-
-                    className="overflow-hidden"
-
-                >
-
-
-                    <div
-                    className="
-                    px-6
-                    md:px-7
-                    pb-7
-                    ml-0
-                    md:ml-[4.2rem]
-                    text-slate-600
-                    leading-relaxed
-                    "
-                    >
-
-
-                        <div
-                        className="
-                        border-t
-                        border-[#0B1E3D]/10
-                        pt-5
-                        "
-                        >
-
+                    className="overflow-hidden">
+                    <div className="px-6 md:px-7 pb-7 ml-0 md:ml-[4.2rem] text-slate-600 leading-relaxed">
+                        <div className="border-t border-[#0B1E3D]/10 pt-5">
                             {faq.answer}
-
                         </div>
-
-
                     </div>
-
-
-
                 </motion.div>
-
-
-
             </motion.div>
-
-
         ))}
-
-
-
         </motion.div>
-
-
-
-
-
-
-
-        {/* Bottom Trust Section */}
-
-
         <motion.div
-
         initial={{opacity:0,y:20}}
-
         whileInView={{opacity:1,y:0}}
-
         viewport={{once:true}}
-
-        className="
-        mt-16
-        flex
-        flex-wrap
-        justify-center
-        gap-4
-        "
-
-        >
-
-
-            <div
-            className="
-            px-6
-            py-3
-            rounded-full
-            bg-[#0B1E3D]
-            text-white
-            text-sm
-            font-semibold
-            "
-            >
-
+        className="mt-16 flex flex-wrap justify-center gap-4">
+            <div className="px-6 py-3 rounded-full bg-[#0B1E3D] text-white text-sm font-semibold">
                 ✓ 50,000+ Students Guided
-
             </div>
-
-
-            <div
-            className="
-            px-6
-            py-3
-            rounded-full
-            bg-white
-            border
-            border-[#C8A24D]/40
-            text-[#0B1E3D]
-            text-sm
-            font-semibold
-            "
-            >
-
+            <div className="px-6 py-3 rounded-full bg-white border border-[#C8A24D]/40 text-[#0B1E3D] text-sm font-semibold">
                 ✓ Expert Mentors
-
             </div>
-
-
-            <div
-            className="
-            px-6
-            py-3
-            rounded-full
-            bg-white
-            border
-            border-[#C8A24D]/40
-            text-[#0B1E3D]
-            text-sm
-            font-semibold
-            "
-            >
-
+            <div className="px-6 py-3 rounded-full bg-white border border-[#C8A24D]/40 text-[#0B1E3D] text-sm font-semibold">
                 ✓ Proven Results
 
             </div>
-
-
         </motion.div>
     </div>
 </section>
-
-
                 <section className="py-20 bg-gradient-to-br from-[#0B1E3D] via-[#16294D] to-[#0B1E3D] text-white">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="text-center mb-12">
@@ -1288,8 +1142,6 @@ const Home = () => {
                         </motion.div>
                     </div>
                 </section>
-
-
             </div>
         </>
     );
