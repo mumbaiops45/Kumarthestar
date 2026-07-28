@@ -696,7 +696,7 @@ const Home = () => {
                 </section>
 
 
-                <section className="py-20 bg-[#F7F3EA]">
+                {/* <section className="py-20 bg-[#F7F3EA]">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="text-center mb-12">
                             <motion.span variants={fadeInUp} className="inline-block px-4 py-1 bg-[#0B1E3D]/5 text-[#8C2F39] rounded-full text-sm font-semibold mb-3 border border-[#8C2F39]/20">FAQ</motion.span>
@@ -725,7 +725,477 @@ const Home = () => {
                             ))}
                         </motion.div>
                     </div>
-                </section>
+                </section> */}
+                <section className="relative py-24 bg-[#F8F5EE] overflow-hidden">
+
+    {/* Background Decorative Glow */}
+
+    <div className="
+        absolute 
+        -top-40 
+        -left-40 
+        w-[500px]
+        h-[500px]
+        rounded-full
+        bg-[#C8A24D]/20
+        blur-[150px]
+    "/>
+
+
+    <div className="
+        absolute
+        -bottom-40
+        -right-40
+        w-[500px]
+        h-[500px]
+        rounded-full
+        bg-[#8C2F39]/10
+        blur-[150px]
+    "/>
+
+
+
+    {/* Soft Pattern */}
+
+    <div
+        className="
+        absolute inset-0
+        opacity-[0.04]
+        bg-[linear-gradient(#0B1E3D_1px,transparent_1px),
+        linear-gradient(90deg,#0B1E3D_1px,transparent_1px)]
+        bg-[size:60px_60px]
+        "
+    />
+
+
+
+    <div className="
+        relative
+        max-w-6xl
+        mx-auto
+        px-4
+        sm:px-6
+        lg:px-8
+    ">
+
+
+        {/* Header */}
+
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{once:true}}
+            variants={staggerContainer}
+            className="text-center mb-16"
+        >
+
+
+            <motion.span
+                variants={fadeInUp}
+                className="
+                inline-flex
+                items-center
+                gap-2
+                px-5
+                py-2
+                rounded-full
+                bg-[#0B1E3D]/5
+                border
+                border-[#C8A24D]/40
+                text-[#8C2F39]
+                font-semibold
+                text-sm
+                "
+            >
+                ✦ FAQ
+            </motion.span>
+
+
+
+
+            <motion.h2
+                variants={fadeInUp}
+                className="
+                mt-6
+                font-display
+                text-4xl
+                md:text-6xl
+                font-bold
+                text-[#0B1E3D]
+                "
+            >
+
+                Everything You Need
+                <br/>
+
+                <span
+                className="
+                bg-gradient-to-r
+                from-[#8C2F39]
+                via-[#C8A24D]
+                to-[#8C2F39]
+                bg-clip-text
+                text-transparent
+                "
+                >
+                    To Know Before Joining
+                </span>
+
+
+            </motion.h2>
+
+
+
+            <motion.p
+                variants={fadeInUp}
+                className="
+                mt-5
+                max-w-2xl
+                mx-auto
+                text-slate-600
+                text-lg
+                "
+            >
+                Find answers about courses, exams, teaching methods,
+                fees and everything related to your preparation journey.
+            </motion.p>
+
+
+        </motion.div>
+
+
+
+
+
+
+        {/* FAQ Cards */}
+
+
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{once:true}}
+            variants={staggerContainer}
+            className="
+            max-w-4xl
+            mx-auto
+            space-y-5
+            "
+        >
+
+
+
+        {faqs.map((faq,index)=>(
+
+
+            <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="
+                group
+                bg-white
+                rounded-3xl
+                border
+                border-[#0B1E3D]/10
+                shadow-[0_10px_40px_rgba(11,30,61,0.08)]
+                hover:shadow-[0_20px_50px_rgba(11,30,61,0.15)]
+                transition-all
+                duration-300
+                overflow-hidden
+                "
+            >
+
+
+
+                <button
+
+                onClick={() =>
+                    setFaqOpen(
+                        faqOpen === index
+                        ? null
+                        : index
+                    )
+                }
+
+                className="
+                w-full
+                flex
+                items-center
+                justify-between
+                p-6
+                md:p-7
+                text-left
+                "
+                >
+
+
+
+
+                    <div className="
+                    flex
+                    items-center
+                    gap-5
+                    ">
+
+
+                        {/* Number Badge */}
+
+                        <div
+                        className="
+                        flex-shrink-0
+                        w-12
+                        h-12
+                        rounded-2xl
+                        bg-gradient-to-br
+                        from-[#0B1E3D]
+                        to-[#16294D]
+                        text-[#C8A24D]
+                        flex
+                        items-center
+                        justify-center
+                        font-bold
+                        "
+                        >
+
+                            {String(index+1).padStart(2,"0")}
+
+                        </div>
+
+
+
+
+                        <span
+                        className="
+                        text-[#0B1E3D]
+                        font-semibold
+                        text-lg
+                        md:text-xl
+                        "
+                        >
+
+                            {faq.question}
+
+                        </span>
+
+
+                    </div>
+
+
+
+
+
+
+                    {/* Icon */}
+
+                    <div
+                    className="
+                    w-10
+                    h-10
+                    rounded-full
+                    bg-[#F8F5EE]
+                    flex
+                    items-center
+                    justify-center
+                    group-hover:bg-[#FFF3D6]
+                    transition
+                    "
+                    >
+
+                    {
+                    faqOpen === index
+
+                    ?
+
+                    <ChevronUp
+                    className="
+                    w-5
+                    h-5
+                    text-[#8C2F39]
+                    "
+                    />
+
+                    :
+
+                    <ChevronDown
+                    className="
+                    w-5
+                    h-5
+                    text-[#8C2F39]
+                    "
+                    />
+
+                    }
+
+
+                    </div>
+
+
+                </button>
+
+
+
+
+
+
+
+
+                {/* Answer */}
+
+
+                <motion.div
+
+                    initial={false}
+
+                    animate={{
+                        height:
+                        faqOpen === index
+                        ? "auto"
+                        : 0,
+
+                        opacity:
+                        faqOpen === index
+                        ? 1
+                        : 0
+                    }}
+
+                    transition={{
+                        duration:0.35
+                    }}
+
+                    className="overflow-hidden"
+
+                >
+
+
+                    <div
+                    className="
+                    px-6
+                    md:px-7
+                    pb-7
+                    ml-0
+                    md:ml-[4.2rem]
+                    text-slate-600
+                    leading-relaxed
+                    "
+                    >
+
+
+                        <div
+                        className="
+                        border-t
+                        border-[#0B1E3D]/10
+                        pt-5
+                        "
+                        >
+
+                            {faq.answer}
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </motion.div>
+
+
+
+            </motion.div>
+
+
+        ))}
+
+
+
+        </motion.div>
+
+
+
+
+
+
+
+        {/* Bottom Trust Section */}
+
+
+        <motion.div
+
+        initial={{opacity:0,y:20}}
+
+        whileInView={{opacity:1,y:0}}
+
+        viewport={{once:true}}
+
+        className="
+        mt-16
+        flex
+        flex-wrap
+        justify-center
+        gap-4
+        "
+
+        >
+
+
+            <div
+            className="
+            px-6
+            py-3
+            rounded-full
+            bg-[#0B1E3D]
+            text-white
+            text-sm
+            font-semibold
+            "
+            >
+
+                ✓ 50,000+ Students Guided
+
+            </div>
+
+
+            <div
+            className="
+            px-6
+            py-3
+            rounded-full
+            bg-white
+            border
+            border-[#C8A24D]/40
+            text-[#0B1E3D]
+            text-sm
+            font-semibold
+            "
+            >
+
+                ✓ Expert Mentors
+
+            </div>
+
+
+            <div
+            className="
+            px-6
+            py-3
+            rounded-full
+            bg-white
+            border
+            border-[#C8A24D]/40
+            text-[#0B1E3D]
+            text-sm
+            font-semibold
+            "
+            >
+
+                ✓ Proven Results
+
+            </div>
+
+
+        </motion.div>
+    </div>
+</section>
 
 
                 <section className="py-20 bg-gradient-to-br from-[#0B1E3D] via-[#16294D] to-[#0B1E3D] text-white">
