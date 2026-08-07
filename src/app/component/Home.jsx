@@ -202,10 +202,10 @@ const Home = () => {
                                     Structured coaching for NTSE, JEE, NEET, Olympiads and 50+ competitive exams — built on weekly mock tests, honest scorecards and mentors who've cleared the exam themselves.
                                 </p>
                                 <div className="flex flex-wrap gap-4">
-                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-black text-white px-8 py-3 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#C8A24D]/30 transition-all duration-300 flex items-center gap-2">
+                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-black text-white px-8 py-3 cursor-pointer rounded-full font-semibold hover:shadow-2xl hover:shadow-[#C8A24D]/30 transition-all duration-300 flex items-center gap-2">
                                         Explore Courses <ArrowRight className="w-5 h-5" />
                                     </motion.button>
-                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-black text-white px-8 py-3 rounded-full font-semibold hover:shadow-2xl hover:shadow-[#C8A24D]/30 transition-all duration-300 flex items-center gap-2">
+                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-black text-white px-8 py-3 rounded-full cursor-pointer font-semibold hover:shadow-2xl hover:shadow-[#C8A24D]/30 transition-all duration-300 flex items-center gap-2">
                                         <Phone className="w-5 h-5" /> Book Free Counselling
                                     </motion.button>
                                 </div>
@@ -509,7 +509,6 @@ const Home = () => {
                 </section>
 
 
-
                 <section className="relative overflow-hidden py-24 bg-gradient-to-b from-[#06142D] via-[#0B1E3D] to-[#06142D] text-white">
                     <div className="absolute inset-0 overflow-hidden">
                         <motion.div
@@ -696,30 +695,10 @@ const Home = () => {
                 </section>
 
 
-
                 <section className="relative py-24 bg-[#F8F5EE] overflow-hidden">
-                    <div className="
-        absolute 
-        -top-40 
-        -left-40 
-        w-[500px]
-        h-[500px]
-        rounded-full
-        bg-[#C8A24D]/20 blur-[150px]"/>
-
-
-                    <div className="
-        absolute
-        -bottom-40
-        -right-40
-        w-[500px]
-        h-[500px]
-        rounded-full
-        bg-[#8C2F39]/10
-        blur-[150px]
-    "/>
+                    <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#C8A24D]/20 blur-[150px]"/>
+                    <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-[#8C2F39]/10 blur-[150px]"/>
                     <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(#0B1E3D_1px,transparent_1px), linear-gradient(90deg,#0B1E3D_1px,transparent_1px)] bg-[size:60px_60px]" />
-
                     <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                         <motion.div
                             initial="hidden"
@@ -731,7 +710,7 @@ const Home = () => {
                             <motion.span
                                 variants={fadeInUp}
                                 className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#0B1E3D]/5 border border-[#C8A24D]/40 text-[#8C2F39] font-semibold text-sm">
-                                ✦ FAQ
+                                 FAQ
                             </motion.span>
                             <motion.h2
                                 variants={fadeInUp}
@@ -778,9 +757,7 @@ const Home = () => {
                                                 {faq.question}
                                             </span>
                                         </div>
-                                        <div className="w-10 h-10 rounded-full bg-[#F8F5EE] flex items-center justify-center group-hover:bg-[#FFF3D6] transition
-                    "
-                                        >
+                                        <div className="w-10 h-10 rounded-full bg-[#F8F5EE] flex items-center justify-center group-hover:bg-[#FFF3D6] transition">
                                             {
                                                 faqOpen === index
                                                     ?
@@ -815,9 +792,9 @@ const Home = () => {
                                 </motion.div>
                             ))}
                         </motion.div>
-
                     </div>
                 </section>
+
                 <section className="py-20 bg-gradient-to-br from-[#0B1E3D] via-[#16294D] to-[#0B1E3D] text-white">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="text-center mb-12">
