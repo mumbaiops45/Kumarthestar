@@ -20,26 +20,14 @@ export default function Navbar() {
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4">
-            <div className="flex h-20 items-center justify-between">
-
-           
+            <div className="flex h-20 items-center justify-between">           
               <a href="/" className="flex items-center gap-3">
                 <img
                   src="/logo.png"
                   alt="College Logo"
-                  className="h-12 w-12 rounded-full object-cover"
+                  className="h-20 w-20 rounded-full object-cover"
                 />
-                <div>
-                  <h1 className="text-xl font-bold text-[#1D2433]">
-                   KumarTheStar
-                  </h1>
-                  {/* <p className="text-xs text-gray-500">
-                    Learn • Grow • Succeed
-                  </p> */}
-                </div>
               </a>
-
-              
               <div className="hidden md:flex items-center gap-8">
                 {navigation.map((item) => (
                   <a
