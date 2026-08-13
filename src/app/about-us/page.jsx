@@ -365,15 +365,15 @@ const page = () => {
                     </motion.div>
                 </motion.div>
             </section>
-            <section className="relative py-28 overflow-hidden bg-gradient-to-b from-[#040e22] via-[#06142D] to-[#040e22]">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
+            <section className="relative py-28 overflow-hidden bg-[#FAFAF8] text-black">
+               
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#C8A24D]/8 blur-[160px] -top-20 left-0" delay={0} />
                 <FloatingOrb className="w-[400px] h-[400px] bg-[#8C2F39]/10 blur-[130px] bottom-0 right-0" delay={4} />
 
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="white">Purpose & Direction</SectionBadge></motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-white tracking-tight">
+                <div className="relative max-w-7xl  px-4 sm:px-6 lg:px-8">
+                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16 ">
+                        <motion.div variants={fadeInUp}><SectionBadge variant="gold">Purpose & Direction</SectionBadge></motion.div>
+                        <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-black tracking-tight">
                             What Powers{' '}
                             <span className="bg-gradient-to-r from-[#E4C275] to-[#C8A24D] bg-clip-text text-transparent">Our Mission</span>
                         </motion.h2>
@@ -401,7 +401,6 @@ const page = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: i * 0.2 }}
-                                whileHover={{ y: -10, scale: 1.02 }}
                                 className="group relative p-10 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:border-[#C8A24D]/30 hover:shadow-[0_30px_80px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden"
                             >
                                 <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/8 to-transparent skew-x-12 pointer-events-none" />
@@ -413,12 +412,12 @@ const page = () => {
                                         <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-300`}>
                                             {item.icon}
                                         </div>
-                                        <span className="text-xs font-black tracking-widest text-white/30 border border-white/10 px-3 py-1 rounded-full bg-white/[0.03]">
+                                        <span className="text-xs font-black tracking-widest text-slate-800 border border-white/10 px-3 py-1 rounded-full bg-white/[0.03]">
                                             {item.badge}
                                         </span>
                                     </div>
-                                    <h3 className="text-2xl font-black text-white mb-4 group-hover:text-[#E4C275] transition-colors duration-300">{item.title}</h3>
-                                    <p className="text-white/55 leading-relaxed">{item.text}</p>
+                                    <h3 className="text-2xl font-black text-[#E4C275] mb-4 group-hover:text-black transition-colors duration-300">{item.title}</h3>
+                                    <p className="text-slate-800 leading-relaxed">{item.text}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -497,7 +496,7 @@ const page = () => {
                 </div>
             </section>
             <section className="relative py-28 bg-gradient-to-b from-[#040e22] via-[#06142D] to-[#040e22] overflow-hidden">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
+                {/* <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" /> */}
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#C8A24D]/8 blur-[160px] top-0 right-0" delay={1} />
                 <FloatingOrb className="w-[400px] h-[400px] bg-[#8C2F39]/10 blur-[130px] bottom-0 left-0" delay={3} />
 

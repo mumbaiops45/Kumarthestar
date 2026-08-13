@@ -391,13 +391,6 @@ const page = () => {
 
                 <div className="relative max-w-7xl  px-4 sm:px-6 lg:px-8 pt-8">
                     <motion.div initial="hidden" animate="visible" variants={stagger} className=" max-w-4xl ">
-                        {/* <motion.div variants={fadeInUp}>
-                            <SectionBadge variant="white">
-                                <Sparkles className="w-3.5 h-3.5 text-[#E4C275]" />
-                                Premium Academic & Career Catalog
-                            </SectionBadge>
-                        </motion.div> */}
-
                         <motion.h1 variants={fadeInUp} className="mt-6 text-5xl sm:text-7xl px-10 font-black text-white leading-[1.0] tracking-tight">
                             Master High-Stakes Exams
                             <span className="block bg-gradient-to-r from-[#E4C275] via-[#f5d98a] to-[#C8A24D] bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(228,194,117,0.3)]">
@@ -585,7 +578,7 @@ const page = () => {
                     </AnimatePresence>
                 </div>
             </section>
-            <section className="relative py-28 overflow-hidden bg-gradient-to-b from-[#040e22] via-[#06142D] to-[#040e22]">
+            <section className="relative py-28 overflow-hidden bg-[#FAFAF8] text-black">
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#C8A24D]/8 blur-[160px] top-0 left-0" delay={0} />
                 <FloatingOrb className="w-[400px] h-[400px] bg-[#8C2F39]/10 blur-[130px] bottom-0 right-0" delay={4} />
@@ -593,12 +586,12 @@ const page = () => {
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
                         <motion.div variants={fadeInUp}>
-                            <SectionBadge variant="white">
+                            <SectionBadge variant="text-[#E4C275]">
                                 <Trophy className="w-3.5 h-3.5 text-[#E4C275]" />
                                 Proof of Excellence
                             </SectionBadge>
                         </motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-6 text-4xl md:text-5xl font-black text-white tracking-tight">
+                        <motion.h2 variants={fadeInUp} className="mt-6 text-4xl md:text-5xl font-black text-black tracking-tight">
                             Loved by{' '}
                             <span className="bg-gradient-to-r from-[#E4C275] to-[#C8A24D] bg-clip-text text-transparent">Top Rankers Worldwide</span>
                         </motion.h2>
@@ -616,8 +609,8 @@ const page = () => {
                                 <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/8 to-transparent skew-x-12 pointer-events-none" />
                                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C8A24D] to-[#8C2F39] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                                <Quote className="w-10 h-10 text-[#C8A24D]/20 mb-5" />
-                                <p className="text-white/60 text-sm leading-relaxed mb-8 italic">"{t.text}"</p>
+                                <Quote className="w-10 h-10 text-[#E4C275] mb-5" />
+                                <p className="text-slate-800 text-sm leading-relaxed mb-8 italic">"{t.text}"</p>
 
                                 <div className="flex items-center gap-4 pt-5 border-t border-white/8">
                                     <div className="relative flex-shrink-0">
@@ -625,7 +618,7 @@ const page = () => {
                                         <img src={t.image} alt={t.name} className="relative w-12 h-12 rounded-full object-cover border-2 border-[#E4C275]" />
                                     </div>
                                     <div>
-                                        <h4 className="text-sm font-black text-white">{t.name}</h4>
+                                        <h4 className="text-sm font-black text-black">{t.name}</h4>
                                         <p className="text-xs text-[#E4C275] font-semibold">{t.role}</p>
                                         <p className="text-xs text-white/35 mt-0.5">{t.score}</p>
                                     </div>

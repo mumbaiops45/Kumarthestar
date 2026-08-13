@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import {ArrowRight, Award, Briefcase, ChevronDown, ChevronUp, Globe, GraduationCap,Languages, Phone, School, Star, Users, Video, CheckCircle2, Sparkles, Quote,Search, Trophy, MapPin, Clock3, ShieldCheck, HeartHandshake, BookOpenCheck,Medal, Mic2, Zap, Target, ExternalLink} from 'lucide-react';
+import { ArrowRight, Award, Briefcase, ChevronDown, ChevronUp, Globe, GraduationCap, Languages, Phone, School, Star, Users, Video, CheckCircle2, Sparkles, Quote, Search, Trophy, MapPin, Clock3, ShieldCheck, HeartHandshake, BookOpenCheck, Medal, Mic2, Zap, Target, ExternalLink } from 'lucide-react';
 
 
 const fadeInUp = {
@@ -205,8 +205,9 @@ const Home = () => {
                         transition={{ duration: 1.4, ease: 'easeInOut' }}
                     >
                         <img src={heroSlides[currentSlide].img} alt="Hero" className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#030d1e]/95 via-[#030d1e]/70 to-transparent" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#030d1e]/90 via-transparent to-transparent" />
+                        {/* <div className="absolute inset-0 bg-gradient-to-r from-[#030d1e]/95 via-[#030d1e]/70 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#030d1e]/90 via-transparent to-transparent" /> */}
+                        <div className='absolute inset-0 bg-black/45' />
                     </motion.div>
                 </AnimatePresence>
 
@@ -576,7 +577,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative py-28 overflow-hidden bg-gradient-to-b from-[#040e22] via-[#06142D] to-[#040e22] text-white">
+            <section className="relative py-28 overflow-hidden bg-[#FAFAF8] text-black">
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
                 <FloatingOrb className="w-[600px] h-[600px] bg-[#C8A24D]/8 blur-[160px] top-0 left-0" delay={0} />
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#8C2F39]/10 blur-[140px] bottom-0 right-0" delay={4} />
@@ -589,8 +590,8 @@ const Home = () => {
                             <span className="bg-gradient-to-r from-[#E4C275] via-[#f5d98a] to-[#C8A24D] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(228,194,117,0.3)]">Top Rankers</span>
                         </motion.h2>
                         <GlowLine />
-                        <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-white/50 text-lg">
-                            Celebrating exceptional achievements — dedication transformed into remarkable success.
+                        <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-slate-800 text-lg">
+                            Celebrating exceptional achievements dedication transformed into remarkable success.
                         </motion.p>
                     </motion.div>
 
@@ -615,7 +616,7 @@ const Home = () => {
                                 </div>
                                 <div className="mt-6 text-center">
                                     <h3 className="text-lg font-black tracking-wide">{r.name}</h3>
-                                    <p className="text-white/45 text-sm mt-1">{r.exam}</p>
+                                    <p className="text-slate-800 text-sm mt-1">{r.exam}</p>
                                     <div className="mt-4 py-2 px-4 rounded-2xl bg-gradient-to-r from-[#C8A24D]/15 to-[#E4C275]/10 border border-[#C8A24D]/20">
                                         <p className="text-[#E4C275] text-sm font-bold">{r.score}</p>
                                     </div>
