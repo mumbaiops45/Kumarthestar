@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -30,14 +28,14 @@ const FloatingOrb = ({ className, delay = 0 }) => (
 );
 
 const GlowLine = () => (
-    <div className="w-24 h-1 rounded-full bg-gradient-to-r from-[#C8A24D] to-[#8C2F39] mx-auto my-4 shadow-[0_0_12px_rgba(200,162,77,0.6)]" />
+    <div className="w-24 h-1 rounded-full bg-gradient-to-r from-[#F0B429] to-[#804501] mx-auto my-4 shadow-[0_0_12px_rgba(240,180,41,0.6)]" />
 );
 
 const SectionBadge = ({ children, variant = "gold" }) => {
     const map = {
-        gold: "bg-gradient-to-r from-[#C8A24D]/15 to-[#E4C275]/10 text-[#8C2F39] border-[#C8A24D]/30",
+        gold: "bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 text-[#804501] border-[#F0B429]/30",
         navy: "bg-[#0B1E3D]/8 text-[#0B1E3D] border-[#0B1E3D]/20",
-        red:  "bg-[#8C2F39]/10 text-[#8C2F39] border-[#8C2F39]/25",
+        red:  "bg-[#804501]/10 text-[#804501] border-[#804501]/25",
         white:"bg-white/15 text-white border-white/25 backdrop-blur-sm",
     };
     return (
@@ -62,7 +60,7 @@ const COURSES_DATA = [
         image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&auto=format&fit=crop&q=80",
         instructor: { name: "Prof. Arun Sharma", role: "IIT Bombay — 18 Years Teaching", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" },
         highlights: ["1-on-1 Daily Live Doubt Resolution", "150+ Simulated Full-Length Mock Exams", "Personalized Weak-Area Diagnostic AI"],
-        price: 499, originalPrice: 899, badge: "Bestseller", badgeColor: "from-[#8C2F39] to-[#C8A24D]",
+        price: 499, originalPrice: 899, badge: "Bestseller", badgeColor: "from-[#804501] to-[#F0B429]",
         modules: [
             { title: "Module 1: Mechanics & Advanced Kinematics", lessons: 14, duration: "18h" },
             { title: "Module 2: Organic Reaction Mechanisms", lessons: 20, duration: "24h" },
@@ -96,7 +94,7 @@ const COURSES_DATA = [
         image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80",
         instructor: { name: "Alex Rivera", role: "Staff Engineer @ Ex-Google", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" },
         highlights: ["Build 6 Production Capstone Projects", "1-on-1 Technical Resume & SOP Review", "Direct Hiring Partner Referral Access"],
-        price: 599, originalPrice: 999, badge: "Trending", badgeColor: "from-[#C8A24D] to-[#8C2F39]",
+        price: 599, originalPrice: 999, badge: "Trending", badgeColor: "from-[#F0B429] to-[#804501]",
         modules: [
             { title: "Module 1: Modern JavaScript, React & Tailwind", lessons: 18, duration: "22h" },
             { title: "Module 2: Microservices & Cloud Architecture", lessons: 15, duration: "19h" },
@@ -113,7 +111,7 @@ const COURSES_DATA = [
         image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop&q=80",
         instructor: { name: "Sophia Chen", role: "Stanford Scholar & Admissions Consultant", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" },
         highlights: ["10 Official Digital SAT Practice Tests", "Ivy League Alumni Application Review", "Scholarship Strategy Framework"],
-        price: 399, originalPrice: 699, badge: "High Demand", badgeColor: "from-[#8C2F39] to-[#0B1E3D]",
+        price: 399, originalPrice: 699, badge: "High Demand", badgeColor: "from-[#804501] to-[#0B1E3D]",
         modules: [
             { title: "Module 1: SAT Math Advanced Problem Patterns", lessons: 12, duration: "15h" },
             { title: "Module 2: Reading & Writing Adaptive Drills", lessons: 14, duration: "18h" },
@@ -130,7 +128,7 @@ const COURSES_DATA = [
         image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80",
         instructor: { name: "Marcus Vance", role: "Ex-Goldman Sachs Portfolio Analyst", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" },
         highlights: ["Real Financial Statement Valuation Models", "Python Backtesting Trading Algorithms", "Financial Analyst Certification"],
-        price: 479, originalPrice: 799, badge: "Popular", badgeColor: "from-[#0B1E3D] to-[#C8A24D]",
+        price: 479, originalPrice: 799, badge: "Popular", badgeColor: "from-[#0B1E3D] to-[#F0B429]",
         modules: [
             { title: "Module 1: Excel Financial Modeling & DCF", lessons: 12, duration: "16h" },
             { title: "Module 2: Portfolio Theory & Risk Analytics", lessons: 14, duration: "18h" },
@@ -147,7 +145,7 @@ const COURSES_DATA = [
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
         instructor: { name: "Dr. Elena Rostova", role: "Head of AI Research & Ex-Meta", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80" },
         highlights: ["12 Real Dataset Case Studies", "Neural Network Architecture Building", "Kaggle Competition Mentorship"],
-        price: 529, originalPrice: 899, badge: "Recommended", badgeColor: "from-[#C8A24D] to-[#0B1E3D]",
+        price: 529, originalPrice: 899, badge: "Recommended", badgeColor: "from-[#F0B429] to-[#0B1E3D]",
         modules: [
             { title: "Module 1: Exploratory Data Analysis & Viz", lessons: 15, duration: "20h" },
             { title: "Module 2: Supervised & Unsupervised ML", lessons: 18, duration: "24h" },
@@ -225,13 +223,13 @@ const CourseDetailModal = ({ course, onClose, onEnroll }) => {
                     <div className="p-7 md:p-10">
                         <div className="grid md:grid-cols-12 gap-8 items-start mb-8">
                             <div className="md:col-span-8">
-                                <span className="text-xs font-bold uppercase tracking-widest text-[#E4C275] mb-3 block">{course.category} · {course.level}</span>
+                                <span className="text-xs font-bold uppercase tracking-widest text-[#FDD34F] mb-3 block">{course.category} · {course.level}</span>
                                 <h2 className="text-2xl md:text-3xl font-black text-white mb-3 leading-tight">{course.title}</h2>
                                 <p className="text-white/55 text-sm leading-relaxed mb-5">{course.subtitle}</p>
                                 <div className="flex items-center gap-4 mb-5 text-sm">
                                     <div className="flex items-center gap-1">
                                         {[...Array(5)].map((_, i) => (
-                                            <Star key={i} className="w-4 h-4 fill-[#C8A24D] text-[#C8A24D]" />
+                                            <Star key={i} className="w-4 h-4 fill-[#F0B429] text-[#F0B429]" />
                                         ))}
                                         <span className="ml-1 font-black text-white">{course.rating}</span>
                                         <span className="text-white/35 ml-1">({course.reviewsCount.toLocaleString()} reviews)</span>
@@ -241,18 +239,18 @@ const CourseDetailModal = ({ course, onClose, onEnroll }) => {
                                 </div>
                                 <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.04] border border-white/8">
                                     <div className="relative flex-shrink-0">
-                                        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#C8A24D] to-[#8C2F39] blur-sm opacity-70" />
+                                        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#F0B429] to-[#804501] blur-sm opacity-70" />
                                         <img src={course.instructor.avatar} alt={course.instructor.name} className="relative w-12 h-12 rounded-full object-cover border-2 border-white" />
                                     </div>
                                     <div>
                                         <p className="text-sm font-black text-white">{course.instructor.name}</p>
-                                        <p className="text-xs text-[#E4C275]">{course.instructor.role}</p>
+                                        <p className="text-xs text-[#FDD34F]">{course.instructor.role}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="md:col-span-4">
                                 <div className="relative">
-                                    <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-[#C8A24D]/25 to-[#8C2F39]/10 blur-sm" />
+                                    <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-[#F0B429]/25 to-[#804501]/10 blur-sm" />
                                     <div className="relative rounded-2xl bg-white/[0.05] border border-white/12 p-6 backdrop-blur-xl">
                                         <div className="flex items-baseline gap-2 mb-1">
                                             <span className="text-4xl font-black text-white">${course.price}</span>
@@ -262,13 +260,13 @@ const CourseDetailModal = ({ course, onClose, onEnroll }) => {
                                             Save {discount}%
                                         </span>
                                         <p className="text-xs text-white/40 flex items-center gap-1 mb-5">
-                                            <Clock className="w-3.5 h-3.5 text-[#E4C275]" /> {course.duration} · {course.lessonsCount} lessons
+                                            <Clock className="w-3.5 h-3.5 text-[#FDD34F]" /> {course.duration} · {course.lessonsCount} lessons
                                         </p>
                                         <motion.button
-                                            whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(200,162,77,0.4)' }}
+                                            whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(240,180,41,0.4)' }}
                                             whileTap={{ scale: 0.97 }}
                                             onClick={() => { onClose(); onEnroll(course); }}
-                                            className="group w-full py-3 rounded-xl bg-gradient-to-r from-[#C8A24D] to-[#E4C275] text-[#06142D] font-black text-sm relative overflow-hidden mb-4 shadow-[0_8px_30px_rgba(200,162,77,0.25)]"
+                                            className="group w-full py-3 rounded-xl bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] font-black text-sm relative overflow-hidden mb-4 shadow-[0_8px_30px_rgba(240,180,41,0.25)]"
                                         >
                                             <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
                                             <span className="relative flex items-center justify-center gap-2">
@@ -289,17 +287,17 @@ const CourseDetailModal = ({ course, onClose, onEnroll }) => {
                         </div>
                         <div className="border-t border-white/8 pt-8">
                             <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2">
-                                <BookOpen className="w-5 h-5 text-[#E4C275]" /> Curriculum & Syllabus Breakdown
+                                <BookOpen className="w-5 h-5 text-[#FDD34F]" /> Curriculum & Syllabus Breakdown
                             </h3>
                             <div className="space-y-3">
                                 {course.modules.map((mod, idx) => (
-                                    <div key={idx} className={`rounded-2xl border transition-all duration-300 overflow-hidden ${activeModule === idx ? 'bg-white/[0.06] border-[#C8A24D]/30' : 'bg-white/[0.02] border-white/8 hover:border-white/15'}`}>
+                                    <div key={idx} className={`rounded-2xl border transition-all duration-300 overflow-hidden ${activeModule === idx ? 'bg-white/[0.06] border-[#F0B429]/30' : 'bg-white/[0.02] border-white/8 hover:border-white/15'}`}>
                                         <button
                                             onClick={() => setActiveModule(activeModule === idx ? -1 : idx)}
                                             className="w-full p-5 flex items-center justify-between text-left"
                                         >
                                             <div className="flex items-center gap-4">
-                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm flex-shrink-0 transition-all duration-300 ${activeModule === idx ? 'bg-gradient-to-br from-[#C8A24D] to-[#8C2F39] text-white shadow-lg' : 'bg-white/8 text-white/50'}`}>
+                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm flex-shrink-0 transition-all duration-300 ${activeModule === idx ? 'bg-gradient-to-br from-[#F0B429] to-[#804501] text-white shadow-lg' : 'bg-white/8 text-white/50'}`}>
                                                     {String(idx + 1).padStart(2, '0')}
                                                 </div>
                                                 <div>
@@ -307,8 +305,8 @@ const CourseDetailModal = ({ course, onClose, onEnroll }) => {
                                                     <p className="text-xs text-white/35 mt-0.5">{mod.lessons} lectures · {mod.duration} total</p>
                                                 </div>
                                             </div>
-                                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300 ${activeModule === idx ? 'bg-[#C8A24D]/15 rotate-180' : 'bg-white/5'}`}>
-                                                <ChevronDown className="w-4 h-4 text-[#E4C275]" />
+                                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300 ${activeModule === idx ? 'bg-[#F0B429]/15 rotate-180' : 'bg-white/5'}`}>
+                                                <ChevronDown className="w-4 h-4 text-[#FDD34F]" />
                                             </div>
                                         </button>
                                         <motion.div
@@ -326,7 +324,7 @@ const CourseDetailModal = ({ course, onClose, onEnroll }) => {
                                                     <div key={li} className="flex items-center justify-between py-2 border-b border-white/5 last:border-0 text-xs">
                                                         <span className="flex items-center gap-2 text-white/60">
                                                             {lesson.unlocked
-                                                                ? <Play className="w-3 h-3 text-[#E4C275]" />
+                                                                ? <Play className="w-3 h-3 text-[#FDD34F]" />
                                                                 : <Lock className="w-3 h-3 text-white/25" />
                                                             }
                                                             {li + 1}. {lesson.label}
@@ -368,14 +366,14 @@ const page = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#FAFAF8] text-[#1D2433] antialiased overflow-x-hidden font-body">
+        <div className="min-h-screen bg-[#FAFAF8] text-[#1D2433] antialiased overflow-x-clip font-body">
             <AnimatePresence>
                 {enrolledNotice && (
                     <motion.div
                         initial={{ opacity: 0, y: -20, x: 20 }}
                         animate={{ opacity: 1, y: 0, x: 0 }}
                         exit={{ opacity: 0, y: -20, x: 20 }}
-                        className="fixed top-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-2xl bg-[#0B1E3D] border border-[#C8A24D]/40 text-white text-sm font-semibold shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur-xl max-w-sm"
+                        className="fixed top-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-2xl bg-[#0B1E3D] border border-[#F0B429]/40 text-white text-sm font-semibold shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur-xl max-w-sm"
                     >
                         <div className="w-8 h-8 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                             <CheckCircle className="w-4 h-4 text-emerald-400" />
@@ -384,21 +382,21 @@ const page = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <section className="relative pt-20 pb-24 overflow-hidden bg-gradient-to-b from-[#06142D] via-[#0B1E3D] to-[#06142D]">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.03)_1px,transparent_1px)] bg-[size:80px_80px]" />
-                <FloatingOrb className="w-[700px] h-[700px] bg-[#C8A24D]/10 blur-[180px] -top-40 left-1/2 -translate-x-1/2" delay={0} />
-                <FloatingOrb className="w-[400px] h-[400px] bg-[#8C2F39]/12 blur-[120px] bottom-0 right-0" delay={3} />
+            <section className="relative pt-20 pb-24 overflow-hidden bg-section-hero">
+                <div className="absolute inset-0 grid-gold" />
+                <FloatingOrb className="w-[700px] h-[700px] bg-[#F0B429]/10 blur-[180px] -top-40 left-1/2 -translate-x-1/2" delay={0} />
+                <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/12 blur-[120px] bottom-0 right-0" delay={3} />
 
                 <div className="relative max-w-7xl  px-4 sm:px-6 lg:px-8 pt-8">
                     <motion.div initial="hidden" animate="visible" variants={stagger} className=" max-w-4xl ">
-                        <motion.h1 variants={fadeInUp} className="mt-6 text-5xl sm:text-7xl px-10 font-black text-white leading-[1.0] tracking-tight">
+                        <motion.h1 variants={fadeInUp} className="mt-6 text-5xl sm:text-5xl md:text-6xl px-10 font-black text-[#0B1E3D] leading-[1.0] tracking-tight">
                             Master High-Stakes Exams
-                            <span className="block bg-gradient-to-r from-[#E4C275] via-[#f5d98a] to-[#C8A24D] bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(228,194,117,0.3)]">
+                            <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(253,211,79,0.3)]">
                                 & Future-Proof Careers
                             </span>
                         </motion.h1>
 
-                        <motion.p variants={fadeInUp} className="mt-6 px-10 text-lg text-white/55 max-w-2xl leading-relaxed">
+                        <motion.p variants={fadeInUp} className="mt-6 px-10 text-lg text-slate-500 max-w-2xl leading-relaxed">
                             Explore 50+ industry-aligned programs taught by top 1% rankers, Ivy League scholars, and senior staff engineers.
                         </motion.p>
                         <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap px-10 gap-6">
@@ -408,8 +406,8 @@ const page = () => {
                                 { label: "10K+ Students", icon: <Users className="w-4 h-4" /> },
                                 { label: "98% Success Rate", icon: <Trophy className="w-4 h-4" /> },
                             ].map((s, i) => (
-                                <div key={i} className="flex items-center gap-2 text-white/50 text-sm font-medium">
-                                    <span className="text-[#E4C275]">{s.icon}</span>
+                                <div key={i} className="flex items-center gap-2 text-slate-500 text-sm font-medium">
+                                    <span className="text-[#B26E02]">{s.icon}</span>
                                     {s.label}
                                 </div>
                             ))}
@@ -428,7 +426,7 @@ const page = () => {
                                     whileTap={{ scale: 0.97 }}
                                     onClick={() => setSelectedCategory(cat.label)}
                                     className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${selectedCategory === cat.label
-                                        ? 'bg-[#0B1E3D] text-[#E4C275] shadow-[0_6px_20px_rgba(11,30,61,0.25)]'
+                                        ? 'bg-[#0B1E3D] text-[#FDD34F] shadow-[0_6px_20px_rgba(11,30,61,0.25)]'
                                         : 'bg-[#F7F3EA] text-slate-600 hover:bg-[#0B1E3D]/5 border border-[#0B1E3D]/8'
                                         }`}
                                 >
@@ -451,11 +449,11 @@ const page = () => {
                         <div>
                             <p className="text-slate-500 text-sm">
                                 Showing <span className="text-[#0B1E3D] font-black text-base">{filteredCourses.length}</span> programs in{" "}
-                                <span className="text-[#8C2F39] font-bold">{selectedCategory}</span>
+                                <span className="text-[#804501] font-bold">{selectedCategory}</span>
                             </p>
                         </div>
                         <div className="flex items-center gap-2 text-xs text-slate-400 font-medium">
-                            <Star className="w-3.5 h-3.5 fill-[#C8A24D] text-[#C8A24D]" />
+                            <Star className="w-3.5 h-3.5 fill-[#F0B429] text-[#F0B429]" />
                             Sorted by Top Rated
                         </div>
                     </div>
@@ -490,7 +488,7 @@ const page = () => {
                                                 {course.badge}
                                             </span>
                                             <div className="absolute bottom-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-xs font-bold text-white">
-                                                <Star className="w-3 h-3 fill-[#C8A24D] text-[#C8A24D]" />
+                                                <Star className="w-3 h-3 fill-[#F0B429] text-[#F0B429]" />
                                                 {course.rating}
                                                 <span className="text-white/40">({course.reviewsCount})</span>
                                             </div>
@@ -499,15 +497,15 @@ const page = () => {
                                             </div>
                                         </div>
                                         <div className="p-6 flex flex-col flex-1">
-                                            <p className="text-[#8C2F39] text-xs font-bold uppercase tracking-widest mb-2">{course.category}</p>
-                                            <h3 className="text-[#0B1E3D] font-black text-lg leading-snug mb-2 group-hover:text-[#8C2F39] transition-colors duration-300">
+                                            <p className="text-[#804501] text-xs font-bold uppercase tracking-widest mb-2">{course.category}</p>
+                                            <h3 className="text-[#0B1E3D] font-black text-lg leading-snug mb-2 group-hover:text-[#804501] transition-colors duration-300">
                                                 {course.title}
                                             </h3>
                                             <p className="text-slate-500 text-xs leading-relaxed mb-5 line-clamp-2">{course.subtitle}</p>
                                             <div className="flex items-center gap-2 mb-5">
                                                 <div className="relative">
-                                                    <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#C8A24D] to-[#8C2F39] blur-sm opacity-0 group-hover:opacity-70 transition" />
-                                                    <img src={course.instructor.avatar} alt={course.instructor.name} className="relative w-7 h-7 rounded-full object-cover border border-[#C8A24D]/40" />
+                                                    <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#F0B429] to-[#804501] blur-sm opacity-0 group-hover:opacity-70 transition" />
+                                                    <img src={course.instructor.avatar} alt={course.instructor.name} className="relative w-7 h-7 rounded-full object-cover border border-[#F0B429]/40" />
                                                 </div>
                                                 <p className="text-slate-600 text-xs font-semibold truncate">{course.instructor.name}</p>
                                             </div>
@@ -527,7 +525,7 @@ const page = () => {
                                                         <span className="text-xs text-slate-400 line-through ml-2">${course.originalPrice}</span>
                                                     </div>
                                                     <span className="text-xs text-slate-500 flex items-center gap-1">
-                                                        <Users className="w-3.5 h-3.5 text-[#8C2F39]" /> {course.students}
+                                                        <Users className="w-3.5 h-3.5 text-[#804501]" /> {course.students}
                                                     </span>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-3">
@@ -535,15 +533,15 @@ const page = () => {
                                                         whileHover={{ scale: 1.03 }}
                                                         whileTap={{ scale: 0.97 }}
                                                         onClick={() => setSelectedCourseModal(course)}
-                                                        className="py-2.5 rounded-xl text-xs font-bold text-[#0B1E3D] bg-[#F7F3EA] border border-[#0B1E3D]/12 hover:bg-[#0B1E3D] hover:text-[#E4C275] hover:border-[#0B1E3D] transition-all duration-300"
+                                                        className="py-2.5 rounded-xl text-xs font-bold text-[#0B1E3D] bg-[#F7F3EA] border border-[#0B1E3D]/12 hover:bg-[#0B1E3D] hover:text-[#FDD34F] hover:border-[#0B1E3D] transition-all duration-300"
                                                     >
                                                         Syllabus & Info
                                                     </motion.button>
                                                     <motion.button
-                                                        whileHover={{ scale: 1.03, boxShadow: '0 8px_24px_rgba(200,162,77,0.35)' }}
+                                                        whileHover={{ scale: 1.03, boxShadow: '0 8px_24px_rgba(240,180,41,0.35)' }}
                                                         whileTap={{ scale: 0.97 }}
                                                         onClick={() => handleEnroll(course)}
-                                                        className="group/btn relative overflow-hidden py-2.5 rounded-xl text-xs font-black text-[#06142D] bg-gradient-to-r from-[#C8A24D] to-[#E4C275] shadow-[0_4px_16px_rgba(200,162,77,0.25)] transition-all"
+                                                        className="group/btn relative overflow-hidden py-2.5 rounded-xl text-xs font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgba(240,180,41,0.25)] transition-all"
                                                     >
                                                         <span className="absolute inset-0 bg-white/25 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-400 skew-x-12" />
                                                         <span className="relative">Enroll Now</span>
@@ -561,7 +559,7 @@ const page = () => {
                                 className="text-center py-24 rounded-3xl bg-white border border-[#0B1E3D]/8 shadow-sm"
                             >
                                 <div className="w-20 h-20 mx-auto mb-5 rounded-3xl bg-[#F7F3EA] flex items-center justify-center">
-                                    <Search className="w-8 h-8 text-[#C8A24D]" />
+                                    <Search className="w-8 h-8 text-[#F0B429]" />
                                 </div>
                                 <p className="text-2xl font-black text-[#0B1E3D] mb-2">No courses match your query</p>
                                 <p className="text-slate-400 text-sm mb-8">Try a different keyword or browse all categories.</p>
@@ -569,7 +567,7 @@ const page = () => {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.97 }}
                                     onClick={() => { setSelectedCategory("All Courses"); setSearchQuery(""); }}
-                                    className="px-8 py-3 rounded-2xl bg-[#0B1E3D] text-[#E4C275] text-sm font-black shadow-lg hover:shadow-xl transition-all"
+                                    className="px-8 py-3 rounded-2xl bg-[#0B1E3D] text-[#FDD34F] text-sm font-black shadow-lg hover:shadow-xl transition-all"
                                 >
                                     Reset All Filters
                                 </motion.button>
@@ -579,21 +577,21 @@ const page = () => {
                 </div>
             </section>
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8] text-black">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
-                <FloatingOrb className="w-[500px] h-[500px] bg-[#C8A24D]/8 blur-[160px] top-0 left-0" delay={0} />
-                <FloatingOrb className="w-[400px] h-[400px] bg-[#8C2F39]/10 blur-[130px] bottom-0 right-0" delay={4} />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
+                <FloatingOrb className="w-[500px] h-[500px] bg-[#F0B429]/8 blur-[160px] top-0 left-0" delay={0} />
+                <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/10 blur-[130px] bottom-0 right-0" delay={4} />
 
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
                         <motion.div variants={fadeInUp}>
-                            <SectionBadge variant="text-[#E4C275]">
-                                <Trophy className="w-3.5 h-3.5 text-[#E4C275]" />
+                            <SectionBadge variant="gold">
+                                <Trophy className="w-3.5 h-3.5 text-[#FDD34F]" />
                                 Proof of Excellence
                             </SectionBadge>
                         </motion.div>
                         <motion.h2 variants={fadeInUp} className="mt-6 text-4xl md:text-5xl font-black text-black tracking-tight">
                             Loved by{' '}
-                            <span className="bg-gradient-to-r from-[#E4C275] to-[#C8A24D] bg-clip-text text-transparent">Top Rankers Worldwide</span>
+                            <span className="bg-gradient-to-r from-[#FDD34F] to-[#F0B429] bg-clip-text text-transparent">Top Rankers Worldwide</span>
                         </motion.h2>
                         <GlowLine />
                     </motion.div>
@@ -604,26 +602,26 @@ const page = () => {
                                 key={i}
                                 variants={fadeInUp}
                                 whileHover={{ y: -10, scale: 1.02 }}
-                                className="group relative p-8 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.35)] hover:border-[#E4C275]/30 hover:shadow-[0_30px_80px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden"
+                                className="card-light group relative p-8 rounded-3xl transition-all duration-500 overflow-hidden"
                             >
                                 <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/8 to-transparent skew-x-12 pointer-events-none" />
-                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#C8A24D] to-[#8C2F39] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#F0B429] to-[#804501] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                                <Quote className="w-10 h-10 text-[#E4C275] mb-5" />
+                                <Quote className="w-10 h-10 text-[#FDD34F] mb-5" />
                                 <p className="text-slate-800 text-sm leading-relaxed mb-8 italic">"{t.text}"</p>
 
                                 <div className="flex items-center gap-4 pt-5 border-t border-white/8">
                                     <div className="relative flex-shrink-0">
-                                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#E4C275] to-[#C8A24D] blur-sm opacity-50 group-hover:opacity-100 transition" />
-                                        <img src={t.image} alt={t.name} className="relative w-12 h-12 rounded-full object-cover border-2 border-[#E4C275]" />
+                                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#FDD34F] to-[#F0B429] blur-sm opacity-50 group-hover:opacity-100 transition" />
+                                        <img src={t.image} alt={t.name} className="relative w-12 h-12 rounded-full object-cover border-2 border-[#FDD34F]" />
                                     </div>
                                     <div>
                                         <h4 className="text-sm font-black text-black">{t.name}</h4>
-                                        <p className="text-xs text-[#E4C275] font-semibold">{t.role}</p>
+                                        <p className="text-xs text-[#FDD34F] font-semibold">{t.role}</p>
                                         <p className="text-xs text-white/35 mt-0.5">{t.score}</p>
                                     </div>
                                     <div className="ml-auto flex gap-0.5">
-                                        {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-[#C8A24D] text-[#C8A24D]" />)}
+                                        {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-[#F0B429] text-[#F0B429]" />)}
                                     </div>
                                 </div>
                             </motion.div>
@@ -633,14 +631,14 @@ const page = () => {
             </section>
 
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-[#C8A24D]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
 
                 <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="relative rounded-3xl overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#06142D] via-[#0B1E3D] to-[#06142D]" />
-                        <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
-                        <FloatingOrb className="w-[500px] h-[500px] bg-[#C8A24D]/12 blur-[150px] top-0 left-1/2 -translate-x-1/2" delay={0} />
-                        <div className="absolute inset-px rounded-3xl border border-white/10" />
+                        <div className="absolute inset-0 bg-section-hero" />
+                        <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+                        <FloatingOrb className="w-[500px] h-[500px] bg-[#F0B429]/12 blur-[150px] top-0 left-1/2 -translate-x-1/2" delay={0} />
+                        <div className="absolute inset-px rounded-3xl border border-[#F0B429]/35" />
 
                         <div className="relative p-12 md:p-20 text-center">
                             <motion.div
@@ -649,31 +647,31 @@ const page = () => {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.7 }}
                             >
-                                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold text-[#E4C275] bg-[#C8A24D]/10 border border-[#C8A24D]/30 mb-6">
+                                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold text-[#B26E02] bg-[#F0B429]/10 border border-[#F0B429]/30 mb-6">
                                     <Rocket className="w-3.5 h-3.5" />
                                     Limited Time Offer · 40% Off Ends Soon
                                 </span>
 
-                                <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
+                                <h2 className="text-4xl md:text-5xl font-black text-[#0B1E3D] mb-6 leading-tight tracking-tight">
                                     Start Your Journey To
-                                    <span className="block bg-gradient-to-r from-[#E4C275] via-[#f5d98a] to-[#C8A24D] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(228,194,117,0.25)]">
+                                    <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(253,211,79,0.25)]">
                                         Academic & Career Greatness
                                     </span>
                                 </h2>
 
-                                <p className="text-white/50 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+                                <p className="text-slate-500 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
                                     Join over 10,000+ ambitious students. Unlock 1-on-1 mentorship, live classes, and custom diagnostic reports today.
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                                     <motion.button
-                                        whileHover={{ scale: 1.04, boxShadow: '0 0 50px rgba(200,162,77,0.45)' }}
+                                        whileHover={{ scale: 1.04, boxShadow: '0 0 50px rgba(240,180,41,0.45)' }}
                                         whileTap={{ scale: 0.97 }}
                                         onClick={() => {
                                             setEnrolledNotice("Consultation request submitted! A senior counsellor will call you shortly.");
                                             setTimeout(() => setEnrolledNotice(null), 4500);
                                         }}
-                                        className="group relative overflow-hidden flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-[#C8A24D] via-[#E4C275] to-[#C8A24D] text-[#06142D] font-black text-base shadow-[0_12px_40px_rgba(200,162,77,0.35)] transition-all"
+                                        className="group relative overflow-hidden flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-[#F0B429] via-[#FDD34F] to-[#F0B429] text-[#06142D] font-black text-base shadow-[0_12px_40px_rgba(240,180,41,0.35)] transition-all"
                                     >
                                         <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
                                         <span className="relative flex items-center gap-2">
@@ -687,7 +685,7 @@ const page = () => {
                                         whileHover={{ scale: 1.04 }}
                                         whileTap={{ scale: 0.97 }}
                                         onClick={() => setSelectedCategory("All Courses")}
-                                        className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-base text-white border border-white/20 hover:border-white/40 bg-white/5 transition-all"
+                                        className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-base text-[#0B1E3D] border border-[#0B1E3D]/10 hover:border-[#F0B429]/60 bg-white transition-all"
                                     >
                                         Browse All Courses <ArrowRight className="w-4 h-4" />
                                     </motion.button>

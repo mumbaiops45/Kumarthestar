@@ -54,26 +54,26 @@ const GalleryLightbox = ({ image, onClose, onPrev, onNext }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-[#06142D]/96 backdrop-blur-xl flex items-center justify-center p-4"
       onClick={onClose}
     >
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors z-10"
+        className="absolute top-6 right-6 text-white/70 hover:text-[#FDD34F] transition-colors z-10"
       >
         <FaTimes className="text-3xl" />
       </button>
 
       <button
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        className="absolute left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white transition-colors z-10"
+        className="absolute left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#FDD34F] transition-colors z-10"
       >
         <FaChevronLeft className="text-4xl" />
       </button>
 
       <button
         onClick={(e) => { e.stopPropagation(); onNext(); }}
-        className="absolute right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white transition-colors z-10"
+        className="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#FDD34F] transition-colors z-10"
       >
         <FaChevronRight className="text-4xl" />
       </button>
@@ -85,19 +85,19 @@ const GalleryLightbox = ({ image, onClose, onPrev, onNext }) => {
         className="relative max-w-6xl w-full"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative bg-gray-900 rounded-3xl overflow-hidden">
-          <div className="aspect-video bg-gray-800 flex items-center justify-center">
-            <div className="text-8xl text-gray-600">
+        <div className="relative bg-[#0B1E3D] rounded-3xl overflow-hidden border border-[#F0B429]/25 shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
+          <div className="aspect-video bg-gradient-to-br from-[#0B1E3D] to-[#112448] flex items-center justify-center">
+            <div className="text-8xl text-[#F0B429]/35">
               <FaImages />
             </div>
           </div>
           
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#06142D] via-[#06142D]/80 to-transparent p-6">
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-white text-xl font-bold">{image.title}</h3>
-                <p className="text-gray-300 text-sm mt-1">{image.description}</p>
-                <div className="flex items-center gap-4 mt-2 text-xs text-gray-400">
+                <p className="text-white/65 text-sm mt-1">{image.description}</p>
+                <div className="flex items-center gap-4 mt-2 text-xs text-[#FDD34F]/80">
                   <span className="flex items-center gap-1">
                     <FaCalendarAlt />
                     {image.date}
@@ -113,10 +113,10 @@ const GalleryLightbox = ({ image, onClose, onPrev, onNext }) => {
                 </div>
               </div>
               <div className="flex gap-2">
-                <button className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white">
+                <button className="p-2 bg-white/8 border border-[#F0B429]/25 hover:bg-[#F0B429]/25 rounded-full transition-colors text-[#FDD34F]">
                   <FaDownload />
                 </button>
-                <button className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white">
+                <button className="p-2 bg-white/8 border border-[#F0B429]/25 hover:bg-[#F0B429]/25 rounded-full transition-colors text-[#FDD34F]">
                   <FaExpand />
                 </button>
               </div>
@@ -310,14 +310,14 @@ const page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 overflow-x-hidden">
+    <div className="min-h-screen bg-brand-cream text-brand-slate overflow-x-clip">
       <section
         ref={heroRef}
-        className="relative min-h-[60vh] flex items-center pt-32 pb-24 bg-white"
+        className="relative min-h-[60vh] flex items-center pt-32 pb-24 bg-section-hero"
       >
-        <Starfield tint="bg-gray-400" />
-        <motion.div style={{ y: orbY1 }} className="absolute top-10 -left-24 w-[26rem] h-[26rem] rounded-full bg-gray-300/30 blur-[100px]" />
-        <motion.div style={{ y: orbY2 }} className="absolute bottom-0 -right-20 w-[30rem] h-[30rem] rounded-full bg-gray-300/20 blur-[110px]" />
+        <Starfield tint="bg-[#F0B429]" />
+        <motion.div style={{ y: orbY1 }} className="absolute top-10 -left-24 w-[26rem] h-[26rem] rounded-full bg-[#F0B429]/20 blur-[110px]" />
+        <motion.div style={{ y: orbY2 }} className="absolute bottom-0 -right-20 w-[30rem] h-[30rem] rounded-full bg-[#804501]/15 blur-[120px]" />
         <motion.div
           style={{ opacity: heroFade }}
           initial="hidden"
@@ -325,15 +325,15 @@ const page = () => {
           variants={stagger}
           className="container mx-auto px-6 md:px-10 relative z-10 max-w-5xl"
         >
-          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-extrabold leading-[1.05] mb-6 tracking-tight text-gray-900">
+          <motion.h1 variants={fadeUp} className="font-[family-name:var(--font-display)] text-5xl md:text-7xl font-extrabold leading-[1.05] mb-6 tracking-tight text-[#0B1E3D]">
             Capturing
             <br />
-            <span className="text-gray-800">
+            <span className="text-gold-gradient">
               Our Moments
             </span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl">
+          <motion.p variants={fadeUp} className="text-lg md:text-xl text-slate-500 mb-8 leading-relaxed max-w-2xl">
             Explore the vibrant life of our community through our photo gallery.
             Every picture tells a story of learning, growth, and achievement.
           </motion.p>
@@ -344,8 +344,8 @@ const page = () => {
               { label: 'Happy Memories', value: '10K+' }
             ].map((stat, i) => (
               <div key={i}>
-                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-                <div className="text-sm text-gray-500">{stat.label}</div>
+                <div className="text-3xl font-black text-[#804501]">{stat.value}</div>
+                <div className="text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">{stat.label}</div>
               </div>
             ))}
           </motion.div>
@@ -369,15 +369,15 @@ const page = () => {
                     onClick={() => setSelectedCategory(category)}
                     className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
                       selectedCategory === category
-                        ? 'bg-gray-900 text-white shadow-lg'
-                        : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                        ? 'bg-[#0B1E3D] text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.3)]'
+                        : 'bg-white text-slate-600 border border-[#0B1E3D]/8 hover:border-[#F0B429]/40 hover:shadow-lg'
                     }`}
                   >
                     {category}
                   </motion.button>
                 ))}
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center gap-2 text-sm font-semibold text-[#804501]">
                 <FaFilter />
                 <span>{filteredImages.length} items</span>
               </div>
@@ -396,18 +396,18 @@ const page = () => {
                 variants={fadeUp}
                 custom={index}
                 {...cardHover}
-                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                className="group relative bg-white rounded-3xl overflow-hidden border border-[#0B1E3D]/5 shadow-[0_4px_24px_rgba(11,30,61,0.08)] hover:shadow-[0_24px_60px_rgba(11,30,61,0.18)] hover:border-[#F0B429]/30 transition-all duration-500 cursor-pointer"
                 onClick={() => openLightbox(image)}
               >
-                <div className="relative aspect-[4/3] bg-gray-200">
-                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                    <FaImages className="text-6xl text-gray-400" />
+                <div className="relative aspect-[4/3] bg-[#F0EBE0]">
+                  <div className="w-full h-full bg-gradient-to-br from-[#F0EBE0] via-[#F7F3EA] to-[#E8DFC9] flex items-center justify-center">
+                    <FaImages className="text-6xl text-[#F0B429]/45" />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#06142D]/90 via-[#0B1E3D]/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <h3 className="text-white text-lg font-bold mb-1">{image.title}</h3>
-                      <p className="text-gray-300 text-sm line-clamp-2">{image.description}</p>
-                      <div className="flex items-center gap-4 mt-3 text-xs text-gray-300">
+                      <p className="text-white/65 text-sm line-clamp-2">{image.description}</p>
+                      <div className="flex items-center gap-4 mt-3 text-xs text-[#FDD34F]">
                         <span className="flex items-center gap-1">
                           <FaEye />
                           {image.views}
@@ -423,17 +423,17 @@ const page = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-semibold rounded-full">
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-[#0B1E3D] text-xs font-bold rounded-full border border-[#F0B429]/30">
                     {image.category}
                   </div>
                   {image.featured && (
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full flex items-center gap-1">
-                      <FaStar className="text-white" />
+                    <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-[#FDD34F] to-[#F0B429] text-[#06142D] text-xs font-black rounded-full flex items-center gap-1 shadow-lg">
+                      <FaStar className="text-[#06142D]" />
                       Featured
                     </div>
                   )}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-[#F0B429]/30 backdrop-blur-md border border-[#FDD34F]/50 flex items-center justify-center">
                       <FaExpand className="text-white text-xl" />
                     </div>
                   </div>
@@ -442,10 +442,10 @@ const page = () => {
                 <div className="p-4">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h4 className="font-semibold text-gray-900 line-clamp-1">{image.title}</h4>
-                      <p className="text-xs text-gray-500 mt-1 line-clamp-1">{image.location}</p>
+                      <h4 className="font-bold text-[#0B1E3D] line-clamp-1 group-hover:text-[#804501] transition-colors">{image.title}</h4>
+                      <p className="text-xs text-slate-400 mt-1 line-clamp-1">{image.location}</p>
                     </div>
-                    <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <div className="flex items-center gap-1 text-xs text-[#B26E02]">
                       <FaCalendarAlt />
                       <span>{image.date.split(',')[0]}</span>
                     </div>
@@ -461,15 +461,15 @@ const page = () => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-10 py-4 rounded-2xl bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all text-gray-900 font-medium flex items-center gap-2 mx-auto"
+              className="shine relative overflow-hidden px-10 py-4 rounded-2xl bg-white border border-[#F0B429]/30 hover:border-[#F0B429] hover:shadow-[0_18px_40px_rgba(240,180,41,0.25)] transition-all text-[#0B1E3D] font-bold flex items-center gap-2 mx-auto"
             >
               Load More Photos
-              <FaArrowRight className="text-sm" />
+              <FaArrowRight className="text-sm text-[#804501]" />
             </motion.button>
           </motion.div>
         </div>
       </section>
-      <section className="py-20 bg-gray-900">
+      <section className="relative overflow-hidden py-24 bg-section-hero">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -477,18 +477,18 @@ const page = () => {
           variants={stagger}
           className="container mx-auto px-6 text-center max-w-3xl"
         >
-          <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold mb-6 text-white">
+          <motion.h2 variants={fadeUp} className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-black mb-6 text-[#0B1E3D]">
             Share Your
             <br />
-            <span className="text-gray-300">Memories</span>
+            <span className="text-gold-gradient">Memories</span>
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-lg text-gray-400 mb-10">
+          <motion.p variants={fadeUp} className="text-lg text-slate-500 mb-10">
             Have photos from campus events? Share them with our community.
           </motion.p>
           <motion.button
             variants={fadeUp}
             {...cardHover}
-            className="px-12 py-5 rounded-full font-bold text-lg bg-white text-gray-900 shadow-xl hover:shadow-gray-700/30 transition-shadow"
+            className="shine relative overflow-hidden px-12 py-5 rounded-2xl font-black text-lg bg-gradient-to-r from-[#FDD34F] to-[#F0B429] text-[#06142D] shadow-[0_20px_50px_rgba(240,180,41,0.35)] transition-shadow"
           >
             Submit Your Photos
           </motion.button>

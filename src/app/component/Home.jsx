@@ -1,7 +1,12 @@
 "use client";
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitReveal } from './Reveal';
 import { ArrowRight, Award, Briefcase, ChevronDown, ChevronUp, Globe, GraduationCap, Languages, Phone, School, Star, Users, Video, CheckCircle2, Sparkles, Quote, Search, Trophy, MapPin, Clock3, ShieldCheck, HeartHandshake, BookOpenCheck, Medal, Mic2, Zap, Target, ExternalLink } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 
 const fadeInUp = {
@@ -74,15 +79,15 @@ const FloatingOrb = ({ className, delay = 0 }) => (
 );
 
 const GlowLine = () => (
-    <div className="w-24 h-1 rounded-full bg-gradient-to-r from-[#C8A24D] to-[#8C2F39] mx-auto my-4 shadow-[0_0_12px_rgba(200,162,77,0.6)]" />
+    <div className="w-24 h-1 rounded-full bg-gradient-to-r from-[#F0B429] to-[#804501] mx-auto my-4 shadow-[0_0_12px_rgba(240,180,41,0.6)]" />
 );
 
 
 const SectionBadge = ({ children, variant = 'gold' }) => {
     const variants = {
-        gold: 'bg-gradient-to-r from-[#C8A24D]/15 to-[#E4C275]/10 text-[#8C2F39] border-[#C8A24D]/30',
+        gold: 'bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 text-[#804501] border-[#F0B429]/30',
         navy: 'bg-[#0B1E3D]/8 text-[#0B1E3D] border-[#0B1E3D]/20',
-        red: 'bg-[#8C2F39]/10 text-[#8C2F39] border-[#8C2F39]/25',
+        red: 'bg-[#804501]/10 text-[#804501] border-[#804501]/25',
         white: 'bg-white/15 text-white border-white/25 backdrop-blur-sm',
     };
     return (
@@ -104,6 +109,121 @@ const Home = () => {
     const [faqOpen, setFaqOpen] = useState(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [activeTestimonial, setActiveTestimonial] = useState(0);
+    /* Gates the cross-fade from the gradient plate to the footage, so the
+       hero never shows a black or half-decoded frame. */
+    const [videoReady, setVideoReady] = useState(false);
+
+    const heroRef = useRef(null);
+    const videoRef = useRef(null);
+    const heroCopyRef = useRef(null);
+
+    /* ----------------------------------------------------------------
+       Hero cinematics (GSAP + ScrollTrigger)
+
+       This used to run TWO tweens against videoRef at once: an infinite
+       yoyo ken-burns (repeat:-1, running forever at 60fps) plus a scrubbed
+       parallax. Both write `transform` on the same element, so GSAP had to
+       reconcile them every frame while the browser was also decoding a
+       full-screen 10 MB video — that constant re-rasterisation of a scaled
+       video layer is what made playback stutter on mid-range hardware.
+
+       Now it is ONE scrubbed tween that does the ken-burns AND the
+       parallax together. Nothing animates while the user is idle, so the
+       decoder gets the frame budget to itself.
+       ---------------------------------------------------------------- */
+    useLayoutEffect(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                videoRef.current,
+                { scale: 1.12, yPercent: 0 },
+                {
+                    scale: 1.26,
+                    yPercent: 20,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroRef.current,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true,
+                    },
+                }
+            );
+
+            gsap.to(heroCopyRef.current, {
+                yPercent: -14,
+                opacity: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: 'center top',
+                    end: 'bottom top',
+                    scrub: true,
+                },
+            });
+        }, heroRef);
+
+        return () => ctx.revert();
+    }, []);
+    /* ----------------------------------------------------------------
+       Hero video playback governance.
+
+       The previous version called play() on every visibilitychange — including
+       the one fired when the tab is being HIDDEN — and never paused the video
+       when the hero scrolled away, so a full-screen loop kept decoding while
+       the user read the FAQ at the bottom of the page.
+
+       Rules now:
+       - never autoplay under data-saver or reduced-motion (it is a 10 MB
+         decorative loop; the gradient plate stands in)
+       - play only when the hero is on screen AND the tab is visible
+       - pause otherwise
+       ---------------------------------------------------------------- */
+    useEffect(() => {
+        const v = videoRef.current;
+        if (!v) return;
+
+        /* A cached video can reach canplay BEFORE React hydrates and attaches
+           onCanPlay, in which case that event is missed and the fade-in would
+           never fire — leaving the footage stuck at opacity-0. Catch up here. */
+        if (v.readyState >= 2) setVideoReady(true);
+
+        const saveData = navigator.connection?.saveData;
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (saveData || reduced) {
+            v.removeAttribute('autoplay');
+            return;
+        }
+
+        let onScreen = true;
+
+        const sync = () => {
+            if (document.hidden || !onScreen) {
+                v.pause();
+            } else {
+                // Autoplay can still be refused; the plate stays put if so.
+                v.play().catch(() => {});
+            }
+        };
+
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                onScreen = entry.isIntersecting;
+                sync();
+            },
+            { threshold: 0.05 }
+        );
+        io.observe(v);
+
+        document.addEventListener('visibilitychange', sync);
+        sync();
+
+        return () => {
+            io.disconnect();
+            document.removeEventListener('visibilitychange', sync);
+        };
+    }, []);
 
     useEffect(() => {
         const t = setInterval(() => setCurrentSlide(p => (p + 1) % heroSlides.length), 5000);
@@ -135,14 +255,14 @@ const Home = () => {
     ];
 
     const services = [
-        { icon: <School />, title: 'Schools & Kindergarten', desc: 'Verified profiles, admission timelines, fee structures and honest parent reviews for K-12 schools.', tab: 'schooleducation', img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=250&fit=crop', accent: '#8C2F39' },
-        { icon: <School />, title: 'Primary & Secondary Schools', desc: 'Discover top-rated K-12 schools with verified profiles, admission schedules, academic programmes.', tab: 'schooleducation', img: 'https://plus.unsplash.com/premium_photo-1690479510844-6385aa431b76?w=600&auto=format&fit=crop&q=60', accent: '#C8A24D' },
+        { icon: <School />, title: 'Schools & Kindergarten', desc: 'Verified profiles, admission timelines, fee structures and honest parent reviews for K-12 schools.', tab: 'schooleducation', img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=250&fit=crop', accent: '#804501' },
+        { icon: <School />, title: 'Primary & Secondary Schools', desc: 'Discover top-rated K-12 schools with verified profiles, admission schedules, academic programmes.', tab: 'schooleducation', img: 'https://plus.unsplash.com/premium_photo-1690479510844-6385aa431b76?w=600&auto=format&fit=crop&q=60', accent: '#F0B429' },
         { icon: <GraduationCap />, title: 'Grades 1–12 Coaching', desc: 'Foundation to board-exam coaching with stream selection support for Science, Commerce and Arts.', tab: 'schooleducation', img: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop', accent: '#0B1E3D' },
-        { icon: <Briefcase />, title: 'CA / CS / CMA / ACCA', desc: 'Structured coaching for finance and accountancy certifications, taught by practicing professionals.', tab: 'professionalcertifications', img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=250&fit=crop', accent: '#8C2F39' },
-        { icon: <BookOpenCheck />, title: 'Medical Entrance (NEET)', desc: 'NEET UG/PG batches with weekly full-length tests benchmarked against national percentile data.', tab: 'medicalcourses', img: 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=400&h=250&fit=crop', accent: '#C8A24D' },
+        { icon: <Briefcase />, title: 'CA / CS / CMA / ACCA', desc: 'Structured coaching for finance and accountancy certifications, taught by practicing professionals.', tab: 'professionalcertifications', img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=250&fit=crop', accent: '#804501' },
+        { icon: <BookOpenCheck />, title: 'Medical Entrance (NEET)', desc: 'NEET UG/PG batches with weekly full-length tests benchmarked against national percentile data.', tab: 'medicalcourses', img: 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=400&h=250&fit=crop', accent: '#F0B429' },
         { icon: <Languages />, title: 'Spoken English & IELTS', desc: 'English proficiency and test-prep training built for students heading overseas.', tab: 'languagecourses', img: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=400&h=250&fit=crop', accent: '#0B1E3D' },
-        { icon: <Globe />, title: 'Foreign Languages', desc: 'German, French and Japanese instruction, from conversational to postgraduate proficiency.', tab: 'languagecourses', img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&h=250&fit=crop', accent: '#8C2F39' },
-        { icon: <Video />, title: 'Online Hourly Classes', desc: 'Pay-per-hour tutoring with flexible scheduling — book a single doubt-clearing session or a full term.', tab: 'placementsupport', img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop', accent: '#C8A24D' },
+        { icon: <Globe />, title: 'Foreign Languages', desc: 'German, French and Japanese instruction, from conversational to postgraduate proficiency.', tab: 'languagecourses', img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&h=250&fit=crop', accent: '#804501' },
+        { icon: <Video />, title: 'Online Hourly Classes', desc: 'Pay-per-hour tutoring with flexible scheduling — book a single doubt-clearing session or a full term.', tab: 'placementsupport', img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop', accent: '#F0B429' },
         { icon: <HeartHandshake />, title: 'Overseas Education Counselling', desc: 'End-to-end guidance on university shortlisting, visa documentation and scholarship applications.', tab: 'overseaseducation', img: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=250&fit=crop', accent: '#0B1E3D' },
     ];
 
@@ -158,12 +278,12 @@ const Home = () => {
     const visibleServices = services.filter(s => s.tab === activeTab);
 
     const whyUs = [
-        { icon: <Users />, title: "Faculty Who've Been There", desc: "Every mentor has cleared the exam they teach, or trained rank holders who have.", color: 'from-[#8C2F39] to-[#C8A24D]' },
+        { icon: <Users />, title: "Faculty Who've Been There", desc: "Every mentor has cleared the exam they teach, or trained rank holders who have.", color: 'from-[#804501] to-[#F0B429]' },
         { icon: <Clock3 />, title: 'Weekly Mock Tests', desc: 'Full-length, negatively-marked mocks with All-India percentile comparison, every single week.', color: 'from-[#0B1E3D] to-[#1a3a6e]' },
-        { icon: <Video />, title: 'Hybrid by Design', desc: 'Attend live in a classroom, join online, or replay a recorded session — your call, every day.', color: 'from-[#C8A24D] to-[#8C2F39]' },
-        { icon: <ShieldCheck />, title: 'Transparent Progress Reports', desc: "Parents get a real scorecard after every test, not a vague 'doing well' update.", color: 'from-[#1a3a6e] to-[#8C2F39]' },
-        { icon: <HeartHandshake />, title: 'Admission & Placement Desk', desc: 'From counselling on college choices to interview prep, we stay involved past the result day.', color: 'from-[#8C2F39] to-[#0B1E3D]' },
-        { icon: <Mic2 />, title: 'Doubt-Solving on Demand', desc: 'A dedicated helpdesk that answers subject doubts within the same day, not the same week.', color: 'from-[#C8A24D] to-[#0B1E3D]' },
+        { icon: <Video />, title: 'Hybrid by Design', desc: 'Attend live in a classroom, join online, or replay a recorded session — your call, every day.', color: 'from-[#F0B429] to-[#804501]' },
+        { icon: <ShieldCheck />, title: 'Transparent Progress Reports', desc: "Parents get a real scorecard after every test, not a vague 'doing well' update.", color: 'from-[#1a3a6e] to-[#804501]' },
+        { icon: <HeartHandshake />, title: 'Admission & Placement Desk', desc: 'From counselling on college choices to interview prep, we stay involved past the result day.', color: 'from-[#804501] to-[#0B1E3D]' },
+        { icon: <Mic2 />, title: 'Doubt-Solving on Demand', desc: 'A dedicated helpdesk that answers subject doubts within the same day, not the same week.', color: 'from-[#F0B429] to-[#0B1E3D]' },
     ];
 
     const rankers = [
@@ -193,64 +313,93 @@ const Home = () => {
     const examTicker = ['NTSE', 'NSO', 'IMO', 'NSE', 'NSTSE', 'IEO', 'NCO', 'GK10', 'POLYCET', 'NDA', 'OLYMPIADS', 'ITI', 'AISSEE', 'JEE', 'NEET', 'KVPY', 'INO', 'SAT', 'ASSET', 'JNUST', 'NBO', 'IAS/KAS', 'IMOTC', 'IOITC', 'IPMAT', 'GMAT', 'GRE', 'AIMS', 'JIPMER', 'FMGE', 'SLAT', 'CA', 'CS', 'BBA', 'MBA', 'CLAT', 'NLSAT'];
 
     return (
-        <div className="font-body antialiased text-[#1D2433] overflow-x-hidden">
-            <section className="relative min-h-screen flex items-center overflow-hidden">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentSlide}
-                        className="absolute inset-0"
-                        initial={{ opacity: 0, scale: 1.06 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.4, ease: 'easeInOut' }}
-                    >
-                        <img src={heroSlides[currentSlide].img} alt="Hero" className="w-full h-full object-cover" />
-                        {/* <div className="absolute inset-0 bg-gradient-to-r from-[#030d1e]/95 via-[#030d1e]/70 to-transparent" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#030d1e]/90 via-transparent to-transparent" /> */}
-                        <div className='absolute inset-0 bg-black/45' />
-                    </motion.div>
-                </AnimatePresence>
+        <div className="font-body antialiased text-[#1D2433] overflow-x-clip">
+            <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-[#06142D]">
+                <div className="absolute inset-0 overflow-hidden">
+                    {/* Standing plate. The old markup used a REMOTE Unsplash
+                        photo as poster="", which meant a second network
+                        request racing the video and a visible swap between
+                        two different images. A brand gradient costs nothing,
+                        always paints on the first frame, and is what the
+                        video cross-fades up from. */}
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_25%_15%,#12305c_0%,#0B1E3D_45%,#06142D_100%)]" />
 
-                <FloatingOrb className="w-[600px] h-[600px] bg-[#C8A24D]/12 blur-[130px] top-[-100px] left-[-100px]" delay={0} />
-                <FloatingOrb className="w-[400px] h-[400px] bg-[#8C2F39]/15 blur-[100px] bottom-0 right-[10%]" delay={3} />
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.03)_1px,transparent_1px)] bg-[size:80px_80px]" />
+                    <video
+                        ref={videoRef}
+                        className={`absolute inset-0 h-full w-full object-cover will-change-transform transition-opacity duration-[1200ms] ease-out ${
+                            videoReady ? 'opacity-100' : 'opacity-0'
+                        }`}
+                        src="/home-banner.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        /* "metadata", not "auto": this file is 10.7 MB, and
+                           preload="auto" told the browser to pull all of it
+                           before anything else on the page could settle. */
+                        preload="metadata"
+                        onLoadedData={() => setVideoReady(true)}
+                        onCanPlay={() => setVideoReady(true)}
+                        data-hero-video
+                        aria-hidden="true"
+                        tabIndex={-1}
+                    />
 
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36 w-full">
+                    <div className="absolute inset-0 bg-[#06142D]/15 mix-blend-multiply" />
+
+
+                    {/* 2 — directional scrim: heavy left, clear right */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#06142D]/92 via-[#06142D]/55 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#F0EBE0] via-[#F0EBE0]/70 to-transparent" />
+                    <div className="vignette absolute inset-0" />
+                    <div className="grain absolute inset-0 overflow-hidden" />
+                </div>
+                <FloatingOrb className="w-[600px] h-[600px] bg-[#F0B429]/12 blur-[130px] top-[-100px] left-[-100px]" delay={0} />
+                <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/15 blur-[100px] bottom-0 right-[10%]" delay={3} />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.03)_1px,transparent_1px)] bg-[size:80px_80px]" />
+                <div ref={heroCopyRef} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36 w-full">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <motion.div initial="hidden" animate="visible" variants={stagger} className="space-y-8">
                             <motion.div variants={fadeInUp}>
                                 <SectionBadge variant="white">
-                                    <Sparkles className="w-3.5 h-3.5 text-[#E4C275]" />
+                                    <Sparkles className="w-3.5 h-3.5 text-[#FDD34F]" />
                                     A Trusted Name in Competitive Exam Coaching
                                 </SectionBadge>
                             </motion.div>
 
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={currentSlide}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -30 }}
-                                    transition={{ duration: 0.6 }}
+                            <div key={currentSlide}>
+                                <SplitReveal
+                                    as="h1"
+                                    trigger="mount"
+                                    className="font-[family-name:var(--font-display)] text-5xl md:text-7xl font-black leading-[1.02] tracking-tight text-white"
                                 >
-                                    <h1 className="text-5xl md:text-7xl font-black leading-[1.0] tracking-tight text-white">
-                                        {heroSlides[currentSlide].headline}
-                                        <br />
-                                        <span className="bg-gradient-to-r from-[#E4C275] via-[#f7e0a0] to-[#C8A24D] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(228,194,117,0.4)]">
-                                            {heroSlides[currentSlide].highlight}
-                                        </span>
-                                    </h1>
-                                    <p className="mt-6 text-lg md:text-xl text-white/70 max-w-xl leading-relaxed">
-                                        {heroSlides[currentSlide].sub}
-                                    </p>
+                                    {heroSlides[currentSlide].headline}
+                                </SplitReveal>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 26 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.9, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                                    className="font-[family-name:var(--font-display)] text-5xl md:text-7xl font-black leading-[1.02] tracking-tight text-gold-gradient-on-dark drop-shadow-[0_0_40px_rgba(253,211,79,0.35)]"
+                                >
+                                    {heroSlides[currentSlide].highlight}
                                 </motion.div>
-                            </AnimatePresence>
+
+                                <motion.p
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                                    className="mt-6 text-lg md:text-xl text-white/70 max-w-xl leading-relaxed"
+                                >
+                                    {heroSlides[currentSlide].sub}
+                                </motion.p>
+                            </div>
 
                             <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
                                 <motion.button
-                                    whileHover={{ scale: 1.04, boxShadow: '0 0 40px rgba(200,162,77,0.5)' }}
+                                    whileHover={{ scale: 1.04, boxShadow: '0 0 40px rgba(240,180,41,0.5)' }}
                                     whileTap={{ scale: 0.97 }}
-                                    className="group relative overflow-hidden bg-gradient-to-r from-[#C8A24D] to-[#E4C275] text-[#06142D] px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-2 shadow-[0_8px_30px_rgba(200,162,77,0.35)]"
+                                    className="group relative overflow-hidden bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-2 shadow-[0_8px_30px_rgba(240,180,41,0.35)]"
                                 >
                                     <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
                                     Explore Courses <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -260,7 +409,7 @@ const Home = () => {
                                     whileTap={{ scale: 0.97 }}
                                     className="group flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white border border-white/20 hover:border-white/50 backdrop-blur-sm bg-white/5 transition-all"
                                 >
-                                    <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-[#C8A24D]/30 transition">
+                                    <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-[#F0B429]/30 transition">
                                         <Phone className="w-4 h-4" />
                                     </div>
                                     Free Counselling
@@ -272,7 +421,7 @@ const Home = () => {
                                     <button
                                         key={i}
                                         onClick={() => setCurrentSlide(i)}
-                                        className={`h-1.5 rounded-full transition-all duration-500 ${i === currentSlide ? 'w-10 bg-[#E4C275]' : 'w-4 bg-white/30 hover:bg-white/50'}`}
+                                        className={`h-1.5 rounded-full transition-all duration-500 ${i === currentSlide ? 'w-10 bg-[#FDD34F]' : 'w-4 bg-white/30 hover:bg-white/50'}`}
                                     />
                                 ))}
                             </motion.div>
@@ -283,46 +432,7 @@ const Home = () => {
                             transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                             className="hidden lg:block"
                         >
-                            <div className="relative">
-                                <div className="absolute -inset-4 bg-gradient-to-r from-[#C8A24D]/30 to-[#8C2F39]/20 rounded-3xl blur-2xl" />
-                                <div className="relative rounded-3xl overflow-hidden border border-white/10 backdrop-blur-2xl bg-white/[0.06] shadow-[0_40px_80px_rgba(0,0,0,0.5)] p-8">
-                                    <div className="flex items-center justify-between mb-6">
-                                        <div>
-                                            <p className="text-white/50 text-xs uppercase tracking-widest font-semibold">Live Metrics</p>
-                                            <p className="text-white text-xl font-bold mt-0.5">Result Dashboard</p>
-                                        </div>
-                                        <motion.div
-                                            animate={{ rotate: [0, 10, -10, 0] }}
-                                            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                                            className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#C8A24D] to-[#8C2F39] flex items-center justify-center shadow-lg"
-                                        >
-                                            <Medal className="w-7 h-7 text-white" />
-                                        </motion.div>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        {stats.map((s, i) => (
-                                            <motion.div
-                                                key={i}
-                                                whileHover={{ scale: 1.03, y: -2 }}
-                                                className="group relative p-4 rounded-2xl border border-white/8 bg-white/[0.04] hover:bg-white/[0.09] transition-all overflow-hidden"
-                                            >
-                                                <div className="absolute inset-0 bg-gradient-to-br from-[#C8A24D]/5 to-[#8C2F39]/5 opacity-0 group-hover:opacity-100 transition" />
-                                                <div className="relative">
-                                                    <div className="text-[#E4C275] mb-2">{s.icon}</div>
-                                                    <p className="text-3xl font-black text-white tabular-nums">
-                                                        <CountUp value={s.value} suffix={s.suffix} />
-                                                    </p>
-                                                    <p className="text-white/45 text-xs mt-1 font-medium">{s.label}</p>
-                                                </div>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                    <div className="mt-5 pt-5 border-t border-white/10 flex items-center gap-2">
-                                        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                        <p className="text-white/40 text-xs">Updated in real-time · 2025 batch data</p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </motion.div>
                     </div>
                 </div>
@@ -336,14 +446,14 @@ const Home = () => {
                         <motion.div
                             animate={{ y: [0, 14, 0] }}
                             transition={{ duration: 1.8, repeat: Infinity }}
-                            className="w-1.5 h-1.5 bg-[#E4C275] rounded-full"
+                            className="w-1.5 h-1.5 bg-[#FDD34F] rounded-full"
                         />
                     </div>
                 </motion.div>
             </section>
 
-            <section className="py-5 bg-[#06142D] border-y border-[#C8A24D]/20 overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#06142D] via-transparent to-[#06142D] z-10 pointer-events-none" />
+            <section className="py-5 bg-section border-y border-[#F0B429]/25 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#F0EBE0] via-transparent to-[#F7F3EA] z-10 pointer-events-none" />
                 <motion.div
                     animate={{ x: [0, '-50%'] }}
                     transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
@@ -352,16 +462,16 @@ const Home = () => {
                     {[...examTicker, ...examTicker].map((exam, i) => (
                         <span
                             key={i}
-                            className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-[#0B1E3D] to-[#112448] text-[#E4C275] rounded-full text-xs font-bold border border-[#C8A24D]/25 shadow-[0_0_12px_rgba(200,162,77,0.1)] tracking-wider"
+                            className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-white text-[#0B1E3D] rounded-full text-xs font-bold border border-[#F0B429]/30 shadow-[0_2px_10px_rgba(11,30,61,0.06)] tracking-wider"
                         >
-                            <Star className="w-2.5 h-2.5 fill-current opacity-60" />
+                            <Star className="w-2.5 h-2.5 fill-[#F0B429] text-[#F0B429]" />
                             {exam}
                         </span>
                     ))}
                 </motion.div>
             </section>
 
-            <section className="py-14 bg-gradient-to-r from-[#0B1E3D] via-[#112448] to-[#0B1E3D] text-white">
+            <section className="py-16 bg-section-alt">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial="hidden" whileInView="visible" viewport={{ once: true }}
@@ -370,12 +480,12 @@ const Home = () => {
                     >
                         {stats.map((s, i) => (
                             <motion.div key={i} variants={fadeInUp} whileHover={{ y: -6 }} className="group relative">
-                                <div className="relative p-6 rounded-2xl border border-white/8 bg-white/[0.04] hover:bg-white/[0.08] transition-all overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#C8A24D]/5 to-[#8C2F39]/5 opacity-0 group-hover:opacity-100 transition" />
+                                <div className="card-light relative p-6 rounded-2xl overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-[#F0B429]/8 to-[#804501]/6 opacity-0 group-hover:opacity-100 transition" />
                                     <div className="relative">
-                                        <div className="w-10 h-10 mx-auto mb-3 rounded-xl bg-gradient-to-br from-[#C8A24D]/20 to-[#8C2F39]/20 flex items-center justify-center text-[#E4C275]">{s.icon}</div>
-                                        <p className="text-4xl md:text-5xl font-black text-[#E4C275] tabular-nums"><CountUp value={s.value} suffix={s.suffix} /></p>
-                                        <p className="text-white/50 text-sm mt-1 font-medium">{s.label}</p>
+                                        <div className="w-10 h-10 mx-auto mb-3 rounded-xl bg-gradient-to-br from-[#F0B429]/20 to-[#804501]/15 flex items-center justify-center text-[#804501]">{s.icon}</div>
+                                        <p className="text-4xl md:text-4xl font-black text-[#0B1E3D] tabular-nums"><CountUp value={s.value} suffix={s.suffix} /></p>
+                                        <p className="text-slate-500 text-sm mt-1 font-medium">{s.label}</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -385,8 +495,8 @@ const Home = () => {
             </section>
 
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
-                <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-[#C8A24D]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#8C2F39]/6 to-transparent rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#804501]/6 to-transparent rounded-full blur-3xl pointer-events-none" />
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                     <motion.div
@@ -396,9 +506,9 @@ const Home = () => {
                     >
                         <motion.div variants={fadeInLeft}>
                             <SectionBadge variant="red">About Us</SectionBadge>
-                            <h2 className="mt-6 text-5xl md:text-6xl font-black leading-[1.05] text-[#0B1E3D] tracking-tight">
+                            <h2 className="mt-6 text-4xl md:text-5xl font-black leading-[1.05] text-[#0B1E3D] tracking-tight">
                                 Built For Every Stage
-                                <span className="block bg-gradient-to-r from-[#8C2F39] to-[#C8A24D] bg-clip-text text-transparent">Of The Exam Journey</span>
+                                <span className="block bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Of The Exam Journey</span>
                             </h2>
                             <p className="mt-6 text-lg leading-relaxed text-slate-500 max-w-lg">
                                 From kindergarten admissions to professional certifications, we bridge the gap between where a student is today and where their ambition can take them tomorrow.
@@ -417,9 +527,9 @@ const Home = () => {
                                         transition={{ delay: i * 0.12 }}
                                         viewport={{ once: true }}
                                         whileHover={{ x: 8 }}
-                                        className="group flex items-center gap-4 p-4 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 cursor-default border border-transparent hover:border-[#C8A24D]/15"
+                                        className="group flex items-center gap-4 p-4 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 cursor-default border border-transparent hover:border-[#F0B429]/15"
                                     >
-                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8C2F39]/10 to-[#C8A24D]/10 flex items-center justify-center text-[#8C2F39] group-hover:from-[#8C2F39] group-hover:to-[#C8A24D] group-hover:text-white transition-all duration-300 flex-shrink-0 shadow-sm">
+                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#804501]/10 to-[#F0B429]/10 flex items-center justify-center text-[#804501] group-hover:from-[#804501] group-hover:to-[#F0B429] group-hover:text-white transition-all duration-300 flex-shrink-0 shadow-sm">
                                             {item.icon}
                                         </div>
                                         <span className="text-slate-700 font-semibold">{item.label}</span>
@@ -427,16 +537,16 @@ const Home = () => {
                                 ))}
                             </div>
                             <motion.button
-                                whileHover={{ scale: 1.04, boxShadow: '0 20px 40px rgba(140,47,57,0.25)' }}
+                                whileHover={{ scale: 1.04, boxShadow: '0 20px 40px rgba(128,69,1,0.25)' }}
                                 whileTap={{ scale: 0.97 }}
-                                className="mt-10 inline-flex items-center gap-2 bg-[#8C2F39] text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:bg-[#a33545] transition-all"
+                                className="mt-10 inline-flex items-center gap-2 bg-[#804501] text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:bg-[#985801] transition-all"
                             >
                                 Our Story <ExternalLink className="w-4 h-4" />
                             </motion.button>
                         </motion.div>
 
                         <motion.div variants={fadeInRight} className="relative">
-                            <div className="absolute -inset-6 bg-gradient-to-r from-[#C8A24D]/15 to-[#8C2F39]/10 rounded-[3rem] blur-2xl" />
+                            <div className="absolute -inset-6 bg-gradient-to-r from-[#F0B429]/15 to-[#804501]/10 rounded-[3rem] blur-2xl" />
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.5 }}
@@ -445,7 +555,7 @@ const Home = () => {
                                 <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&h=700&fit=crop" alt="Students learning" className="w-full h-[560px] object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1E3D]/85 via-[#0B1E3D]/20 to-transparent" />
                                 <div className="absolute bottom-8 left-8 right-8">
-                                    <p className="text-5xl font-black text-white">10+ Years</p>
+                                    <p className="text-4xl font-black text-white">10+ Years</p>
                                     <p className="text-white/70 text-lg mt-1">Transforming Student Careers</p>
                                     <div className="mt-4 flex gap-3">
                                         {['JEE', 'NEET', 'CA', 'NDA', 'IELTS'].map((tag) => (
@@ -454,18 +564,13 @@ const Home = () => {
                                     </div>
                                 </div>
                             </motion.div>
-                            <motion.div animate={{ y: [-6, 6, -6] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} className="absolute -top-6 -right-6 bg-white rounded-2xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-[#C8A24D]/20">
+                            <motion.div animate={{ y: [-6, 6, -6] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} className="absolute -top-6 -right-6 bg-white rounded-2xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-[#F0B429]/20">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#C8A24D] to-[#8C2F39] rounded-xl flex items-center justify-center"><Trophy className="w-6 h-6 text-white" /></div>
+                                    <div className="w-12 h-12 bg-gradient-to-br from-[#F0B429] to-[#804501] rounded-xl flex items-center justify-center"><Trophy className="w-6 h-6 text-white" /></div>
                                     <div><p className="font-black text-[#0B1E3D] text-xl">98%</p><p className="text-slate-500 text-xs font-medium">Success Rate</p></div>
                                 </div>
                             </motion.div>
-                            <motion.div animate={{ y: [6, -6, 6] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.12)] border border-[#C8A24D]/20">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#0B1E3D] to-[#1a3a6e] rounded-xl flex items-center justify-center"><Users className="w-6 h-6 text-[#E4C275]" /></div>
-                                    <div><p className="font-black text-[#0B1E3D] text-xl">50K+</p><p className="text-slate-500 text-xs font-medium">Students Mentored</p></div>
-                                </div>
-                            </motion.div>
+                        
                         </motion.div>
                     </motion.div>
                 </div>
@@ -476,7 +581,7 @@ const Home = () => {
                         <motion.div variants={fadeInUp}><SectionBadge variant="navy">Our Services</SectionBadge></motion.div>
                         <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
                             A Complete Education{' '}
-                            <span className="bg-gradient-to-r from-[#8C2F39] to-[#C8A24D] bg-clip-text text-transparent">Ecosystem</span>
+                            <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Ecosystem</span>
                         </motion.h2>
                         <GlowLine />
                         <motion.p variants={fadeInUp} className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">
@@ -493,7 +598,7 @@ const Home = () => {
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setActiveTab(tab.key)}
                                 className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold transition-all duration-300 ${activeTab === tab.key
-                                    ? 'bg-[#0B1E3D] text-[#E4C275] shadow-[0_8px_24px_rgba(11,30,61,0.3)]'
+                                    ? 'bg-[#0B1E3D] text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.3)]'
                                     : 'bg-white/80 text-slate-600 hover:bg-white hover:shadow-lg border border-[#0B1E3D]/8'
                                     }`}
                             >
@@ -528,11 +633,8 @@ const Home = () => {
                                         </div>
                                     </div>
                                     <div className="p-6">
-                                        <h4 className="font-black text-[#0B1E3D] text-lg mb-2 group-hover:text-[#8C2F39] transition-colors">{service.title}</h4>
+                                        <h4 className="font-black text-[#0B1E3D] text-lg mb-2 group-hover:text-[#804501] transition-colors">{service.title}</h4>
                                         <p className="text-slate-500 text-sm leading-relaxed">{service.desc}</p>
-                                        <div className="mt-5 flex items-center gap-1 text-[#C8A24D] text-sm font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                                            Learn more <ArrowRight className="w-4 h-4" />
-                                        </div>
                                     </div>
                                 </motion.div>
                             ))}
@@ -542,13 +644,13 @@ const Home = () => {
             </section>
 
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(200,162,77,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(140,47,57,0.06),transparent_60%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(240,180,41,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(128,69,1,0.06),transparent_60%)]" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
                         <motion.div variants={fadeInUp}><SectionBadge variant="gold">Why Choose Us</SectionBadge></motion.div>
                         <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
                             What Actually{' '}
-                            <span className="bg-gradient-to-r from-[#8C2F39] to-[#C8A24D] bg-clip-text text-transparent">Moves a Rank</span>
+                            <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Moves a Rank</span>
                         </motion.h2>
                         <GlowLine />
                         <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
@@ -577,20 +679,20 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative py-28 overflow-hidden bg-[#FAFAF8] text-black">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
-                <FloatingOrb className="w-[600px] h-[600px] bg-[#C8A24D]/8 blur-[160px] top-0 left-0" delay={0} />
-                <FloatingOrb className="w-[500px] h-[500px] bg-[#8C2F39]/10 blur-[140px] bottom-0 right-0" delay={4} />
+            <section className="relative py-28 overflow-hidden bg-section">
+                <div className="absolute inset-0 grid-gold" />
+                <FloatingOrb className="w-[600px] h-[600px] bg-[#F0B429]/14 blur-[160px] top-0 left-0" delay={0} />
+                <FloatingOrb className="w-[500px] h-[500px] bg-[#804501]/10 blur-[140px] bottom-0 right-0" delay={4} />
 
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-20">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="white"><Trophy className="w-3.5 h-3.5 text-[#E4C275]" />Wall of Rankers</SectionBadge></motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-6 text-5xl md:text-7xl font-black leading-tight tracking-tight">
+                        <motion.div variants={fadeInUp}><SectionBadge variant="gold"><Trophy className="w-3.5 h-3.5 text-[#804501]" />Wall of Rankers</SectionBadge></motion.div>
+                        <motion.h2 variants={fadeInUp} className="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-black leading-tight tracking-tight text-[#0B1E3D]">
                             Meet Our{' '}
-                            <span className="bg-gradient-to-r from-[#E4C275] via-[#f5d98a] to-[#C8A24D] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(228,194,117,0.3)]">Top Rankers</span>
+                            <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Top Rankers</span>
                         </motion.h2>
                         <GlowLine />
-                        <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-slate-800 text-lg">
+                        <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
                             Celebrating exceptional achievements dedication transformed into remarkable success.
                         </motion.p>
                     </motion.div>
@@ -602,23 +704,23 @@ const Home = () => {
                                 variants={fadeInUp}
                                 whileHover={{ y: -14, scale: 1.03 }}
                                 transition={{ duration: 0.4 }}
-                                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-7 shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:border-[#E4C275]/40 hover:shadow-[0_30px_80px_rgba(0,0,0,0.5),0_0_40px_rgba(228,194,117,0.1)] transition-all duration-500"
+                                className="card-light group relative overflow-hidden rounded-3xl p-7"
                             >
-                                <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12" />
+                                <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-[#F0B429]/12 to-transparent skew-x-12 pointer-events-none" />
                                 <div className="absolute top-5 right-5">
-                                    <span className="px-3 py-1 rounded-full bg-gradient-to-r from-[#E4C275] to-[#C8A24D] text-[#06142D] text-xs font-black shadow-lg">{r.tag}</span>
+                                    <span className="px-3 py-1 rounded-full bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] text-xs font-black shadow-md">{r.tag}</span>
                                 </div>
                                 <div className="flex justify-center">
                                     <div className="relative">
-                                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#E4C275] to-[#C8A24D] blur-sm opacity-60 group-hover:opacity-100 transition" />
-                                        <img src={r.img} alt={r.name} className="relative w-24 h-24 rounded-full object-cover border-2 border-[#E4C275] shadow-[0_0_30px_rgba(228,194,117,0.4)]" />
+                                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#FDD34F] to-[#F0B429] blur-sm opacity-50 group-hover:opacity-90 transition" />
+                                        <img src={r.img} alt={r.name} className="relative w-24 h-24 rounded-full object-cover border-2 border-white shadow-[0_8px_24px_rgba(11,30,61,0.18)]" />
                                     </div>
                                 </div>
                                 <div className="mt-6 text-center">
-                                    <h3 className="text-lg font-black tracking-wide">{r.name}</h3>
-                                    <p className="text-slate-800 text-sm mt-1">{r.exam}</p>
-                                    <div className="mt-4 py-2 px-4 rounded-2xl bg-gradient-to-r from-[#C8A24D]/15 to-[#E4C275]/10 border border-[#C8A24D]/20">
-                                        <p className="text-[#E4C275] text-sm font-bold">{r.score}</p>
+                                    <h3 className="text-lg font-black tracking-wide text-[#0B1E3D]">{r.name}</h3>
+                                    <p className="text-slate-500 text-sm mt-1">{r.exam}</p>
+                                    <div className="mt-4 py-2 px-4 rounded-2xl bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 border border-[#F0B429]/25">
+                                        <p className="text-[#804501] text-sm font-bold">{r.score}</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -627,9 +729,9 @@ const Home = () => {
 
                     <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="mt-16 text-center">
                         <motion.button
-                            whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(228,194,117,0.5)' }}
+                            whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(253,211,79,0.5)' }}
                             whileTap={{ scale: 0.97 }}
-                            className="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-[#E4C275] to-[#C8A24D] text-[#06142D] font-black text-base shadow-[0_20px_40px_rgba(200,162,77,0.3)] transition-all"
+                            className="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-[#FDD34F] to-[#F0B429] text-[#06142D] font-black text-base shadow-[0_20px_40px_rgba(240,180,41,0.3)] transition-all"
                         >
                             View All Rankers <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </motion.button>
@@ -644,7 +746,7 @@ const Home = () => {
                         <motion.div variants={fadeInUp}><SectionBadge variant="red">Testimonials</SectionBadge></motion.div>
                         <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
                             What Our Students{' '}
-                            <span className="bg-gradient-to-r from-[#8C2F39] to-[#C8A24D] bg-clip-text text-transparent">Say</span>
+                            <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Say</span>
                         </motion.h2>
                         <GlowLine />
                     </motion.div>
@@ -657,29 +759,29 @@ const Home = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -30 }}
                                 transition={{ duration: 0.5 }}
-                                className="relative bg-white rounded-3xl p-10 md:p-14 shadow-[0_20px_80px_rgba(11,30,61,0.12)] border border-[#C8A24D]/15 overflow-hidden"
+                                className="relative bg-white rounded-3xl p-10 md:p-14 shadow-[0_20px_80px_rgba(11,30,61,0.12)] border border-[#F0B429]/15 overflow-hidden"
                             >
-                                <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-[#C8A24D]/10 to-transparent rounded-br-full" />
-                                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-[#8C2F39]/8 to-transparent rounded-tl-full" />
-                                <Quote className="w-12 h-12 text-[#C8A24D]/25 mb-6" />
+                                <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-[#F0B429]/10 to-transparent rounded-br-full" />
+                                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-[#804501]/8 to-transparent rounded-tl-full" />
+                                <Quote className="w-12 h-12 text-[#F0B429]/25 mb-6" />
                                 <p className="text-xl md:text-2xl text-slate-700 leading-relaxed italic font-medium">"{testimonials[activeTestimonial].text}"</p>
                                 <div className="mt-8 flex items-center gap-5">
                                     <div className="relative">
-                                        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#C8A24D] to-[#8C2F39] blur-sm" />
+                                        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#F0B429] to-[#804501] blur-sm" />
                                         <img src={testimonials[activeTestimonial].img} alt={testimonials[activeTestimonial].name} className="relative w-16 h-16 rounded-full object-cover border-2 border-white" />
                                     </div>
                                     <div>
                                         <p className="font-black text-[#0B1E3D] text-lg">{testimonials[activeTestimonial].name}</p>
-                                        <p className="text-[#8C2F39] text-sm font-semibold">{testimonials[activeTestimonial].course}</p>
-                                        <div className="flex gap-1 mt-1">{[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-[#C8A24D] text-[#C8A24D]" />)}</div>
+                                        <p className="text-[#804501] text-sm font-semibold">{testimonials[activeTestimonial].course}</p>
+                                        <div className="flex gap-1 mt-1">{[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-[#F0B429] text-[#F0B429]" />)}</div>
                                     </div>
-                                    <div className="ml-auto px-4 py-2 rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#1a3a6e] text-[#E4C275] text-sm font-black">{testimonials[activeTestimonial].achievement}</div>
+                                    <div className="ml-auto px-4 py-2 rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#1a3a6e] text-[#FDD34F] text-sm font-black">{testimonials[activeTestimonial].achievement}</div>
                                 </div>
                             </motion.div>
                         </AnimatePresence>
                         <div className="flex justify-center gap-2 mt-6">
                             {testimonials.map((_, i) => (
-                                <button key={i} onClick={() => setActiveTestimonial(i)} className={`h-2 rounded-full transition-all duration-300 ${i === activeTestimonial ? 'w-10 bg-[#C8A24D]' : 'w-2 bg-[#C8A24D]/30 hover:bg-[#C8A24D]/60'}`} />
+                                <button key={i} onClick={() => setActiveTestimonial(i)} className={`h-2 rounded-full transition-all duration-300 ${i === activeTestimonial ? 'w-10 bg-[#F0B429]' : 'w-2 bg-[#F0B429]/30 hover:bg-[#F0B429]/60'}`} />
                             ))}
                         </div>
                     </div>
@@ -691,16 +793,16 @@ const Home = () => {
                                 variants={fadeInUp}
                                 whileHover={{ y: -6 }}
                                 onClick={() => setActiveTestimonial(i)}
-                                className={`group p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${i === activeTestimonial ? 'bg-[#0B1E3D] border-[#C8A24D]/40 shadow-xl' : 'bg-white border-[#0B1E3D]/8 hover:shadow-lg hover:border-[#C8A24D]/25'}`}
+                                className={`group p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${i === activeTestimonial ? 'bg-[#0B1E3D] border-[#F0B429]/40 shadow-xl' : 'bg-white border-[#0B1E3D]/8 hover:shadow-lg hover:border-[#F0B429]/25'}`}
                             >
                                 <div className="flex items-center gap-3">
-                                    <img src={t.img} alt={t.name} className="w-10 h-10 rounded-full object-cover border-2 border-[#C8A24D]/40 flex-shrink-0" />
+                                    <img src={t.img} alt={t.name} className="w-10 h-10 rounded-full object-cover border-2 border-[#F0B429]/40 flex-shrink-0" />
                                     <div>
                                         <p className={`font-bold text-sm ${i === activeTestimonial ? 'text-white' : 'text-[#0B1E3D]'}`}>{t.name}</p>
-                                        <p className={`text-xs ${i === activeTestimonial ? 'text-[#E4C275]' : 'text-[#8C2F39]'}`}>{t.achievement}</p>
+                                        <p className={`text-xs ${i === activeTestimonial ? 'text-[#FDD34F]' : 'text-[#804501]'}`}>{t.achievement}</p>
                                     </div>
                                 </div>
-                                <div className="flex gap-0.5 mt-3">{[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-[#C8A24D] text-[#C8A24D]" />)}</div>
+                                <div className="flex gap-0.5 mt-3">{[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-[#F0B429] text-[#F0B429]" />)}</div>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -710,7 +812,7 @@ const Home = () => {
             <section className="py-16 bg-white border-y border-[#0B1E3D]/8">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-                        <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#0B1E3D]/5 text-[#8C2F39] rounded-full text-xs font-bold uppercase tracking-widest mb-5 border border-[#8C2F39]/20">
+                        <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#0B1E3D]/5 text-[#804501] rounded-full text-xs font-bold uppercase tracking-widest mb-5 border border-[#804501]/20">
                             <MapPin className="w-3.5 h-3.5" /> Learning Centres
                         </motion.div>
                         <motion.h2 variants={fadeInUp} className="text-2xl md:text-3xl font-black text-[#0B1E3D] mb-8">
@@ -721,7 +823,7 @@ const Home = () => {
                                 <motion.span
                                     key={i}
                                     whileHover={{ scale: 1.06, y: -3 }}
-                                    className="px-6 py-2.5 rounded-2xl bg-[#F7F3EA] border border-[#0B1E3D]/10 text-slate-700 text-sm font-bold hover:bg-[#0B1E3D] hover:text-[#E4C275] hover:border-[#0B1E3D] transition-all duration-300 cursor-default shadow-sm"
+                                    className="px-6 py-2.5 rounded-2xl bg-[#F7F3EA] border border-[#0B1E3D]/10 text-slate-700 text-sm font-bold hover:bg-[#0B1E3D] hover:text-[#FDD34F] hover:border-[#0B1E3D] transition-all duration-300 cursor-default shadow-sm"
                                 >
                                     {city}
                                 </motion.span>
@@ -732,8 +834,8 @@ const Home = () => {
             </section>
 
             <section className="relative py-28 overflow-hidden bg-gradient-to-b from-[#F0EBE0] to-[#FAFAF8]">
-                <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#C8A24D]/10 blur-[160px] pointer-events-none" />
-                <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#8C2F39]/8 blur-[160px] pointer-events-none" />
+                <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#F0B429]/10 blur-[160px] pointer-events-none" />
+                <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#804501]/8 blur-[160px] pointer-events-none" />
 
                 <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
@@ -741,7 +843,7 @@ const Home = () => {
                         <motion.h2 variants={fadeInUp} className="mt-6 text-4xl md:text-6xl font-black text-[#0B1E3D] tracking-tight leading-tight">
                             Everything You Need
                             <br />
-                            <span className="bg-gradient-to-r from-[#8C2F39] via-[#C8A24D] to-[#8C2F39] bg-clip-text text-transparent">To Know Before Joining</span>
+                            <span className="bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#804501] bg-clip-text text-transparent">To Know Before Joining</span>
                         </motion.h2>
                         <GlowLine />
                         <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
@@ -754,15 +856,15 @@ const Home = () => {
                             <motion.div
                                 key={i}
                                 variants={fadeInUp}
-                                className={`group rounded-3xl border transition-all duration-400 overflow-hidden ${faqOpen === i ? 'bg-white border-[#C8A24D]/40 shadow-[0_20px_60px_rgba(11,30,61,0.12)]' : 'bg-white/60 border-[#0B1E3D]/8 hover:bg-white hover:shadow-lg hover:border-[#C8A24D]/20'}`}
+                                className={`group rounded-3xl border transition-all duration-400 overflow-hidden ${faqOpen === i ? 'bg-white border-[#F0B429]/40 shadow-[0_20px_60px_rgba(11,30,61,0.12)]' : 'bg-white/60 border-[#0B1E3D]/8 hover:bg-white hover:shadow-lg hover:border-[#F0B429]/20'}`}
                             >
                                 <button onClick={() => setFaqOpen(faqOpen === i ? null : i)} className="w-full flex items-center gap-5 p-6 md:p-7 text-left">
-                                    <div className={`flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm transition-all duration-300 ${faqOpen === i ? 'bg-gradient-to-br from-[#C8A24D] to-[#8C2F39] text-white shadow-lg' : 'bg-[#0B1E3D]/8 text-[#0B1E3D]'}`}>
+                                    <div className={`flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm transition-all duration-300 ${faqOpen === i ? 'bg-gradient-to-br from-[#F0B429] to-[#804501] text-white shadow-lg' : 'bg-[#0B1E3D]/8 text-[#0B1E3D]'}`}>
                                         {String(i + 1).padStart(2, '0')}
                                     </div>
                                     <span className="flex-1 text-[#0B1E3D] font-bold text-base md:text-lg text-left">{faq.question}</span>
-                                    <div className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 ${faqOpen === i ? 'bg-[#8C2F39]/10 rotate-180' : 'bg-[#0B1E3D]/5'}`}>
-                                        <ChevronDown className="w-4 h-4 text-[#8C2F39]" />
+                                    <div className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 ${faqOpen === i ? 'bg-[#804501]/10 rotate-180' : 'bg-[#0B1E3D]/5'}`}>
+                                        <ChevronDown className="w-4 h-4 text-[#804501]" />
                                     </div>
                                 </button>
                                 <motion.div
@@ -779,42 +881,42 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative py-28 overflow-hidden bg-gradient-to-br from-[#06142D] via-[#0B1E3D] to-[#06142D] text-white">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
-                <FloatingOrb className="w-[600px] h-[600px] bg-[#C8A24D]/10 blur-[180px] -top-40 -left-40" delay={0} />
-                <FloatingOrb className="w-[500px] h-[500px] bg-[#8C2F39]/10 blur-[160px] -bottom-40 -right-40" delay={3} />
+            <section className="relative py-28 overflow-hidden bg-section-hero">
+                <div className="absolute inset-0 grid-gold" />
+                <FloatingOrb className="w-[600px] h-[600px] bg-[#F0B429]/16 blur-[180px] -top-40 -left-40" delay={0} />
+                <FloatingOrb className="w-[500px] h-[500px] bg-[#804501]/10 blur-[160px] -bottom-40 -right-40" delay={3} />
 
                 <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-14">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="white">Get Started</SectionBadge></motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-6 text-4xl md:text-5xl font-black tracking-tight">
-                            Request a Free
-                            <span className="block bg-gradient-to-r from-[#E4C275] to-[#C8A24D] bg-clip-text text-transparent">Consultation</span>
+                        <motion.div variants={fadeInUp}><SectionBadge variant="red">Get Started</SectionBadge></motion.div>
+                        <motion.h2 variants={fadeInUp} className="mt-6 font-[family-name:var(--font-display)] text-4xl md:text-5xl font-black tracking-tight text-[#0B1E3D]">
+                            Request a Free {" "}
+                            <span className=" bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Consultation</span>
                         </motion.h2>
-                        <motion.p variants={fadeInUp} className="mt-4 text-white/50 text-lg max-w-xl mx-auto">Fill in your details and a counsellor will reach out within 24 hours.</motion.p>
+                        <motion.p variants={fadeInUp} className="mt-4 text-slate-500 text-lg max-w-xl mx-auto">Fill in your details and a counsellor will reach out within 24 hours.</motion.p>
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative">
-                        <div className="absolute -inset-px rounded-3xl bg-gradient-to-r from-[#C8A24D]/30 via-[#8C2F39]/20 to-[#C8A24D]/30 blur-sm" />
-                        <div className="relative bg-white/[0.05] backdrop-blur-2xl rounded-3xl border border-white/12 p-8 md:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
+                        <div className="absolute -inset-px rounded-3xl bg-gradient-to-r from-[#F0B429]/40 via-[#804501]/25 to-[#F0B429]/40 blur-sm" />
+                        <div className="relative bg-white rounded-3xl border border-[#F0B429]/20 p-8 md:p-12 shadow-[0_30px_80px_rgba(11,30,61,0.14)]">
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="block text-xs font-bold text-white/50 uppercase tracking-widest">Full Name *</label>
-                                    <input type="text" placeholder="Enter your full name" className="w-full bg-white/6 border border-white/12 rounded-2xl px-5 py-3.5 text-white placeholder-white/25 focus:outline-none focus:ring-2 focus:ring-[#C8A24D]/60 focus:border-[#C8A24D]/50 transition-all hover:border-white/20" />
+                                    <label className="block text-xs font-bold text-[#B26E02] uppercase tracking-widest">Full Name *</label>
+                                    <input type="text" placeholder="Enter your full name" className="w-full bg-[#FAFAF8] border border-[#0B1E3D]/12 rounded-2xl px-5 py-3.5 text-[#0B1E3D] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F0B429]/50 focus:border-[#F0B429] focus:bg-white transition-all hover:border-[#F0B429]/50" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="block text-xs font-bold text-white/50 uppercase tracking-widest">Email Address *</label>
-                                    <input type="email" placeholder="you@example.com" className="w-full bg-white/6 border border-white/12 rounded-2xl px-5 py-3.5 text-white placeholder-white/25 focus:outline-none focus:ring-2 focus:ring-[#C8A24D]/60 focus:border-[#C8A24D]/50 transition-all hover:border-white/20" />
+                                    <label className="block text-xs font-bold text-[#B26E02] uppercase tracking-widest">Email Address *</label>
+                                    <input type="email" placeholder="you@example.com" className="w-full bg-[#FAFAF8] border border-[#0B1E3D]/12 rounded-2xl px-5 py-3.5 text-[#0B1E3D] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F0B429]/50 focus:border-[#F0B429] focus:bg-white transition-all hover:border-[#F0B429]/50" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="block text-xs font-bold text-white/50 uppercase tracking-widest">Phone Number *</label>
-                                    <input type="tel" placeholder="+91 98765 43210" className="w-full bg-white/6 border border-white/12 rounded-2xl px-5 py-3.5 text-white placeholder-white/25 focus:outline-none focus:ring-2 focus:ring-[#C8A24D]/60 focus:border-[#C8A24D]/50 transition-all hover:border-white/20" />
+                                    <label className="block text-xs font-bold text-[#B26E02] uppercase tracking-widest">Phone Number *</label>
+                                    <input type="tel" placeholder="+91 98765 43210" className="w-full bg-[#FAFAF8] border border-[#0B1E3D]/12 rounded-2xl px-5 py-3.5 text-[#0B1E3D] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F0B429]/50 focus:border-[#F0B429] focus:bg-white transition-all hover:border-[#F0B429]/50" />
                                 </div>
                                 <div className="space-y-2 relative">
-                                    <label className="block text-xs font-bold text-white/50 uppercase tracking-widest">Exam / Course Interest</label>
-                                    <div onClick={() => setIsCourseDropdownOpen(!isCourseDropdownOpen)} className="w-full bg-white/6 border border-white/12 rounded-2xl px-5 py-3.5 text-white flex items-center justify-between cursor-pointer hover:border-white/20 transition-all">
-                                        <span className={selectedCourse ? 'text-white' : 'text-white/25'}>{selectedCourse || 'Select a course'}</span>
-                                        <ChevronDown className={`w-4 h-4 text-white/40 transition-transform ${isCourseDropdownOpen ? 'rotate-180' : ''}`} />
+                                    <label className="block text-xs font-bold text-[#B26E02] uppercase tracking-widest">Exam / Course Interest</label>
+                                    <div onClick={() => setIsCourseDropdownOpen(!isCourseDropdownOpen)} className="w-full bg-[#FAFAF8] border border-[#0B1E3D]/12 rounded-2xl px-5 py-3.5 text-[#0B1E3D] flex items-center justify-between cursor-pointer hover:border-[#F0B429]/50 transition-all">
+                                        <span className={selectedCourse ? 'text-[#0B1E3D]' : 'text-slate-400'}>{selectedCourse || 'Select a course'}</span>
+                                        <ChevronDown className={`w-4 h-4 text-[#804501] transition-transform ${isCourseDropdownOpen ? 'rotate-180' : ''}`} />
                                     </div>
                                     <AnimatePresence>
                                         {isCourseDropdownOpen && (
@@ -823,21 +925,21 @@ const Home = () => {
                                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                                 exit={{ opacity: 0, y: -8, scale: 0.97 }}
                                                 transition={{ duration: 0.2 }}
-                                                className="absolute z-20 w-full mt-2 bg-[#0F2340] border border-white/15 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] max-h-60 overflow-hidden"
+                                                className="absolute z-20 w-full mt-2 bg-white border border-[#F0B429]/30 rounded-2xl shadow-[0_20px_60px_rgba(11,30,61,0.18)] max-h-60 overflow-hidden"
                                             >
-                                                <div className="p-3 sticky top-0 bg-[#0F2340] border-b border-white/8">
-                                                    <div className="flex items-center gap-2 bg-white/8 rounded-xl px-3 py-2 border border-white/10">
-                                                        <Search className="w-4 h-4 text-white/30" />
-                                                        <input type="text" value={courseSearch} onChange={e => setCourseSearch(e.target.value)} placeholder="Search courses..." className="bg-transparent border-none outline-none w-full text-sm text-white placeholder-white/25" />
+                                                <div className="p-3 sticky top-0 bg-white border-b border-[#0B1E3D]/8">
+                                                    <div className="flex items-center gap-2 bg-[#FAFAF8] rounded-xl px-3 py-2 border border-[#0B1E3D]/10">
+                                                        <Search className="w-4 h-4 text-[#B26E02]" />
+                                                        <input type="text" value={courseSearch} onChange={e => setCourseSearch(e.target.value)} placeholder="Search courses..." className="bg-transparent border-none outline-none w-full text-sm text-[#0B1E3D] placeholder-slate-400" />
                                                     </div>
                                                 </div>
                                                 <div className="p-2 max-h-44 overflow-y-auto">
                                                     {filteredCourses.length ? filteredCourses.map(course => (
-                                                        <div key={course} onClick={() => { setSelectedCourse(course); setIsCourseDropdownOpen(false); setCourseSearch(''); }} className="flex items-center gap-2 px-4 py-2.5 rounded-xl hover:bg-white/10 cursor-pointer transition text-sm text-white/80 hover:text-white">
-                                                            <GraduationCap className="w-4 h-4 text-[#E4C275]" />{course}
+                                                        <div key={course} onClick={() => { setSelectedCourse(course); setIsCourseDropdownOpen(false); setCourseSearch(''); }} className="flex items-center gap-2 px-4 py-2.5 rounded-xl hover:bg-[#F7F3EA] cursor-pointer transition text-sm text-slate-600 hover:text-[#804501]">
+                                                            <GraduationCap className="w-4 h-4 text-[#F0B429]" />{course}
                                                         </div>
                                                     )) : (
-                                                        <p className="px-4 py-4 text-sm text-white/30 text-center">No matching course found.</p>
+                                                        <p className="px-4 py-4 text-sm text-slate-400 text-center">No matching course found.</p>
                                                     )}
                                                 </div>
                                             </motion.div>
@@ -845,14 +947,14 @@ const Home = () => {
                                     </AnimatePresence>
                                 </div>
                                 <div className="md:col-span-2 space-y-2">
-                                    <label className="block text-xs font-bold text-white/50 uppercase tracking-widest">Message</label>
-                                    <textarea rows={4} placeholder="Tell us about your goals, the exam you're targeting, and your current preparation level..." className="w-full bg-white/6 border border-white/12 rounded-2xl px-5 py-3.5 text-white placeholder-white/25 focus:outline-none focus:ring-2 focus:ring-[#C8A24D]/60 focus:border-[#C8A24D]/50 transition-all hover:border-white/20 resize-none" />
+                                    <label className="block text-xs font-bold text-[#B26E02] uppercase tracking-widest">Message</label>
+                                    <textarea rows={4} placeholder="Tell us about your goals, the exam you're targeting, and your current preparation level..." className="w-full bg-[#FAFAF8] border border-[#0B1E3D]/12 rounded-2xl px-5 py-3.5 text-[#0B1E3D] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F0B429]/50 focus:border-[#F0B429] focus:bg-white transition-all hover:border-[#F0B429]/50 resize-none" />
                                 </div>
                                 <div className="md:col-span-2">
                                     <motion.button
-                                        whileHover={{ scale: 1.02, boxShadow: '0 20px 60px rgba(200,162,77,0.4)' }}
+                                        whileHover={{ scale: 1.02, boxShadow: '0 20px 60px rgba(240,180,41,0.4)' }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="group w-full relative overflow-hidden bg-gradient-to-r from-[#C8A24D] via-[#E4C275] to-[#C8A24D] text-[#06142D] font-black py-4 rounded-2xl text-base flex items-center justify-center gap-3 shadow-[0_12px_40px_rgba(200,162,77,0.3)] transition-all"
+                                        className="group w-full relative overflow-hidden bg-gradient-to-r from-[#F0B429] via-[#FDD34F] to-[#F0B429] text-[#06142D] font-black py-4 rounded-2xl text-base flex items-center justify-center gap-3 shadow-[0_12px_40px_rgba(240,180,41,0.3)] transition-all"
                                     >
                                         <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
                                         <span className="relative flex items-center gap-2">
@@ -861,7 +963,7 @@ const Home = () => {
                                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                         </span>
                                     </motion.button>
-                                    <p className="text-center text-white/25 text-xs mt-3 font-medium">No spam. No hard-sell. Just an honest conversation about your goals.</p>
+                                    <p className="text-center text-slate-400 text-xs mt-3 font-medium">No spam. No hard-sell. Just an honest conversation about your goals.</p>
                                 </div>
                             </div>
                         </div>

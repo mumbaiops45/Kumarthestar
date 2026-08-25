@@ -5,23 +5,24 @@ import { useRef, useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import { MdArrowForward } from 'react-icons/md';
 import { GiStarsStack } from 'react-icons/gi';
+import PageHero from '../component/PageHero';
 
 const contactInfo = [
   {
     icon: <FaPhone className="text-2xl" />,
     title: "Phone",
     description: "+91 98765 43210\nMon-Fri 9AM - 6PM",
-    bgGradient: "from-[#C8A24D]/10 to-[#E4C275]/10",
-    borderColor: "border-[#C8A24D]/30",
-    gradient: "from-[#C8A24D] to-[#E4C275]"
+    bgGradient: "from-[#F0B429]/10 to-[#FDD34F]/10",
+    borderColor: "border-[#F0B429]/30",
+    gradient: "from-[#F0B429] to-[#FDD34F]"
   },
   {
     icon: <FaEnvelope className="text-2xl" />,
     title: "Email",
     description: "info@smarat.com\nsupport@smarat.com",
-    bgGradient: "from-[#8C2F39]/10 to-[#C8A24D]/10",
-    borderColor: "border-[#8C2F39]/30",
-    gradient: "from-[#8C2F39] to-[#C8A24D]"
+    bgGradient: "from-[#804501]/10 to-[#F0B429]/10",
+    borderColor: "border-[#804501]/30",
+    gradient: "from-[#804501] to-[#F0B429]"
   },
   {
     icon: <FaMapMarkerAlt className="text-2xl" />,
@@ -35,9 +36,9 @@ const contactInfo = [
     icon: <FaClock className="text-2xl" />,
     title: "Working Hours",
     description: "Monday - Saturday\n9:00 AM - 8:00 PM",
-    bgGradient: "from-[#C8A24D]/10 to-[#8C2F39]/10",
-    borderColor: "border-[#C8A24D]/30",
-    gradient: "from-[#C8A24D] to-[#8C2F39]"
+    bgGradient: "from-[#F0B429]/10 to-[#804501]/10",
+    borderColor: "border-[#F0B429]/30",
+    gradient: "from-[#F0B429] to-[#804501]"
   }
 ];
 
@@ -125,9 +126,7 @@ export default function ContactPage() {
     try {
       setIsSubmitting(true);
 
-      // ==========================================
-      // PUT YOUR API CALL HERE
-      // ==========================================
+  
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       setIsSubmitted(true);
@@ -162,7 +161,7 @@ export default function ContactPage() {
             repeat: Infinity,
             ease: "linear"
           }}
-          className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#C8A24D]/20 rounded-full blur-3xl"
+          className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#F0B429]/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -175,7 +174,7 @@ export default function ContactPage() {
             repeat: Infinity,
             ease: "linear"
           }}
-          className="absolute -bottom-40 -right-40 w-[700px] h-[700px] bg-[#8C2F39]/15 rounded-full blur-3xl"
+          className="absolute -bottom-40 -right-40 w-[700px] h-[700px] bg-[#804501]/15 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -188,15 +187,15 @@ export default function ContactPage() {
             repeat: Infinity,
             ease: "linear"
           }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#C8A24D]/10 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#F0B429]/10 rounded-full blur-3xl"
         />
 
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(200,162,77,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(200,162,77,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
 
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-[#E4C275]/20 rounded-full"
+            className="absolute w-1 h-1 bg-[#FDD34F]/20 rounded-full"
             animate={{
               y: [0, -100, 0],
               x: [0, 50, 0],
@@ -217,85 +216,28 @@ export default function ContactPage() {
         ))}
       </div>
 
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center bg-gradient-to-br from-[#06142D] via-[#0B1E3D] to-[#030d1e] justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#07111f] via-[#0b1b2d] to-[#102a43]" />
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-[#E4C275]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-20">
-          <div className="flex flex-col justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="mb-5"
-            >
-              <span className="inline-flex rounded-full border border-[#E4C275]/30 bg-[#E4C275]/10 px-5 py-2 text-sm font-medium text-[#E4C275]">
-                Expert Career Guidance
-              </span>
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="max-w-4xl text-4xl sm:text-4xl md:text-5xl lg:text-7xl font-black leading-tight text-white"
-            >
-              Let's Build Your
-              <span className="block text-[#E4C275]">
-                Success Story
-              </span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-white/90"
-            >
-              Whether you're preparing for your first competitive exam, exploring
-              career opportunities, or seeking expert academic guidance, our
-              counsellors are here to help you choose the right path with confidence.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="mt-12 w-full max-w-3xl"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-8">
-                {[
-                  { number: "50K+", label: "Students Guided" },
-                  { number: "98%", label: "Success Rate" },
-                  { number: "4.9", label: "Rating" },
-                ].map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{ y: -5, scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="flex flex-col items-center justify-center text-center"
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{
-                        delay: 1.4 + index * 0.1,
-                        type: "spring",
-                      }}
-                      className="flex flex-col items-center"
-                    >
-                      <h3 className="text-3xl font-black text-[#E4C275] sm:text-4xl">
-                        {stat.number}
-                      </h3>
-                      <p className="mt-1 text-sm font-medium text-white/50">
-                        {stat.label}
-                      </p>
-                    </motion.div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* ==================================================================
+          HERO — shared PageHero.
+
+          The old hero set the light bg-section-hero and then painted an
+          OPAQUE dark gradient over it, so the navy #0B1E3D/90 body copy and
+          slate-500 stat labels sat on a near-black ground and were close to
+          unreadable. Replaced wholesale rather than patched.
+          ================================================================== */}
+      <PageHero
+        badge={{
+          icon: <GiStarsStack className="text-base text-[#B26E02]" />,
+          text: "Expert Career Guidance",
+        }}
+        title="Let's Build Your"
+        accent="Success Story"
+        subtitle="Whether you're preparing for your first competitive exam, exploring career opportunities, or seeking expert academic guidance, our counsellors are here to help you choose the right path with confidence."
+        stats={[
+          { value: "50K+", label: "Students Guided" },
+          { value: "98%", label: "Success Rate" },
+          { value: "4.9", label: "Rating" },
+        ]}
+      />
 
       {/* Contact Section - White Background */}
       <section
@@ -314,7 +256,7 @@ export default function ContactPage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="pointer-events-none absolute -left-40 top-20 h-[450px] w-[450px] rounded-full bg-[#C8A24D]/10 blur-[120px]"
+          className="pointer-events-none absolute -left-40 top-20 h-[450px] w-[450px] rounded-full bg-[#F0B429]/10 blur-[120px]"
         />
 
         <motion.div
@@ -328,7 +270,7 @@ export default function ContactPage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="pointer-events-none absolute -right-40 bottom-10 h-[500px] w-[500px] rounded-full bg-[#8C2F39]/10 blur-[130px]"
+          className="pointer-events-none absolute -right-40 bottom-10 h-[500px] w-[500px] rounded-full bg-[#804501]/10 blur-[130px]"
         />
 
         <motion.div
@@ -341,7 +283,7 @@ export default function ContactPage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="pointer-events-none absolute left-[12%] top-[20%] h-1.5 w-1.5 rounded-full bg-[#C8A24D]"
+          className="pointer-events-none absolute left-[12%] top-[20%] h-1.5 w-1.5 rounded-full bg-[#F0B429]"
         />
 
         <motion.div
@@ -355,7 +297,7 @@ export default function ContactPage() {
             ease: "easeInOut",
             delay: 1,
           }}
-          className="pointer-events-none absolute right-[15%] top-[30%] h-1 w-1 rounded-full bg-[#8C2F39]"
+          className="pointer-events-none absolute right-[15%] top-[30%] h-1 w-1 rounded-full bg-[#804501]"
         />
 
         <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
@@ -376,7 +318,7 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#C8A24D]/25 bg-[#C8A24D]/10 px-4 py-2"
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#F0B429]/25 bg-[#F0B429]/10 px-4 py-2"
             >
               <motion.span
                 animate={{
@@ -388,16 +330,16 @@ export default function ContactPage() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="h-1.5 w-1.5 rounded-full bg-[#C8A24D]"
+                className="h-1.5 w-1.5 rounded-full bg-[#F0B429]"
               />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A772E]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B26E02]">
                 Let's Connect
               </span>
             </motion.div>
 
             <h2 className="text-4xl font-black tracking-tight text-[#0B1E3D] sm:text-5xl lg:text-6xl">
               Start Your{" "}
-              <span className="bg-gradient-to-r from-[#A47C2B] via-[#C8A24D] to-[#9B762E] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#A47C2B] via-[#F0B429] to-[#9B762E] bg-clip-text text-transparent">
                 Journey With Us
               </span>
             </h2>
@@ -423,7 +365,7 @@ export default function ContactPage() {
               className="flex h-full flex-col"
             >
               {/* Contact Information Card */}
-              <div className="relative overflow-hidden rounded-[30px] bg-[#071832] p-7 shadow-[0_30px_80px_rgba(7,24,50,0.18)] sm:p-8">
+              <div className="card-light relative overflow-hidden rounded-[30px] p-7 sm:p-8">
                 <motion.div
                   animate={{
                     scale: [1, 1.2, 1],
@@ -434,7 +376,7 @@ export default function ContactPage() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[#C8A24D]/20 blur-[90px]"
+                  className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[#F0B429]/20 blur-[90px]"
                 />
 
                 <motion.div
@@ -447,21 +389,21 @@ export default function ContactPage() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="pointer-events-none absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-[#8C2F39]/20 blur-[90px]"
+                  className="pointer-events-none absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-[#804501]/20 blur-[90px]"
                 />
 
-                <div className="absolute left-8 right-8 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#C8A24D] to-transparent" />
+                <div className="absolute left-8 right-8 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#F0B429] to-transparent" />
 
                 <div className="relative z-10">
                   <div className="mb-8">
-                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#C8A24D]">
+                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#F0B429]">
                       Get In Touch
                     </span>
-                    <h3 className="mt-3 text-3xl font-black leading-tight text-white sm:text-4xl">
+                    <h3 className="mt-3 text-3xl font-black leading-tight text-[#0B1E3D] sm:text-4xl">
                       We're Here To
-                      <span className="block text-[#E4C275]">Help You.</span>
+                      <span className="block text-[#B26E02]">Help You.</span>
                     </h3>
-                    <p className="mt-4 text-sm leading-6 text-white/50">
+                    <p className="mt-4 text-sm leading-6 text-slate-500">
                       Speak with our academic advisors and get personalised
                       guidance based on your goals, interests and aspirations.
                     </p>
@@ -471,16 +413,16 @@ export default function ContactPage() {
                     <motion.a
                       href="tel:+919999999999"
                       whileHover={{ x: 5 }}
-                      className="group flex items-center gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.04] p-4 transition-all duration-300 hover:border-[#C8A24D]/30 hover:bg-white/[0.07]"
+                      className="group flex items-center gap-4 rounded-2xl border border-[#0B1E3D]/8 bg-white p-4 transition-all duration-300 hover:border-[#F0B429]/40 hover:bg-[#FAFAF8]"
                     >
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#C8A24D]/10 text-[#C8A24D] transition-all duration-300 group-hover:bg-[#C8A24D]/20">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F0B429]/10 text-[#F0B429] transition-all duration-300 group-hover:bg-[#F0B429]/20">
                         <FaPhone className="text-xl" />
                       </div>
                       <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-wider text-white/30">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                           Call Us
                         </p>
-                        <p className="mt-1 text-sm font-semibold text-white">
+                        <p className="mt-1 text-sm font-semibold text-[#0B1E3D]">
                           +91 99999 99999
                         </p>
                       </div>
@@ -489,16 +431,16 @@ export default function ContactPage() {
                     <motion.a
                       href="mailto:hello@example.com"
                       whileHover={{ x: 5 }}
-                      className="group flex items-center gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.04] p-4 transition-all duration-300 hover:border-[#C8A24D]/30 hover:bg-white/[0.07]"
+                      className="group flex items-center gap-4 rounded-2xl border border-[#0B1E3D]/8 bg-white p-4 transition-all duration-300 hover:border-[#F0B429]/40 hover:bg-[#FAFAF8]"
                     >
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#C8A24D]/10 text-[#C8A24D] transition-all duration-300 group-hover:bg-[#C8A24D]/20">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F0B429]/10 text-[#F0B429] transition-all duration-300 group-hover:bg-[#F0B429]/20">
                         <FaEnvelope className="text-xl" />
                       </div>
                       <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-wider text-white/30">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                           Email Us
                         </p>
-                        <p className="mt-1 text-sm font-semibold text-white">
+                        <p className="mt-1 text-sm font-semibold text-[#0B1E3D]">
                           hello@example.com
                         </p>
                       </div>
@@ -506,24 +448,24 @@ export default function ContactPage() {
 
                     <motion.div
                       whileHover={{ x: 5 }}
-                      className="group flex items-center gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.04] p-4 transition-all duration-300 hover:border-[#C8A24D]/30 hover:bg-white/[0.07]"
+                      className="group flex items-center gap-4 rounded-2xl border border-[#0B1E3D]/8 bg-white p-4 transition-all duration-300 hover:border-[#F0B429]/40 hover:bg-[#FAFAF8]"
                     >
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#C8A24D]/10 text-[#C8A24D] transition-all duration-300 group-hover:bg-[#C8A24D]/20">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F0B429]/10 text-[#F0B429] transition-all duration-300 group-hover:bg-[#F0B429]/20">
                         <FaMapMarkerAlt className="text-xl" />
                       </div>
                       <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-wider text-white/30">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                           Visit Us
                         </p>
-                        <p className="mt-1 text-sm font-semibold text-white">
+                        <p className="mt-1 text-sm font-semibold text-[#0B1E3D]">
                           Your Office Address
                         </p>
                       </div>
                     </motion.div>
                   </div>
 
-                  <div className="mt-6 flex items-center gap-3 rounded-2xl border border-[#C8A24D]/15 bg-[#C8A24D]/[0.06] p-4">
-                    <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C8A24D]/10">
+                  <div className="mt-6 flex items-center gap-3 rounded-2xl border border-[#F0B429]/15 bg-[#F0B429]/[0.06] p-4">
+                    <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F0B429]/10">
                       <motion.span
                         animate={{
                           scale: [1, 1.5, 1],
@@ -533,15 +475,15 @@ export default function ContactPage() {
                           duration: 2,
                           repeat: Infinity,
                         }}
-                        className="absolute inset-0 rounded-full bg-[#C8A24D]"
+                        className="absolute inset-0 rounded-full bg-[#F0B429]"
                       />
-                      <span className="relative h-2 w-2 rounded-full bg-[#E4C275]" />
+                      <span className="relative h-2 w-2 rounded-full bg-[#FDD34F]" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-[#E4C275]">
+                      <p className="text-xs font-bold text-[#B26E02]">
                         Quick Response
                       </p>
-                      <p className="mt-0.5 text-[11px] text-white/40">
+                      <p className="mt-0.5 text-[11px] text-slate-400">
                         Our team usually responds within 24 hours.
                       </p>
                     </div>
@@ -568,7 +510,7 @@ export default function ContactPage() {
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06142D]/30 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-2xl border border-white/40 bg-white/90 p-3 shadow-xl backdrop-blur-xl">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C8A24D]/15 text-[#9A772E]">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#F0B429]/15 text-[#B26E02]">
                       <FaMapMarkerAlt className="text-lg" />
                     </div>
                     <div>
@@ -583,7 +525,7 @@ export default function ContactPage() {
                   <motion.div
                     animate={{ x: [0, 3, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="text-[#C8A24D]"
+                    className="text-[#F0B429]"
                   >
                     <MdArrowForward />
                   </motion.div>
@@ -612,7 +554,7 @@ export default function ContactPage() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="pointer-events-none absolute -inset-1 rounded-[34px] bg-gradient-to-r from-[#C8A24D]/20 via-transparent to-[#8C2F39]/15 blur-2xl"
+                className="pointer-events-none absolute -inset-1 rounded-[34px] bg-gradient-to-r from-[#F0B429]/20 via-transparent to-[#804501]/15 blur-2xl"
               />
 
               <div className="relative h-full overflow-hidden rounded-[30px] border border-slate-200/80 bg-white p-6 shadow-[0_30px_100px_rgba(15,23,42,0.12)] sm:p-8 lg:p-10">
@@ -626,7 +568,7 @@ export default function ContactPage() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[#C8A24D]/20 blur-[90px]"
+                  className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[#F0B429]/20 blur-[90px]"
                 />
 
                 <motion.div
@@ -639,10 +581,10 @@ export default function ContactPage() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="pointer-events-none absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-[#8C2F39]/10 blur-[90px]"
+                  className="pointer-events-none absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-[#804501]/10 blur-[90px]"
                 />
 
-                <div className="absolute left-8 right-8 top-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-[#C8A24D] to-transparent opacity-80" />
+                <div className="absolute left-8 right-8 top-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-[#F0B429] to-transparent opacity-80" />
 
                 <div className="relative z-10">
                   <motion.div
@@ -652,15 +594,15 @@ export default function ContactPage() {
                     transition={{ duration: 0.5 }}
                     className="mb-8"
                   >
-                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#C8A24D]/25 bg-[#C8A24D]/10 px-3.5 py-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#C8A24D]" />
-                      <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#9A772E]">
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#F0B429]/25 bg-[#F0B429]/10 px-3.5 py-1.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#F0B429]" />
+                      <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#B26E02]">
                         Free Consultation
                       </span>
                     </div>
                     <h3 className="text-3xl font-extrabold tracking-tight text-[#0B1E3D] sm:text-4xl">
                       Request{" "}
-                      <span className="bg-gradient-to-r from-[#A47C2B] via-[#C8A24D] to-[#9B762E] bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-[#A47C2B] via-[#F0B429] to-[#9B762E] bg-clip-text text-transparent">
                         Free Counselling
                       </span>
                     </h3>
@@ -681,11 +623,11 @@ export default function ContactPage() {
                     >
                       <label htmlFor="fullName" className="mb-2 block text-sm font-semibold text-[#0B1E3D]">
                         Full Name
-                        <span className="ml-1 text-[#C8A24D]">*</span>
+                        <span className="ml-1 text-[#F0B429]">*</span>
                       </label>
                       <div className="relative">
-                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#C8A24D]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
-                        <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400 transition-colors group-focus-within/field:text-[#C8A24D]">
+                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#F0B429]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
+                        <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400 transition-colors group-focus-within/field:text-[#F0B429]">
                           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                             <circle cx="12" cy="8" r="4" />
                             <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
@@ -702,7 +644,7 @@ export default function ContactPage() {
                           className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${
                             errors.fullName
                               ? "border-red-400 focus:border-red-400 focus:shadow-[0_8px_30px_rgba(239,68,68,0.10)]"
-                              : "border-slate-200 hover:border-slate-300 focus:border-[#C8A24D] focus:shadow-[0_8px_30px_rgba(200,162,77,0.10)]"
+                              : "border-slate-200 hover:border-slate-300 focus:border-[#F0B429] focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
                           }`}
                         />
                       </div>
@@ -727,11 +669,11 @@ export default function ContactPage() {
                     >
                       <label htmlFor="email" className="mb-2 block text-sm font-semibold text-[#0B1E3D]">
                         Email Address
-                        <span className="ml-1 text-[#C8A24D]">*</span>
+                        <span className="ml-1 text-[#F0B429]">*</span>
                       </label>
                       <div className="relative">
-                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#C8A24D]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
-                        <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400 transition-colors group-focus-within/field:text-[#C8A24D]">
+                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#F0B429]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
+                        <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400 transition-colors group-focus-within/field:text-[#F0B429]">
                           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                             <rect x="3" y="5" width="18" height="14" rx="2" />
                             <path d="m3 7 9 6 9-6" />
@@ -748,7 +690,7 @@ export default function ContactPage() {
                           className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${
                             errors.email
                               ? "border-red-400 focus:border-red-400 focus:shadow-[0_8px_30px_rgba(239,68,68,0.10)]"
-                              : "border-slate-200 hover:border-slate-300 focus:border-[#C8A24D] focus:shadow-[0_8px_30px_rgba(200,162,77,0.10)]"
+                              : "border-slate-200 hover:border-slate-300 focus:border-[#F0B429] focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
                           }`}
                         />
                       </div>
@@ -773,11 +715,11 @@ export default function ContactPage() {
                     >
                       <label htmlFor="phone" className="mb-2 block text-sm font-semibold text-[#0B1E3D]">
                         Phone Number
-                        <span className="ml-1 text-[#C8A24D]">*</span>
+                        <span className="ml-1 text-[#F0B429]">*</span>
                       </label>
                       <div className="relative">
-                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#C8A24D]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
-                        <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400 transition-colors group-focus-within/field:text-[#C8A24D]">
+                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#F0B429]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
+                        <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400 transition-colors group-focus-within/field:text-[#F0B429]">
                           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                             <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.08 5.18 2 2 0 0 1 5.06 3h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L9 10.73a16 16 0 0 0 4.27 4.27l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z" />
                           </svg>
@@ -794,7 +736,7 @@ export default function ContactPage() {
                           className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${
                             errors.phone
                               ? "border-red-400 focus:border-red-400 focus:shadow-[0_8px_30px_rgba(239,68,68,0.10)]"
-                              : "border-slate-200 hover:border-slate-300 focus:border-[#C8A24D] focus:shadow-[0_8px_30px_rgba(200,162,77,0.10)]"
+                              : "border-slate-200 hover:border-slate-300 focus:border-[#F0B429] focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
                           }`}
                         />
                       </div>
@@ -819,11 +761,11 @@ export default function ContactPage() {
                     >
                       <label htmlFor="course" className="mb-2 block text-sm font-semibold text-[#0B1E3D]">
                         Course Interest
-                        <span className="ml-1 text-[#C8A24D]">*</span>
+                        <span className="ml-1 text-[#F0B429]">*</span>
                       </label>
                       <div className="relative">
-                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#C8A24D]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
-                        <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400 transition-colors group-focus-within/field:text-[#C8A24D]">
+                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#F0B429]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
+                        <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400 transition-colors group-focus-within/field:text-[#F0B429]">
                           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                             <path d="M22 10 12 5 2 10l10 5 10-5Z" />
                             <path d="M6 12v5c3 2 9 2 12 0v-5" />
@@ -839,7 +781,7 @@ export default function ContactPage() {
                           className={`relative w-full cursor-pointer appearance-none rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-12 text-sm font-medium text-[#0B1E3D] outline-none transition-all duration-300 hover:bg-white focus:bg-white ${
                             errors.course
                               ? "border-red-400 focus:border-red-400"
-                              : "border-slate-200 hover:border-slate-300 focus:border-[#C8A24D] focus:shadow-[0_8px_30px_rgba(200,162,77,0.10)]"
+                              : "border-slate-200 hover:border-slate-300 focus:border-[#F0B429] focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
                           }`}
                         >
                           <option value="">Select your course interest</option>
@@ -848,7 +790,7 @@ export default function ContactPage() {
                           <option value="academic">Academic Support</option>
                           <option value="other">Other</option>
                         </select>
-                        <div className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[#C8A24D]">
+                        <div className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[#F0B429]">
                           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="m6 9 6 6 6-6" />
                           </svg>
@@ -882,8 +824,8 @@ export default function ContactPage() {
                         </span>
                       </div>
                       <div className="relative">
-                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#C8A24D]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
-                        <div className="pointer-events-none absolute left-4 top-5 z-10 text-slate-400 transition-colors group-focus-within/field:text-[#C8A24D]">
+                        <div className="pointer-events-none absolute -inset-[1px] rounded-2xl bg-[#F0B429]/20 opacity-0 blur-md transition-opacity duration-300 group-focus-within/field:opacity-100" />
+                        <div className="pointer-events-none absolute left-4 top-5 z-10 text-slate-400 transition-colors group-focus-within/field:text-[#F0B429]">
                           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                             <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z" />
                           </svg>
@@ -895,7 +837,7 @@ export default function ContactPage() {
                           placeholder="Tell us about your academic goals, career plans or any questions..."
                           value={formData.description}
                           onChange={handleChange}
-                          className="relative w-full resize-none rounded-2xl border border-slate-200 bg-slate-50/80 px-5 py-4 pl-12 text-sm font-medium leading-6 text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-white focus:border-[#C8A24D] focus:bg-white focus:shadow-[0_8px_30px_rgba(200,162,77,0.10)]"
+                          className="relative w-full resize-none rounded-2xl border border-slate-200 bg-slate-50/80 px-5 py-4 pl-12 text-sm font-medium leading-6 text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-white focus:border-[#F0B429] focus:bg-white focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
                         />
                       </div>
                     </motion.div>
@@ -907,10 +849,10 @@ export default function ContactPage() {
                       whileHover={{
                         scale: 1.015,
                         y: -2,
-                        boxShadow: "0 20px 50px rgba(200,162,77,0.30)",
+                        boxShadow: "0 20px 50px rgba(240,180,41,0.30)",
                       }}
                       whileTap={{ scale: 0.98 }}
-                      className="group/button relative mt-2 w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#B88D36] via-[#E4C275] to-[#B88D36] px-6 py-4 font-bold text-[#06142D] shadow-[0_12px_35px_rgba(200,162,77,0.20)] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-70"
+                      className="group/button relative mt-2 w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#B88D36] via-[#FDD34F] to-[#B88D36] px-6 py-4 font-bold text-[#06142D] shadow-[0_12px_35px_rgba(240,180,41,0.20)] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-70"
                     >
                       <motion.span
                         animate={{
@@ -959,7 +901,7 @@ export default function ContactPage() {
 
                     {/* Security Message */}
                     <div className="flex items-center justify-center gap-2 pt-1 text-center">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 text-[#C8A24D]">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 text-[#F0B429]">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
                         <path d="m9 12 2 2 4-4" />
                       </svg>
