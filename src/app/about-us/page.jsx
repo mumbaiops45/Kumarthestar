@@ -424,7 +424,6 @@ const page = () => {
             <section className="relative py-28 bg-[#FAFAF8] overflow-hidden">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#804501]/6 to-transparent rounded-full blur-3xl pointer-events-none" />
-
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
                         <motion.div variants={fadeInUp}><SectionBadge variant="gold">Our Guiding Principles</SectionBadge></motion.div>

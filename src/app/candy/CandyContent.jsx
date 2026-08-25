@@ -1,67 +1,15 @@
 "use client";
-
-/* ============================================================================
-   CANDY — T-SHIRT SHOP (single page)
-
-   ⚠️  All product copy, prices and the WhatsApp number live in ./products.js
-       and are marked [PLACEHOLDER] there. This file contains no product data.
-
-   ── WHY THERE IS NO CHECKOUT ───────────────────────────────────────────────
-   Ordering is a WhatsApp hand-off: the cart lives in React state, and the
-   order button opens wa.me with the whole basket pre-written as a message.
-   No backend, no payment keys, no card data ever touching this site — which
-   also means no order is *recorded* until someone replies on WhatsApp. If
-   volume outgrows that, the upgrade path is a route handler behind the same
-   button, not a rewrite of this page.
-
-   The cart is intentionally not persisted. A shirt order is decided in one
-   sitting, and a stale basket from last week is worse than an empty one.
-   ========================================================================= */
-
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from "@headlessui/react";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Check,
-  ChevronDown,
-  Minus,
-  Package,
-  Plus,
-  Ruler,
-  ShieldCheck,
-  ShoppingBag,
-  Sparkles,
-  Trash2,
-  Truck,
-  Users,
-  X,
-} from "lucide-react";
+import {Dialog,DialogBackdrop,DialogPanel,DialogTitle,Disclosure,DisclosureButton,DisclosurePanel} from "@headlessui/react";
+import {ArrowRight,BadgeCheck,Check,ChevronDown,Minus,Package,Plus,Ruler,ShieldCheck,ShoppingBag,Sparkles,Trash2,Truck,Users,X} from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { Reveal } from "../component/Reveal";
 import PageHero from "../component/PageHero";
 import ShirtMockup from "./ShirtMockup";
-import {
-  ORDER_GREETING,
-  WHATSAPP_NUMBER,
-  faqs,
-  inr,
-  products,
-  sizeChart,
-} from "./products";
+import {ORDER_GREETING,WHATSAPP_NUMBER,faqs,inr,products,sizeChart} from "./products";
 
-/* Local helpers — mirrors of the ones in books/about-us, since each page in
-   this codebase defines its own rather than sharing a component API. */
 const SectionBadge = ({ children, variant = "gold" }) => {
   const variants = {
     gold: "bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 text-[#804501] border-[#F0B429]/30",
@@ -87,14 +35,7 @@ const FloatingOrb = ({ className, delay = 0 }) => (
 const waLink = (message) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-/* ---------------------------------------------------------------------------
-   TiltShirt — hero product shot.
 
-   Same pointer-tracked 3D tilt as the book cover on /books, so the two
-   product pages share one visual language. The colour switcher lives here
-   rather than only in the grid because the hero is where a first-time visitor
-   decides whether this is a real shop or a poster.
-   ------------------------------------------------------------------------ */
 function TiltShirt() {
   const hero = products[0];
   const [color, setColor] = useState(hero.colors[0]);
@@ -145,8 +86,6 @@ function TiltShirt() {
         </motion.div>
       </div>
 
-      {/* Price tag — floats off the shirt so the hero answers "how much?"
-          before the visitor has scrolled anywhere. */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -185,13 +124,7 @@ function TiltShirt() {
   );
 }
 
-/* ---------------------------------------------------------------------------
-   ProductCard — colour + size selection.
 
-   Size is deliberately un-defaulted. Pre-selecting M would quietly ship the
-   wrong size to anyone who skims, and a wrong size on a WhatsApp order costs
-   a courier trip in both directions.
-   ------------------------------------------------------------------------ */
 function ProductCard({ product, onAdd }) {
   const [color, setColor] = useState(product.colors[0]);
   const [size, setSize] = useState(null);
@@ -252,7 +185,6 @@ function ProductCard({ product, onAdd }) {
           <span>{product.fit}</span>
         </p>
 
-        {/* Colour */}
         <div className="mt-5">
           <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-slate-400">
             Colour — <span className="text-[#0B1E3D]">{color.name}</span>
@@ -279,7 +211,6 @@ function ProductCard({ product, onAdd }) {
           </div>
         </div>
 
-        {/* Size */}
         <div className="mt-5">
           <div className="flex items-center justify-between">
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-slate-400">
@@ -350,7 +281,6 @@ function ProductCard({ product, onAdd }) {
   );
 }
 
-/* ------------------------------------------------------------------------ */
 
 const perks = [
   { icon: <Package className="h-4 w-4" />, label: "Fabric", value: "220 GSM cotton" },
@@ -404,8 +334,6 @@ export default function CandyContent() {
     });
   };
 
-  /* Stepping below 1 removes the line — a zero-quantity row in the WhatsApp
-     message is noise the person reading the order has to filter out. */
   const step = (key, delta) =>
     setCart((prev) =>
       prev.flatMap((i) => {
@@ -449,9 +377,6 @@ export default function CandyContent() {
 
   return (
     <div className="overflow-x-clip">
-      {/* ==================================================================
-          HERO
-          ================================================================== */}
       <PageHero
         badge={{
           icon: <Sparkles className="h-3.5 w-3.5 text-[#B26E02]" />,
@@ -482,9 +407,6 @@ export default function CandyContent() {
         media={<TiltShirt />}
       />
 
-      {/* ==================================================================
-          PERK STRIP
-          ================================================================== */}
       <section className="relative border-y border-[#0B1E3D]/8 bg-section-alt py-10">
         <Reveal
           stagger
@@ -508,12 +430,8 @@ export default function CandyContent() {
         </Reveal>
       </section>
 
-      {/* ==================================================================
-          SHOP
-          ================================================================== */}
       <section id="shop" className="relative overflow-hidden bg-section py-28">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-60" />
-
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge>The Collection</SectionBadge>
@@ -540,12 +458,8 @@ export default function CandyContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          HOW ORDERING WORKS
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section-cream py-28">
         <div className="pointer-events-none absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
-
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge>How It Works</SectionBadge>
@@ -586,10 +500,6 @@ export default function CandyContent() {
           </Reveal>
         </div>
       </section>
-
-      {/* ==================================================================
-          SIZE GUIDE
-          ================================================================== */}
       <section id="sizes" className="relative overflow-hidden bg-section py-28">
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -660,10 +570,6 @@ export default function CandyContent() {
           </Reveal>
         </div>
       </section>
-
-      {/* ==================================================================
-          BULK / BATCH ORDERS
-          ================================================================== */}
       <section className="relative overflow-hidden bg-[#0B1E3D] py-28">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(240,180,41,0.14),transparent_65%)]" />
         <FloatingOrb className="left-[10%] top-0 h-[380px] w-[380px] bg-[#F0B429]/10 blur-[130px]" />
@@ -709,8 +615,6 @@ export default function CandyContent() {
           </Reveal>
 
           <Reveal from="right" className="relative">
-            {/* Three shirts fanned out — the cheapest way to say "quantity"
-                without the group photo we don't have yet. */}
             <div className="relative mx-auto flex h-[380px] max-w-md items-center justify-center">
               {[
                 { hex: "#FAFAF8", x: "-52%", r: -12, z: 1 },
@@ -737,9 +641,6 @@ export default function CandyContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          FAQ
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section-cream py-28">
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -773,9 +674,6 @@ export default function CandyContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          CTA
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section py-24">
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal from="scale">
@@ -820,13 +718,7 @@ export default function CandyContent() {
           </Reveal>
         </div>
       </section>
-
-      {/* Keeps the sticky bar from sitting on top of the footer's first rows. */}
       {count > 0 && <div aria-hidden="true" className="h-24" />}
-
-      {/* ==================================================================
-          STICKY ORDER BAR
-          ================================================================== */}
       <motion.div
         initial={false}
         animate={count > 0 ? { y: 0, opacity: 1 } : { y: 120, opacity: 0 }}
@@ -864,9 +756,6 @@ export default function CandyContent() {
         </div>
       </motion.div>
 
-      {/* ==================================================================
-          ORDER DRAWER
-          ================================================================== */}
       <Dialog open={open} onClose={setOpen} className="relative z-50">
         <DialogBackdrop
           transition
@@ -891,9 +780,7 @@ export default function CandyContent() {
                 <X className="h-5 w-5" />
               </button>
             </div>
-
-            {/* data-lenis-prevent stops the smooth-scroll wrapper from
-                stealing wheel events inside the drawer. */}
+            
             <div data-lenis-prevent className="flex-1 overflow-y-auto px-6 py-5">
               {cart.length === 0 ? (
                 <p className="mt-10 text-center text-slate-500">

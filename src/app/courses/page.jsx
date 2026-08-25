@@ -9,10 +9,6 @@ const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
 };
-const fadeInLeft = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
-};
 const stagger = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
@@ -387,19 +383,19 @@ const page = () => {
                 <FloatingOrb className="w-[700px] h-[700px] bg-[#F0B429]/10 blur-[180px] -top-40 left-1/2 -translate-x-1/2" delay={0} />
                 <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/12 blur-[120px] bottom-0 right-0" delay={3} />
 
-                <div className="relative max-w-7xl  px-4 sm:px-6 lg:px-8 pt-8">
+                <div className="relative max-w-7xl  px-4 sm:px-4 lg:px-8 pt-8">
                     <motion.div initial="hidden" animate="visible" variants={stagger} className=" max-w-4xl ">
-                        <motion.h1 variants={fadeInUp} className="mt-6 text-5xl sm:text-5xl md:text-6xl px-10 font-black text-[#0B1E3D] leading-[1.0] tracking-tight">
+                        <motion.h1 variants={fadeInUp} className="mt-6 text-5xl sm:text-5xl md:text-6xl px-4 sm:px-4 md:px-8 lg:px-10 font-black text-[#0B1E3D] leading-[1.0] tracking-tight">
                             Master High-Stakes Exams
                             <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(253,211,79,0.3)]">
                                 & Future-Proof Careers
                             </span>
                         </motion.h1>
 
-                        <motion.p variants={fadeInUp} className="mt-6 px-10 text-lg text-slate-500 max-w-2xl leading-relaxed">
+                        <motion.p variants={fadeInUp} className="mt-6 px-4 sm:px-4 md:px-8  lg:px-10  text-lg text-slate-500 max-w-2xl leading-relaxed">
                             Explore 50+ industry-aligned programs taught by top 1% rankers, Ivy League scholars, and senior staff engineers.
                         </motion.p>
-                        <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap px-10 gap-6">
+                        <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap px-4 sm:px-4 md:px-8 lg:px-10 gap-6">
                             {[
                                 { label: "50+ Programs", icon: <BookOpen className="w-4 h-4" /> },
                                 { label: "200+ Faculty", icon: <GraduationCap className="w-4 h-4" /> },

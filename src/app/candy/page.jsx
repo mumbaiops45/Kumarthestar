@@ -1,8 +1,5 @@
 import CandyContent from "./CandyContent";
 
-/* Same split as /books and /placement: the interactive body is a client
-   component so this file can stay a server component and export real
-   per-page metadata. */
 export const metadata = {
   title: "Candy T-Shirts — Official Merchandise | Kumar The Star",
   description:

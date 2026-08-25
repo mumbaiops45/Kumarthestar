@@ -1,52 +1,32 @@
 @import "tailwindcss";
 
-/* ============================================================
-   KUMAR THE STAR — BRAND DESIGN TOKENS
-   One source of truth. Every page pulls from here.
-   Use: bg-brand-navy, text-brand-gold, border-brand-maroon/30 ...
-   ============================================================ */
 @theme {
-  /* Core palette.
-     The gold and bronze ramps below are SAMPLED from public/logo.png —
-     they are not hand-picked. The logo is a single amber ramp running
-     hue 29°→58° at 80–99% saturation on black, so each token names the
-     lightness band it came from. Do not "tastefully" desaturate these:
-     the previous #C8A24D sat at 52% saturation and read as antique
-     brass, which is why the site never matched its own logo.
+  --color-brand-ink: #06142D;     
+  --color-brand-navy: #0B1E3D;  
+  --color-brand-navy-soft: #112448;
+  --color-brand-navy-lift: #1a3a6e;
 
-     Navy is the one family with no basis in the logo. It is kept
-     deliberately as the dark ground, because gold needs a dark partner
-     and navy separates from the gold ramp in hue far better than the
-     logo's own black does. */
-  --color-brand-ink: #06142D;      /* deepest navy — hero, footer, CTA bands */
-  --color-brand-navy: #0B1E3D;     /* primary navy — headings, dark sections */
-  --color-brand-navy-soft: #112448;/* navy tint — gradients, cards */
-  --color-brand-navy-lift: #1a3a6e;/* lifted navy — gradient partner */
+  --color-brand-gold: #F0B429;    
+  --color-brand-gold-light: #FDD34F; 
+  --color-brand-gold-pale: #FEEB80; 
+  --color-brand-gold-deep: #B26E02; 
 
-  --color-brand-gold: #F0B429;     /* logo L55 — the signature gold, 8.6:1 on navy */
-  --color-brand-gold-light: #FDD34F;/* logo L65 — text on dark */
-  --color-brand-gold-pale: #FEEB80; /* logo L75 — gradient highlight */
-  --color-brand-gold-deep: #B26E02; /* logo L35 — pressed / shadow */
 
-  /* Bronze — the logo's own shadow bands, replacing an invented maroon.
-     Named "maroon" only so the ~150 existing utility classes keep
-     working; the value is logo-derived. 7.5:1 on cream, so it stays the
-     correct choice for accent TEXT on light sections (gold is not). */
-  --color-brand-maroon: #804501;   /* logo L25 — badges, CTAs, link text */
-  --color-brand-maroon-light: #985801; /* logo L30 */
+  --color-brand-maroon: #804501;  
+  --color-brand-maroon-light: #985801;
 
-  /* Neutral canvas — warm, not clinical grey */
-  --color-brand-cream: #FAFAF8;    /* lightest section background */
-  --color-brand-sand: #F7F3EA;     /* warm section background */
-  --color-brand-sand-deep: #F0EBE0;/* deeper warm background */
-  --color-brand-slate: #1D2433;    /* body copy */
+ 
+  --color-brand-cream: #FAFAF8;   
+  --color-brand-sand: #F7F3EA;  
+  --color-brand-sand-deep: #F0EBE0; 
+  --color-brand-slate: #1D2433; 
 
-  /* Premium easing curves */
+
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Brand tokens as raw vars too, for inline styles / gradients */
+
 :root {
   --ink: #06142D;
   --navy: #0B1E3D;
@@ -55,17 +35,13 @@
   --maroon: #804501;
   --sand: #F7F3EA;
 
-  /* Reusable gradients so every page's accents match exactly */
   --grad-gold: linear-gradient(135deg, #FDD34F 0%, #F0B429 50%, #B26E02 100%);
   --grad-royal: linear-gradient(135deg, #804501 0%, #F0B429 100%);
   --grad-night: linear-gradient(135deg, #06142D 0%, #0B1E3D 50%, #06142D 100%);
 }
 
-/* ============================================================
-   BASE
-   ============================================================ */
+
 html {
-  /* Lenis drives scrolling in JS — native smooth would fight it */
   scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
 }
@@ -78,13 +54,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Gold text selection — small detail, reads expensive */
 ::selection {
   background: rgba(240, 180, 41, 0.28);
   color: #06142D;
 }
 
-/* Slim gold scrollbar */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #F0EBE0; }
 ::-webkit-scrollbar-thumb {
@@ -94,30 +68,14 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #FDD34F, #804501); }
 
-/* ============================================================
-   LENIS SMOOTH SCROLL
-   Required classes — Lenis toggles these on <html>.
-   ============================================================ */
 html.lenis,
 html.lenis body { height: auto; }
-
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
-
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-
 .lenis.lenis-stopped { overflow: hidden; }
-
 .lenis.lenis-scrolling iframe { pointer-events: none; }
 
-/* ============================================================
-   PREMIUM SURFACE UTILITIES
-   ============================================================ */
 
-/* Cinematic film grain — kills the flat digital look on the hero video.
-   Deliberately STATIC. An animated 400%-size grain layer under
-   mix-blend-mode forces the compositor to re-blend a full-screen area
-   every frame, which stutters scrolling on mid-range hardware. A static
-   grain gives essentially the same texture for free. */
 .grain::after {
   content: "";
   position: absolute;
@@ -129,7 +87,6 @@ html.lenis body { height: auto; }
   mix-blend-mode: overlay;
 }
 
-/* Vignette — pulls the eye to the centre, classic cinema grade */
 .vignette::before {
   content: "";
   position: absolute;
@@ -143,30 +100,18 @@ html.lenis body { height: auto; }
   );
 }
 
-/* ============================================================
-   LIGHT SECTION SYSTEM
-   One warm background language for the whole site. Every section
-   picks one of these three instead of inventing its own colour, so
-   pages read as one document rather than stitched templates.
-   ============================================================ */
-
-/* Primary — the Services-section background, now the site default */
 .bg-section {
   background: linear-gradient(180deg, #F0EBE0 0%, #F7F3EA 100%);
 }
 
-/* Secondary — one step lighter, for alternating rhythm */
 .bg-section-alt {
   background: linear-gradient(180deg, #F7F3EA 0%, #FAFAF8 100%);
 }
 
-/* Tertiary — the lightest, for dense content areas */
 .bg-section-cream {
   background: #FAFAF8;
 }
 
-/* Hero variant — same family, slightly richer so heroes read as
-   the top of the page without going dark */
 .bg-section-hero {
   background:
     radial-gradient(ellipse 80% 60% at 20% 0%, rgba(240, 180, 41, 0.16), transparent 60%),
@@ -174,7 +119,7 @@ html.lenis body { height: auto; }
     linear-gradient(180deg, #F0EBE0 0%, #F7F3EA 55%, #FAFAF8 100%);
 }
 
-/* Light-ground vignette — the dark one would muddy a cream section */
+
 .vignette-light::before {
   content: "";
   position: absolute;
@@ -188,8 +133,7 @@ html.lenis body { height: auto; }
   );
 }
 
-/* Card on a light ground — replaces glass-dark wherever a dark
-   section became light (frosted glass needs something to frost). */
+
 .card-light {
   background: #ffffff;
   border: 1px solid rgba(11, 30, 61, 0.06);
@@ -204,7 +148,7 @@ html.lenis body { height: auto; }
   box-shadow: 0 24px 60px rgba(11, 30, 61, 0.15);
 }
 
-/* Faint gold graph-paper texture for light sections */
+
 .grid-gold {
   background-image:
     linear-gradient(rgba(240, 180, 41, 0.07) 1px, transparent 1px),
@@ -212,16 +156,6 @@ html.lenis body { height: auto; }
   background-size: 72px 72px;
 }
 
-/* Gold gradient text.
-   TWO variants, and picking the wrong one makes the text vanish:
-   bright gold has almost no contrast against a cream ground, so the
-   default is the deep bronze→gold ramp for light sections, and the
-   bright ramp is opt-in for the dark video hero only.
-
-   Every stop below is sampled from logo.png, but deliberately from its
-   SHADOW bands (L25–L40), not its highlights. The signature #F0B429 is
-   only 1.8:1 on cream — it would wash out mid-headline. #C68207 is the
-   brightest logo tone that still clears 3:1 for large display text. */
 .text-gold-gradient {
   background: linear-gradient(100deg, #804501 0%, #C68207 52%, #8A4E02 100%);
   -webkit-background-clip: text;
@@ -236,7 +170,7 @@ html.lenis body { height: auto; }
   color: transparent;
 }
 
-/* Frosted glass card on dark backgrounds */
+
 .glass-dark {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(24px);
@@ -244,20 +178,18 @@ html.lenis body { height: auto; }
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* Frosted glass on light backgrounds (navbar) */
 .glass-light {
   background: rgba(250, 250, 248, 0.82);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
-/* Gold hairline divider */
+
 .hairline-gold {
   background: linear-gradient(90deg, transparent, rgba(240, 180, 41, 0.55), transparent);
   height: 1px;
 }
 
-/* Shine sweep used on buttons/cards */
 .shine::after {
   content: "";
   position: absolute;
@@ -269,16 +201,9 @@ html.lenis body { height: auto; }
 }
 .shine:hover::after { transform: translateX(120%) skewX(-12deg); }
 
-/* ============================================================
-   GSAP REVEAL — pre-hide targets so there is no flash of
-   un-animated content before ScrollTrigger takes over.
-   Reveal.jsx removes this by animating to opacity 1.
-   ============================================================ */
 [data-reveal] { will-change: transform, opacity; }
 
-/* ============================================================
-   MOTION SAFETY
-   ============================================================ */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -291,9 +216,6 @@ html.lenis body { height: auto; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
 
-/* ============================================================
-   LEGACY (kept — still referenced by older sections)
-   ============================================================ */
 @keyframes blob {
   0%   { transform: translate(0px, 0px) scale(1); }
   33%  { transform: translate(30px, -50px) scale(1.1); }

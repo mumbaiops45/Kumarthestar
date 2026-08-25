@@ -5,8 +5,6 @@ import Footer from "./component/Footer";
 import SmoothScroll from "./component/SmoothScroll";
 import { ScrollProgress } from "./component/Reveal";
 
-/* Body face — Poppins was imported before but never applied to the
-   document, so the whole site silently fell back to the system font. */
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -14,9 +12,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-/* Display face — a high-contrast serif for headlines. This pairing
-   (geometric sans body + editorial serif display) is what separates
-   "template" from "premium brand" more than any colour choice. */
+
 const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800", "900"],
@@ -26,9 +22,6 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  /* Required once any page exports an openGraph image, otherwise Next
-     resolves those URLs against localhost. Set NEXT_PUBLIC_SITE_URL in
-     the deploy environment to the real domain. */
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
@@ -49,10 +42,6 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
-        {/* Without JS, GSAP never runs — make sure reveal targets stay visible.
-            The hero video needs the same treatment: it fades in from a React
-            state flag set by onCanPlay, which never fires without hydration,
-            so it would autoplay permanently invisible. */}
         <noscript>
           <style>{`[data-reveal],[data-reveal] *{opacity:1!important;transform:none!important;filter:none!important}[data-hero-video]{opacity:1!important}`}</style>
         </noscript>

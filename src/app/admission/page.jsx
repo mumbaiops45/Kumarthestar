@@ -1,7 +1,5 @@
 import AdmissionContent from "./AdmissionContent";
 
-/* Server component wrapper — keeps per-page metadata available while the
-   interactive body (form, FAQ, scrubbed timeline) stays a client component. */
 export const metadata = {
   title: "Admissions — Apply to Kumar The Star",
   description:

@@ -292,8 +292,6 @@ function EnquiryForm() {
     if (!validate()) return;
 
     setSubmitting(true);
-    // TODO: replace this simulated delay with a real POST to your
-    // admissions endpoint / CRM. Nothing is sent anywhere right now.
     await new Promise((r) => setTimeout(r, 1400));
     setSubmitting(false);
     setSubmitted(true);
@@ -441,11 +439,8 @@ function EnquiryForm() {
   );
 }
 
-/* ------------------------------------------------------------------------ */
-
 function Faq() {
   const [open, setOpen] = useState(0);
-
   return (
     <div className="mt-14 space-y-4">
       {faqs.map((f, i) => {
@@ -502,16 +497,12 @@ function Faq() {
   );
 }
 
-/* ------------------------------------------------------------------------ */
 
 export default function AdmissionContent() {
   return (
     <div className="overflow-x-clip">
-      {/* ==================================================================
-          HERO — shared PageHero, so this page matches About/Contact/Books
-          ================================================================== */}
       <PageHero
-        align="center"
+        // align="center"
         badge={{
           icon: <Sparkles className="h-3.5 w-3.5 text-[#B26E02]" />,
           text: "Admissions Open · Rolling Intake",
@@ -539,12 +530,8 @@ export default function AdmissionContent() {
       />
 
 
-      {/* ==================================================================
-          PROCESS
-          ================================================================== */}
       <section id="process" className="relative overflow-hidden bg-section py-28">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
-
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge>How It Works</SectionBadge>
@@ -553,17 +540,11 @@ export default function AdmissionContent() {
             </h2>
             <div className="hairline-gold mx-auto mt-6 max-w-xs" />
           </Reveal>
-
           <ProcessTimeline />
         </div>
       </section>
-
-      {/* ==================================================================
-          ELIGIBILITY + DOCUMENTS
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section-cream py-28">
         <div className="pointer-events-none absolute -right-40 top-1/3 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
-
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge>Before You Apply</SectionBadge>
@@ -619,9 +600,7 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          KEY DATES
-          ================================================================== */}
+   
       <section className="relative overflow-hidden bg-[#0B1E3D] py-28">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(240,180,41,0.14),transparent_65%)]" />
         <FloatingOrb className="right-[8%] top-10 h-[380px] w-[380px] bg-[#F0B429]/10 blur-[130px]" />
@@ -664,9 +643,6 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          FEES & SCHOLARSHIPS
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section py-28">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
 
@@ -695,9 +671,6 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          ENQUIRY FORM
-          ================================================================== */}
       <section id="enquire" className="relative overflow-hidden bg-section-cream py-28">
         <div className="pointer-events-none absolute -left-40 top-1/4 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
 
@@ -750,9 +723,6 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          FAQ
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section py-28">
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -767,9 +737,6 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          CTA
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section-cream py-24">
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal from="scale">

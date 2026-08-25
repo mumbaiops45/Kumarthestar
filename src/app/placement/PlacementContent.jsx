@@ -1,46 +1,8 @@
 "use client";
-
-/* ============================================================================
-   PLACEMENTS
-
-   ⚠️  COPY TO REPLACE WITH REAL DETAILS
-   This route previously rendered the literal text "this is placement".
-   The structure is real; the numbers are not. Everything marked
-   [PLACEHOLDER] must be replaced with verified figures before launch.
-
-   ⚠️  NO RECRUITER NAMES ARE INVENTED
-   A placement page normally shows partner logos. Naming real companies as
-   recruiters when no such relationship exists is a false claim, so the
-   "where students land" grid lists SECTORS instead. Swap in real logos and
-   company names only for organisations that have actually hired your
-   students — see the RECRUITERS block below.
-   ========================================================================= */
-
 import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  ArrowRight,
-  Award,
-  Banknote,
-  Briefcase,
-  Building2,
-  ClipboardCheck,
-  Cpu,
-  FileUser,
-  HeartPulse,
-  Landmark,
-  LineChart,
-  MessagesSquare,
-  Presentation,
-  Quote,
-  Scale,
-  Sparkles,
-  Target,
-  TrendingUp,
-  UserCheck,
-  Users,
-} from "lucide-react";
+import {ArrowRight,Award,Banknote,Briefcase,Building2,ClipboardCheck,Cpu,FileUser,HeartPulse,Landmark,LineChart,MessagesSquare,Presentation,Quote,Scale,Sparkles,Target,TrendingUp,UserCheck,Users} from "lucide-react";
 import { Reveal } from "../component/Reveal";
 import PageHero from "../component/PageHero";
 
@@ -66,7 +28,7 @@ const SectionBadge = ({ children, variant = "gold" }) => {
   );
 };
 
-/* [PLACEHOLDER] Replace with the services the placement desk actually runs. */
+
 const services = [
   {
     icon: <FileUser />,
@@ -100,7 +62,6 @@ const services = [
   },
 ];
 
-/* [PLACEHOLDER] Replace with the desk's real workflow. */
 const process = [
   {
     step: "Profiling",
@@ -129,9 +90,6 @@ const process = [
   },
 ];
 
-/* RECRUITERS
-   [PLACEHOLDER] These are SECTORS, deliberately — see the header note.
-   Replace with real hiring partners only where a relationship exists. */
 const sectors = [
   { icon: <Cpu />, name: "IT & Software" },
   { icon: <Banknote />, name: "Banking & Finance" },
@@ -143,8 +101,7 @@ const sectors = [
   { icon: <Users />, name: "Education" },
 ];
 
-/* [PLACEHOLDER] Replace with real, consented student stories.
-   Do not publish invented testimonials attributed to named people. */
+
 const stories = [
   {
     quote:
@@ -166,7 +123,7 @@ const stories = [
   },
 ];
 
-/* [PLACEHOLDER] Replace every figure with a verified number. */
+
 const stats = [
   { value: "1,200+", label: "Students Supported" },
   { value: "85%", label: "Placement Rate" },
@@ -179,9 +136,6 @@ export default function PlacementContent() {
 
   return (
     <div className="overflow-x-clip">
-      {/* ==================================================================
-          HERO — shared PageHero, matching About/Contact/Books/Admission
-          ================================================================== */}
       <PageHero
         badge={{
           icon: <Sparkles className="h-3.5 w-3.5 text-[#B26E02]" />,
@@ -214,12 +168,8 @@ export default function PlacementContent() {
         }
       />
 
-      {/* ==================================================================
-          SERVICES
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section py-28">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
-
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge>What We Do</SectionBadge>
@@ -256,9 +206,6 @@ export default function PlacementContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          PROCESS — interactive stepper
-          ================================================================== */}
       <section id="process" className="relative overflow-hidden bg-section-cream py-28">
         <div className="pointer-events-none absolute -right-40 top-1/4 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
 
@@ -271,7 +218,6 @@ export default function PlacementContent() {
             <div className="hairline-gold mx-auto mt-6 max-w-xs" />
           </Reveal>
 
-          {/* Tab rail */}
           <Reveal className="mt-14">
             <div className="flex flex-wrap justify-center gap-3">
               {process.map((p, i) => (
@@ -295,11 +241,9 @@ export default function PlacementContent() {
             </div>
           </Reveal>
 
-          {/* Panel */}
           <Reveal className="mt-10">
             <div className="relative overflow-hidden rounded-3xl bg-white p-10 shadow-[0_20px_60px_rgba(11,30,61,0.10)] ring-1 ring-[#0B1E3D]/6 md:p-14">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02]" />
-
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}
@@ -312,7 +256,6 @@ export default function PlacementContent() {
                   <span className="grid h-20 w-20 shrink-0 place-items-center rounded-3xl bg-gradient-to-br from-[#F0B429] to-[#B26E02] text-[#06142D] shadow-[0_14px_36px_rgba(240,180,41,0.35)] [&>svg]:h-8 [&>svg]:w-8">
                     {process[active].icon}
                   </span>
-
                   <div>
                     <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#804501]/70">
                       Stage {active + 1} of {process.length}
@@ -327,7 +270,6 @@ export default function PlacementContent() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Progress rail */}
               <div className="mt-10 h-1 overflow-hidden rounded-full bg-[#0B1E3D]/8">
                 <motion.div
                   className="h-full rounded-full bg-gradient-to-r from-[#F0B429] to-[#B26E02]"
@@ -340,9 +282,6 @@ export default function PlacementContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          SECTORS
-          ================================================================== */}
       <section className="relative overflow-hidden bg-[#0B1E3D] py-28">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(240,180,41,0.14),transparent_65%)]" />
         <FloatingOrb className="left-[8%] top-10 h-[380px] w-[380px] bg-[#F0B429]/10 blur-[130px]" />
@@ -378,12 +317,8 @@ export default function PlacementContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          STATS
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section py-24">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
-
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal stagger staggerAmount={0.1} className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {stats.map((s) => (
@@ -399,9 +334,6 @@ export default function PlacementContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          STORIES
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section-cream py-28">
         <div className="pointer-events-none absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
 
@@ -442,9 +374,6 @@ export default function PlacementContent() {
         </div>
       </section>
 
-      {/* ==================================================================
-          CTA
-          ================================================================== */}
       <section className="relative overflow-hidden bg-section py-24">
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal from="scale">

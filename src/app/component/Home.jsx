@@ -109,28 +109,12 @@ const Home = () => {
     const [faqOpen, setFaqOpen] = useState(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [activeTestimonial, setActiveTestimonial] = useState(0);
-    /* Gates the cross-fade from the gradient plate to the footage, so the
-       hero never shows a black or half-decoded frame. */
     const [videoReady, setVideoReady] = useState(false);
 
     const heroRef = useRef(null);
     const videoRef = useRef(null);
     const heroCopyRef = useRef(null);
 
-    /* ----------------------------------------------------------------
-       Hero cinematics (GSAP + ScrollTrigger)
-
-       This used to run TWO tweens against videoRef at once: an infinite
-       yoyo ken-burns (repeat:-1, running forever at 60fps) plus a scrubbed
-       parallax. Both write `transform` on the same element, so GSAP had to
-       reconcile them every frame while the browser was also decoding a
-       full-screen 10 MB video — that constant re-rasterisation of a scaled
-       video layer is what made playback stutter on mid-range hardware.
-
-       Now it is ONE scrubbed tween that does the ken-burns AND the
-       parallax together. Nothing animates while the user is idle, so the
-       decoder gets the frame budget to itself.
-       ---------------------------------------------------------------- */
     useLayoutEffect(() => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -166,27 +150,10 @@ const Home = () => {
 
         return () => ctx.revert();
     }, []);
-    /* ----------------------------------------------------------------
-       Hero video playback governance.
 
-       The previous version called play() on every visibilitychange — including
-       the one fired when the tab is being HIDDEN — and never paused the video
-       when the hero scrolled away, so a full-screen loop kept decoding while
-       the user read the FAQ at the bottom of the page.
-
-       Rules now:
-       - never autoplay under data-saver or reduced-motion (it is a 10 MB
-         decorative loop; the gradient plate stands in)
-       - play only when the hero is on screen AND the tab is visible
-       - pause otherwise
-       ---------------------------------------------------------------- */
     useEffect(() => {
         const v = videoRef.current;
         if (!v) return;
-
-        /* A cached video can reach canplay BEFORE React hydrates and attaches
-           onCanPlay, in which case that event is missed and the fade-in would
-           never fire — leaving the footage stuck at opacity-0. Catch up here. */
         if (v.readyState >= 2) setVideoReady(true);
 
         const saveData = navigator.connection?.saveData;
@@ -202,7 +169,6 @@ const Home = () => {
             if (document.hidden || !onScreen) {
                 v.pause();
             } else {
-                // Autoplay can still be refused; the plate stays put if so.
                 v.play().catch(() => {});
             }
         };
@@ -316,14 +282,7 @@ const Home = () => {
         <div className="font-body antialiased text-[#1D2433] overflow-x-clip">
             <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-[#06142D]">
                 <div className="absolute inset-0 overflow-hidden">
-                    {/* Standing plate. The old markup used a REMOTE Unsplash
-                        photo as poster="", which meant a second network
-                        request racing the video and a visible swap between
-                        two different images. A brand gradient costs nothing,
-                        always paints on the first frame, and is what the
-                        video cross-fades up from. */}
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_25%_15%,#12305c_0%,#0B1E3D_45%,#06142D_100%)]" />
-
                     <video
                         ref={videoRef}
                         className={`absolute inset-0 h-full w-full object-cover will-change-transform transition-opacity duration-[1200ms] ease-out ${
@@ -334,9 +293,6 @@ const Home = () => {
                         muted
                         loop
                         playsInline
-                        /* "metadata", not "auto": this file is 10.7 MB, and
-                           preload="auto" told the browser to pull all of it
-                           before anything else on the page could settle. */
                         preload="metadata"
                         onLoadedData={() => setVideoReady(true)}
                         onCanPlay={() => setVideoReady(true)}
@@ -346,9 +302,6 @@ const Home = () => {
                     />
 
                     <div className="absolute inset-0 bg-[#06142D]/15 mix-blend-multiply" />
-
-
-                    {/* 2 — directional scrim: heavy left, clear right */}
                     <div className="absolute inset-0 bg-gradient-to-r from-[#06142D]/92 via-[#06142D]/55 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#F0EBE0] via-[#F0EBE0]/70 to-transparent" />
                     <div className="vignette absolute inset-0" />
@@ -432,7 +385,6 @@ const Home = () => {
                             transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                             className="hidden lg:block"
                         >
-                            
                         </motion.div>
                     </div>
                 </div>
@@ -451,7 +403,6 @@ const Home = () => {
                     </div>
                 </motion.div>
             </section>
-
             <section className="py-5 bg-section border-y border-[#F0B429]/25 overflow-hidden relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#F0EBE0] via-transparent to-[#F7F3EA] z-10 pointer-events-none" />
                 <motion.div

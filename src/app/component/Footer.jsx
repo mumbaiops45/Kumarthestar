@@ -1,23 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-  FaPhoneAlt,
-  FaEnvelope,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import {FaFacebookF,FaInstagram,FaLinkedinIn,FaYoutube,FaPhoneAlt,FaEnvelope,FaMapMarkerAlt} from "react-icons/fa";
 
 const quickLinks = [
   { name: "Home", href: "/" },
-  { name: "Courses", href: "/courses" },
-  { name: "Faculty", href: "/faculty" },
-  { name: "Gallery", href: "/gallery" },
+  // { name: "Courses", href: "/courses" },
   { name: "Placements", href: "/placement" },
   { name: "Admissions", href: "/admission" },
-  { name: "Books", href: "/books" },
   { name: "Candy T-Shirts", href: "/candy" },
   { name: "About Us", href: "/about-us" },
   { name: "Contact", href: "/contact" },
@@ -33,23 +22,14 @@ const socials = [
 const Footer = () => {
   return (
     <footer className="relative overflow-hidden bg-section-hero text-slate-600">
-      {/* Gold hairline seam — reads as a finished edge, not a hard cut */}
       <div className="hairline-gold absolute left-0 right-0 top-0" />
-
-      {/* Ambient brand glow, matched to the hero */}
       <div className="pointer-events-none absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[170px]" />
       <div className="pointer-events-none absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-[#804501]/12 blur-[170px]" />
       <div className="pointer-events-none absolute inset-0 grid-gold" />
-
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
           <div>
             <div className="mb-5 flex items-center gap-3.5">
-              {/* Disc stays deep navy even though the footer is now light:
-                  mix-blend-screen maps black to the backdrop, so on a WHITE
-                  disc the entire gold logo would blend out to white. The
-                  medallion needs a dark ground to work. */}
               <span className="relative grid h-12 w-12 place-items-center rounded-full bg-[#06142D] ring-1 ring-[#F0B429]/45 shadow-[0_6px_18px_rgba(11,30,61,0.25)]">
                 <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(240,180,41,0.3),transparent_68%)]" />
                 <img
@@ -68,8 +48,6 @@ const Footer = () => {
               successful future.
             </p>
           </div>
-
-          {/* Quick links */}
           <div>
             <h3 className="mb-5 text-xs font-bold uppercase tracking-[0.22em] text-[#B26E02]">
               Quick Links
@@ -88,8 +66,6 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-
-          {/* Contact */}
           <div>
             <h3 className="mb-5 text-xs font-bold uppercase tracking-[0.22em] text-[#B26E02]">
               Contact Us
@@ -125,8 +101,6 @@ const Footer = () => {
               </a>
             </div>
           </div>
-
-          {/* Social */}
           <div>
             <h3 className="mb-5 text-xs font-bold uppercase tracking-[0.22em] text-[#B26E02]">
               Follow Us
@@ -154,19 +128,13 @@ const Footer = () => {
 
         <div className="flex flex-col items-center justify-between gap-4 text-sm text-slate-400 md:flex-row">
           <p>
-            © {new Date().getFullYear()}{" "}
+            &copy; {new Date().getFullYear()}{" "}
             <span className="font-semibold text-slate-600">KumarTheStar</span>.
             All Rights Reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
-            <a href="#" className="transition-colors hover:text-[#B26E02]">
-              Privacy Policy
-            </a>
-            <a href="#" className="transition-colors hover:text-[#B26E02]">
-              Terms &amp; Conditions
-            </a>
-            <a href="#" className="transition-colors hover:text-[#B26E02]">
-              Sitemap
+            <a href="https://www.nakshatranamahacreations.com/" target="_blank" className="transition-colors hover:text-[#B26E02]">
+              Developed By Nakshatra Namaha Creations
             </a>
           </div>
         </div>

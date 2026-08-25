@@ -1,9 +1,5 @@
 import BooksContent from "./BooksContent";
 
-/* The interactive body lives in BooksContent (a client component) so that
-   this file can stay a server component and export real per-page metadata.
-   Every other page in this app is `use client` at the top level, which is
-   why none of them can be indexed with their own title or description. */
 export const metadata = {
   title: "MBA is Fun Da — A Book by Kumara Swamy N | Kumar The Star",
   description:

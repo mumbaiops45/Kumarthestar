@@ -1,5 +1,4 @@
 "use client";
-
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,8 +6,6 @@ import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-/* Shared feel — every reveal on the site uses the same curve so the
-   whole page reads as one motion system rather than a pile of effects. */
 const EASE = "power3.out";
 const DUR = 1;
 
@@ -32,13 +29,7 @@ const TO = {
   fade: { opacity: 1 },
 };
 
-/**
- * Reveal — scroll-triggered entrance for any block.
- *
- * <Reveal>            single element fades up
- * <Reveal stagger>    animates each direct child in sequence
- * <Reveal from="left" delay={0.2}>
- */
+
 export function Reveal({
   children,
   from = "up",
@@ -70,8 +61,6 @@ export function Reveal({
         delay,
         ease: EASE,
         stagger: stagger ? staggerAmount : 0,
-        // clearProps stops GSAP's inline transform from fighting
-        // Tailwind hover:-translate-y utilities after the reveal ends.
         clearProps: "filter",
         scrollTrigger: {
           trigger: el,
@@ -92,17 +81,12 @@ export function Reveal({
   );
 }
 
-/**
- * SplitReveal — headline that assembles word by word.
- * The signature "expensive agency site" move. Use sparingly:
- * hero H1 and one or two section headings, never every heading.
- */
 export function SplitReveal({
   children,
   className = "",
   as: Tag = "h2",
   delay = 0,
-  trigger = "scroll", // "scroll" | "mount"
+  trigger = "scroll", 
   ...rest
 }) {
   const ref = useRef(null);
@@ -118,7 +102,6 @@ export function SplitReveal({
 
     let split;
     const ctx = gsap.context(() => {
-      // Nested split: lines clip the words so each word rises out of a mask.
       split = new SplitText(el, {
         type: "lines,words",
         linesClass: "overflow-hidden",
@@ -161,10 +144,6 @@ export function SplitReveal({
   );
 }
 
-/**
- * Parallax — moves an element against the scroll direction.
- * speed 0.2 = subtle, 0.6 = dramatic. Negative moves the other way.
- */
 export function Parallax({
   children,
   speed = 0.25,
@@ -201,10 +180,6 @@ export function Parallax({
   );
 }
 
-/**
- * ScrollProgress — thin gold bar pinned at the very top of the viewport.
- * Cheap to add, and instantly signals "this site was designed".
- */
 export function ScrollProgress() {
   const ref = useRef(null);
 

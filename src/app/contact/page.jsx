@@ -1,62 +1,12 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { motion} from 'framer-motion';
+import { useState } from 'react';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdArrowForward } from 'react-icons/md';
 import { GiStarsStack } from 'react-icons/gi';
 import PageHero from '../component/PageHero';
 
-const contactInfo = [
-  {
-    icon: <FaPhone className="text-2xl" />,
-    title: "Phone",
-    description: "+91 98765 43210\nMon-Fri 9AM - 6PM",
-    bgGradient: "from-[#F0B429]/10 to-[#FDD34F]/10",
-    borderColor: "border-[#F0B429]/30",
-    gradient: "from-[#F0B429] to-[#FDD34F]"
-  },
-  {
-    icon: <FaEnvelope className="text-2xl" />,
-    title: "Email",
-    description: "info@smarat.com\nsupport@smarat.com",
-    bgGradient: "from-[#804501]/10 to-[#F0B429]/10",
-    borderColor: "border-[#804501]/30",
-    gradient: "from-[#804501] to-[#F0B429]"
-  },
-  {
-    icon: <FaMapMarkerAlt className="text-2xl" />,
-    title: "Location",
-    description: "Mumbai, India\nRemote Consultation Available",
-    bgGradient: "from-[#0B1E3D]/10 to-[#1a3a6e]/10",
-    borderColor: "border-[#0B1E3D]/30",
-    gradient: "from-[#0B1E3D] to-[#1a3a6e]"
-  },
-  {
-    icon: <FaClock className="text-2xl" />,
-    title: "Working Hours",
-    description: "Monday - Saturday\n9:00 AM - 8:00 PM",
-    bgGradient: "from-[#F0B429]/10 to-[#804501]/10",
-    borderColor: "border-[#F0B429]/30",
-    gradient: "from-[#F0B429] to-[#804501]"
-  }
-];
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2
-    }
-  }
-};
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -69,11 +19,6 @@ export default function ContactPage() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
 
   const validateForm = () => {
     const newErrors = {};
@@ -108,7 +53,6 @@ export default function ContactPage() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // Clear error for this field when user starts typing
     if (errors[e.target.name]) {
       setErrors({ ...errors, [e.target.name]: '' });
     }
@@ -126,7 +70,7 @@ export default function ContactPage() {
     try {
       setIsSubmitting(true);
 
-  
+
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       setIsSubmitted(true);
@@ -147,8 +91,6 @@ export default function ContactPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden">
-
-      {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
@@ -216,14 +158,6 @@ export default function ContactPage() {
         ))}
       </div>
 
-      {/* ==================================================================
-          HERO — shared PageHero.
-
-          The old hero set the light bg-section-hero and then painted an
-          OPAQUE dark gradient over it, so the navy #0B1E3D/90 body copy and
-          slate-500 stat labels sat on a near-black ground and were close to
-          unreadable. Replaced wholesale rather than patched.
-          ================================================================== */}
       <PageHero
         badge={{
           icon: <GiStarsStack className="text-base text-[#B26E02]" />,
@@ -239,12 +173,11 @@ export default function ContactPage() {
         ]}
       />
 
-      {/* Contact Section - White Background */}
       <section
         id="contact"
         className="relative overflow-hidden bg-gradient-to-br from-[#F8F7F3] via-white to-[#F3EEE3] py-20 sm:py-24 lg:py-28"
       >
-        {/* Background Decorations */}
+
         <motion.div
           animate={{
             x: [0, 60, 0],
@@ -350,10 +283,7 @@ export default function ContactPage() {
             </p>
           </motion.div>
 
-          {/* Main Grid */}
           <div className="grid items-stretch gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
-
-            {/* Left Side - Contact Info & Map */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -364,7 +294,7 @@ export default function ContactPage() {
               }}
               className="flex h-full flex-col"
             >
-              {/* Contact Information Card */}
+              
               <div className="card-light relative overflow-hidden rounded-[30px] p-7 sm:p-8">
                 <motion.div
                   animate={{
@@ -491,7 +421,6 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Google Map */}
               <motion.div
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -532,8 +461,6 @@ export default function ContactPage() {
                 </div>
               </motion.div>
             </motion.div>
-
-            {/* Right Side - Form */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -613,7 +540,6 @@ export default function ContactPage() {
                   </motion.div>
 
                   <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                    {/* Full Name */}
                     <motion.div
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -641,11 +567,10 @@ export default function ContactPage() {
                           value={formData.fullName}
                           onChange={handleChange}
                           required
-                          className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${
-                            errors.fullName
+                          className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${errors.fullName
                               ? "border-red-400 focus:border-red-400 focus:shadow-[0_8px_30px_rgba(239,68,68,0.10)]"
                               : "border-slate-200 hover:border-slate-300 focus:border-[#F0B429] focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
-                          }`}
+                            }`}
                         />
                       </div>
                       {errors.fullName && (
@@ -659,7 +584,6 @@ export default function ContactPage() {
                       )}
                     </motion.div>
 
-                    {/* Email */}
                     <motion.div
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -687,11 +611,10 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${
-                            errors.email
+                          className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${errors.email
                               ? "border-red-400 focus:border-red-400 focus:shadow-[0_8px_30px_rgba(239,68,68,0.10)]"
                               : "border-slate-200 hover:border-slate-300 focus:border-[#F0B429] focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
-                          }`}
+                            }`}
                         />
                       </div>
                       {errors.email && (
@@ -705,7 +628,6 @@ export default function ContactPage() {
                       )}
                     </motion.div>
 
-                    {/* Phone */}
                     <motion.div
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -733,11 +655,10 @@ export default function ContactPage() {
                           value={formData.phone}
                           onChange={handleChange}
                           required
-                          className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${
-                            errors.phone
+                          className={`relative w-full rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-5 text-sm font-medium text-[#0B1E3D] placeholder:text-slate-400 outline-none transition-all duration-300 hover:bg-white focus:bg-white ${errors.phone
                               ? "border-red-400 focus:border-red-400 focus:shadow-[0_8px_30px_rgba(239,68,68,0.10)]"
                               : "border-slate-200 hover:border-slate-300 focus:border-[#F0B429] focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
-                          }`}
+                            }`}
                         />
                       </div>
                       {errors.phone && (
@@ -751,7 +672,6 @@ export default function ContactPage() {
                       )}
                     </motion.div>
 
-                    {/* Course */}
                     <motion.div
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -778,11 +698,10 @@ export default function ContactPage() {
                           value={formData.course}
                           onChange={handleChange}
                           required
-                          className={`relative w-full cursor-pointer appearance-none rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-12 text-sm font-medium text-[#0B1E3D] outline-none transition-all duration-300 hover:bg-white focus:bg-white ${
-                            errors.course
+                          className={`relative w-full cursor-pointer appearance-none rounded-2xl border bg-slate-50/80 py-4 pl-12 pr-12 text-sm font-medium text-[#0B1E3D] outline-none transition-all duration-300 hover:bg-white focus:bg-white ${errors.course
                               ? "border-red-400 focus:border-red-400"
                               : "border-slate-200 hover:border-slate-300 focus:border-[#F0B429] focus:shadow-[0_8px_30px_rgba(240,180,41,0.10)]"
-                          }`}
+                            }`}
                         >
                           <option value="">Select your course interest</option>
                           <option value="competitive">Competitive Exam</option>
@@ -806,8 +725,6 @@ export default function ContactPage() {
                         </motion.p>
                       )}
                     </motion.div>
-
-                    {/* Description */}
                     <motion.div
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -841,8 +758,6 @@ export default function ContactPage() {
                         />
                       </div>
                     </motion.div>
-
-                    {/* Submit Button */}
                     <motion.button
                       type="submit"
                       disabled={isSubmitting}
@@ -898,8 +813,6 @@ export default function ContactPage() {
                         )}
                       </span>
                     </motion.button>
-
-                    {/* Security Message */}
                     <div className="flex items-center justify-center gap-2 pt-1 text-center">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 text-[#F0B429]">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
@@ -909,8 +822,6 @@ export default function ContactPage() {
                         Your information is secure and will never be shared.
                       </span>
                     </div>
-
-                    {/* Success Message */}
                     {isSubmitted && (
                       <motion.div
                         initial={{ opacity: 0, y: 15, scale: 0.97 }}

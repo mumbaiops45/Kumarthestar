@@ -1,21 +1,4 @@
 "use client";
-
-/* ============================================================================
-   PageHero — ONE hero identity for every interior page.
-
-   Before this, each page invented its own. The worst case was /contact, which
-   set the light `bg-section-hero` background and then covered it with an
-   opaque dark gradient, leaving navy #0B1E3D body copy on a near-black ground
-   — effectively invisible. Books and Admission ran dark heroes while About
-   ran light, so the site read as four templates stitched together.
-
-   The palette here is About's, because that is the one the brand settled on:
-   warm cream ground, gold grid, gold + bronze orbs, navy headline with a
-   gold-gradient accent line.
-
-   Every colour is a logo-derived token (see globals.css).
-   ========================================================================= */
-
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -44,9 +27,6 @@ export default function PageHero({
   align = "left",
 }) {
   const ref = useRef(null);
-
-  /* Orbs drift against the scroll. `offset` is measured from the top of the
-     document because this hero always sits at the top of its page. */
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -62,9 +42,7 @@ export default function PageHero({
       ref={ref}
       className="relative overflow-hidden bg-section-hero pb-28 pt-24"
     >
-      {/* Warm gold graph-paper texture — the About hero's signature. */}
       <div className="pointer-events-none absolute inset-0 grid-gold" />
-
       <motion.div
         style={{ y: orbY1 }}
         className="pointer-events-none absolute left-1/4 top-10 h-[36rem] w-[36rem] rounded-full bg-[#F0B429]/12 blur-[140px]"
@@ -74,10 +52,7 @@ export default function PageHero({
         className="pointer-events-none absolute bottom-10 right-10 h-[28rem] w-[28rem] rounded-full bg-[#804501]/15 blur-[120px]"
       />
       <div className="pointer-events-none absolute right-1/4 top-1/3 h-[200px] w-[200px] rounded-full bg-[#FDD34F]/8 blur-[60px]" />
-
-      {/* Keeps the cream hero from meeting the next section on a hard seam. */}
       <div className="vignette-light pointer-events-none absolute inset-0" />
-
       <motion.div
         style={{ y: contentY }}
         className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
@@ -137,11 +112,11 @@ export default function PageHero({
                 {actions}
               </motion.div>
             )}
-
             {stats?.length > 0 && (
               <motion.div
                 variants={fadeInUp}
-                className="grid grid-cols-1 gap-6 border-t border-[#0B1E3D]/8 pt-7 sm:grid-cols-3"
+                // className="grid grid-cols-1 gap-6 border-t border-[#0B1E3D]/8 pt-7 sm:grid-cols-3"
+                className="flex flex-row gap-6 border-t border-[#0B1E3D]/8 pt-7"
               >
                 {stats.map((s) => (
                   <div

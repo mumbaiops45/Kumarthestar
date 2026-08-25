@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useMemo } from "react";
 import {motion, AnimatePresence, useScroll, useTransform,useMotionValue, useSpring} from "framer-motion";
-import {GraduationCap, ChalkboardTeacher, Award, BookOpen, Star, ArrowRight,Search, X, CheckCircle, ExternalLink, CalendarCheck, Phone,Sparkles, Trophy, Users, Zap, Globe, Target, Linkedin, Twitter,Mail, Filter, TrendingUp, Briefcase} from "lucide-react";
+import {GraduationCap, Award, BookOpen, Star, ArrowRight,Search, X, CheckCircle, ExternalLink, CalendarCheck, Phone,Sparkles, Trophy, Users, Zap, Globe, Target,Filter, TrendingUp, Briefcase} from "lucide-react";
 
 
 const fadeInUp = {
@@ -22,25 +22,6 @@ const FloatingOrb = ({ className, delay = 0 }) => (
         transition={{ duration: 8 + delay, repeat: Infinity, ease: "easeInOut", delay }}
     />
 );
-
-const GlowLine = () => (
-    <div className="w-24 h-1 rounded-full bg-gradient-to-r from-[#F0B429] to-[#804501] mx-auto my-4 shadow-[0_0_12px_rgba(240,180,41,0.6)]" />
-);
-
-const SectionBadge = ({ children, variant = "gold" }) => {
-    const map = {
-        gold: "bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 text-[#804501] border-[#F0B429]/30",
-        navy: "bg-[#0B1E3D]/8 text-[#0B1E3D] border-[#0B1E3D]/20",
-        red:  "bg-[#804501]/10 text-[#804501] border-[#804501]/25",
-        white:"bg-white/15 text-white border-white/25 backdrop-blur-sm",
-    };
-    return (
-        <motion.span whileHover={{ scale: 1.06 }}
-            className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest border shadow-sm ${map[variant]}`}>
-            {children}
-        </motion.span>
-    );
-};
 
 
 const TiltCard = ({ children, className = "" }) => {
