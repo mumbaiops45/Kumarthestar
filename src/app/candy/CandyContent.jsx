@@ -40,12 +40,10 @@ function TiltShirt() {
   const hero = products[0];
   const [color, setColor] = useState(hero.colors[0]);
   const ref = useRef(null);
-
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 150, damping: 18, mass: 0.6 });
   const sy = useSpring(my, { stiffness: 150, damping: 18, mass: 0.6 });
-
   const rotateY = useTransform(sx, [-0.5, 0.5], ["-16deg", "16deg"]);
   const rotateX = useTransform(sy, [-0.5, 0.5], ["12deg", "-12deg"]);
 

@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {Star, Clock, Users, BookOpen, CheckCircle, Filter, Play, X, Lock,ChevronDown, ChevronUp, Quote, Rocket, Phone, Search, ArrowRight,Sparkles, Trophy, Zap, GraduationCap, Globe, Award, Briefcase, Target} from "lucide-react";
+import {Star, Clock, Users, BookOpen, CheckCircle, Filter, Play, X, Lock,ChevronDown, Quote, Rocket, Phone, Search, ArrowRight, Trophy, Zap, GraduationCap, Globe, Award, Briefcase, Target} from "lucide-react";
 
 
 const fadeInUp = {

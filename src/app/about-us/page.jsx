@@ -5,8 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import ownerPortrait from "../../../public/owner.jpeg";
-import {Users, Award, Rocket, Lightbulb, Heart, Star, Leaf, CheckCircle,CalendarCheck, GraduationCap, X, ArrowRight, Sparkles, Trophy,Zap, Target, BookOpen, Globe, ChevronRight, TrendingUp, Clock, Shield
-} from "lucide-react";
+import {Users, Award, Rocket, Lightbulb, Heart, Star, Leaf, CheckCircle,CalendarCheck, GraduationCap, X, ArrowRight, Sparkles, Trophy,Zap, BookOpen, Globe, TrendingUp, Clock, Shield} from "lucide-react";
 
 
 const fadeInUp = {

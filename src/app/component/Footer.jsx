@@ -1,14 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import {FaFacebookF,FaInstagram,FaLinkedinIn,FaYoutube,FaPhoneAlt,FaEnvelope,FaMapMarkerAlt} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const quickLinks = [
   { name: "Home", href: "/" },
-  // { name: "Courses", href: "/courses" },
+  { name: "About Us", href: "/about-us" },
   { name: "Placements", href: "/placement" },
   { name: "Admissions", href: "/admission" },
   { name: "Candy T-Shirts", href: "/candy" },
-  { name: "About Us", href: "/about-us" },
   { name: "Contact", href: "/contact" },
 ];
 

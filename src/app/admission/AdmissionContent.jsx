@@ -497,7 +497,6 @@ function Faq() {
   );
 }
 
-
 export default function AdmissionContent() {
   return (
     <div className="overflow-x-clip">
