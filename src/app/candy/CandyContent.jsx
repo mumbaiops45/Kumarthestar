@@ -380,8 +380,8 @@ export default function CandyContent() {
           icon: <Sparkles className="h-3.5 w-3.5 text-[#B26E02]" />,
           text: "Candy Collection · Official Merch",
         }}
-        title="Wear the"
-        accent="Star"
+        title="Wear the Star"
+        accent=""
         subtitle="Campus t-shirts made for people who actually wear them — heavyweight cotton, honest prices, and an order that takes one message on WhatsApp."
         actions={
           <>

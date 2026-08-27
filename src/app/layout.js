@@ -4,6 +4,7 @@ import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 import SmoothScroll from "./component/SmoothScroll";
 import { ScrollProgress } from "./component/Reveal";
+import WhatsApp from "./component/WhatsApp";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -51,6 +52,7 @@ export default function RootLayout({ children }) {
           <ScrollProgress />
           <Navbar />
           <main>{children}</main>
+          <WhatsApp/>
           <Footer />
         </SmoothScroll>
       </body>

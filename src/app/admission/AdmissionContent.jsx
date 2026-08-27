@@ -5,9 +5,10 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {AlertCircle,ArrowRight,BadgeCheck,CalendarDays,CheckCircle2,ChevronDown,ClipboardList,CreditCard,FileText,GraduationCap,Loader2,Minus,Phone,Send,Sparkles,UserCheck,Wallet} from "lucide-react";
+import {ArrowRight,BadgeCheck,CalendarDays,CheckCircle2,ChevronDown,ClipboardList,CreditCard,FileText,GraduationCap,Minus,Phone,Sparkles,UserCheck,Wallet} from "lucide-react";
 import { Reveal } from "../component/Reveal";
 import PageHero from "../component/PageHero";
+import ContactForm from "../component/ContactForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -221,221 +222,6 @@ function ProcessTimeline() {
         ))}
       </ol>
     </div>
-  );
-}
-
-
-const FieldError = ({ message }) =>
-  message ? (
-    <motion.p
-      initial={{ opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-[#804501]"
-    >
-      <AlertCircle className="h-3.5 w-3.5" />
-      {message}
-    </motion.p>
-  ) : null;
-
-const PROGRAMMES = [
-  "Foundation (Classes 8–10)",
-  "JEE Main / Advanced",
-  "NEET UG / PG",
-  "NTSE & Olympiads",
-  "CA / CS / CMA / ACCA",
-  "Spoken English & IELTS",
-  "Foreign Languages",
-  "Overseas Counselling",
-];
-
-function EnquiryForm() {
-  const [form, setForm] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    programme: "",
-    message: "",
-  });
-  const [errors, setErrors] = useState({});
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const validate = () => {
-    const e = {};
-    if (!form.fullName.trim()) e.fullName = "Please enter your full name.";
-    else if (form.fullName.trim().length < 2)
-      e.fullName = "Name must be at least 2 characters.";
-
-    if (!form.email) e.email = "Please enter your email address.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      e.email = "Please enter a valid email address.";
-
-    if (!form.phone) e.phone = "Please enter your phone number.";
-    else if (form.phone.replace(/\D/g, "").length < 10)
-      e.phone = "Please enter a valid phone number.";
-
-    if (!form.programme) e.programme = "Please choose a programme.";
-
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
-
-  const onChange = (ev) => {
-    const { name, value } = ev.target;
-    setForm((f) => ({ ...f, [name]: value }));
-    if (errors[name]) setErrors((x) => ({ ...x, [name]: "" }));
-  };
-
-  const handleSubmit = async (ev) => {
-    ev.preventDefault();
-    setSubmitted(false);
-    if (!validate()) return;
-
-    setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1400));
-    setSubmitting(false);
-    setSubmitted(true);
-    setForm({ fullName: "", email: "", phone: "", programme: "", message: "" });
-  };
-
-  const field =
-    "w-full rounded-2xl border bg-white px-5 py-3.5 text-sm text-[#0B1E3D] transition-all placeholder:text-[#0B1E3D]/35 focus:outline-none focus:ring-2 focus:ring-[#F0B429]/50";
-  const ok = "border-[#0B1E3D]/10 hover:border-[#F0B429]/40";
-  const bad = "border-[#804501]/60 bg-[#804501]/[0.03]";
-
-  return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label htmlFor="fullName" className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[#0B1E3D]/60">
-            Full Name
-          </label>
-          <input
-            id="fullName"
-            name="fullName"
-            value={form.fullName}
-            onChange={onChange}
-            placeholder="Your name"
-            aria-invalid={!!errors.fullName}
-            className={`${field} ${errors.fullName ? bad : ok}`}
-          />
-          <FieldError message={errors.fullName} />
-        </div>
-
-        <div>
-          <label htmlFor="phone" className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[#0B1E3D]/60">
-            Phone
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            value={form.phone}
-            onChange={onChange}
-            placeholder="10-digit mobile number"
-            aria-invalid={!!errors.phone}
-            className={`${field} ${errors.phone ? bad : ok}`}
-          />
-          <FieldError message={errors.phone} />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="email" className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[#0B1E3D]/60">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={onChange}
-          placeholder="you@example.com"
-          aria-invalid={!!errors.email}
-          className={`${field} ${errors.email ? bad : ok}`}
-        />
-        <FieldError message={errors.email} />
-      </div>
-
-      <div>
-        <label htmlFor="programme" className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[#0B1E3D]/60">
-          Programme of Interest
-        </label>
-        <div className="relative">
-          <select
-            id="programme"
-            name="programme"
-            value={form.programme}
-            onChange={onChange}
-            aria-invalid={!!errors.programme}
-            className={`${field} ${errors.programme ? bad : ok} cursor-pointer appearance-none pr-12`}
-          >
-            <option value="">Select a programme…</option>
-            {PROGRAMMES.map((p) => (
-              <option key={p} value={p}>
-                {p}
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0B1E3D]/40" />
-        </div>
-        <FieldError message={errors.programme} />
-      </div>
-
-      <div>
-        <label htmlFor="message" className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[#0B1E3D]/60">
-          Anything We Should Know <span className="normal-case tracking-normal text-[#0B1E3D]/35">(optional)</span>
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={4}
-          value={form.message}
-          onChange={onChange}
-          placeholder="Current class, target exam year, preferred batch timing…"
-          className={`${field} ${ok} resize-none`}
-        />
-      </div>
-
-      <motion.button
-        type="submit"
-        disabled={submitting}
-        whileHover={{ scale: submitting ? 1 : 1.02 }}
-        whileTap={{ scale: submitting ? 1 : 0.98 }}
-        className="shine group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#F0B429] to-[#FDD34F] px-8 py-4 text-base font-black text-[#06142D] shadow-[0_16px_40px_rgba(240,180,41,0.32)] transition-all hover:shadow-[0_20px_50px_rgba(240,180,41,0.48)] disabled:cursor-not-allowed disabled:opacity-70"
-      >
-        {submitting ? (
-          <>
-            <Loader2 className="relative h-4 w-4 animate-spin" />
-            <span className="relative">Sending…</span>
-          </>
-        ) : (
-          <>
-            <Send className="relative h-4 w-4" />
-            <span className="relative">Submit Enquiry</span>
-            <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </>
-        )}
-      </motion.button>
-
-      <AnimatePresence>
-        {submitted && (
-          <motion.div
-            initial={{ opacity: 0, y: -8, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            role="status"
-            className="flex items-start gap-3 overflow-hidden rounded-2xl border border-[#F0B429]/35 bg-[#F0B429]/10 p-4"
-          >
-            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#B26E02]" />
-            <p className="text-sm font-semibold leading-relaxed text-[#804501]">
-              Thank you — your enquiry has been recorded. A counsellor will call
-              you within 24 hours.
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </form>
   );
 }
 
@@ -715,9 +501,7 @@ export default function AdmissionContent() {
           </Reveal>
 
           <Reveal from="right">
-            <div className="card-light rounded-3xl p-8 md:p-10">
-              <EnquiryForm />
-            </div>
+              <ContactForm/>
           </Reveal>
         </div>
       </section>

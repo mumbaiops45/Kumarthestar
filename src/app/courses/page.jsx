@@ -1,8 +1,8 @@
 "use client";
-
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import {Star, Clock, Users, BookOpen, CheckCircle, Filter, Play, X, Lock,ChevronDown, Quote, Rocket, Phone, Search, ArrowRight, Trophy, Zap, GraduationCap, Globe, Award, Briefcase, Target} from "lucide-react";
+import { Star, Users, BookOpen, CheckCircle, Filter, Quote, Rocket, Phone, Search, ArrowRight, Trophy, Zap, GraduationCap, Globe, Award, Briefcase, Target } from "lucide-react";
 
 
 const fadeInUp = {
@@ -31,8 +31,8 @@ const SectionBadge = ({ children, variant = "gold" }) => {
     const map = {
         gold: "bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 text-[#804501] border-[#F0B429]/30",
         navy: "bg-[#0B1E3D]/8 text-[#0B1E3D] border-[#0B1E3D]/20",
-        red:  "bg-[#804501]/10 text-[#804501] border-[#804501]/25",
-        white:"bg-white/15 text-white border-white/25 backdrop-blur-sm",
+        red: "bg-[#804501]/10 text-[#804501] border-[#804501]/25",
+        white: "bg-white/15 text-white border-white/25 backdrop-blur-sm",
     };
     return (
         <motion.span
@@ -71,7 +71,7 @@ const COURSES_DATA = [
         subtitle: "High-yield NCERT line-by-line coverage, 3D anatomical simulations & Biology drills.",
         rating: 4.95, reviewsCount: 1890, students: "4,200+", duration: "18 Months", lessonsCount: 420,
         image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80",
-        instructor: { name: "Dr. Ananya Roy", role: "AIIMS Gold Medalist & Biology Specialist", avatar: "https://images.unsplash.com/photo-1594824813566-78a99479c412?w=100&auto=format&fit=crop&q=80" },
+        instructor: { name: "Dr. Ananya Roy", role: "AIIMS Gold Medalist & Biology Specialist", avatar: "https://instagram.fbom33-1.fna.fbcdn.net/v/t51.82787-15/779158660_18476032135119166_8938442415517528101_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=1&ig_cache_key=Mzk2OTI4MjgxMzQ1ODAwNTE4OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjMxNi5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=bi68Z_426CwQ7kNvwGtTBzg&_nc_oc=Adq3-IYmO3DfL06pIhRyVmSYLq52P8h5VukSt3YRGmznw0BL2u1A-aLuu99oaGEWgTTtzAuswRym4dXhmnE0ykc_&_nc_zt=23&_nc_ht=instagram.fbom33-1.fna&_nc_gid=ZV00Xjp7NqKxLNu9LCHcYQ&_nc_ss=7b289&oh=00_AQHGFH6Zp2n50LbGAQ1Le1HfXp0ZivVL6hl6t6M_98qi9w&oe=6A9608A7" },
         highlights: ["NCERT 3D Interactive Visualizer", "Daily 30-Min High-Yield Quiz Drills", "Medical College Application Counselling"],
         price: 449, originalPrice: 799, badge: "Top Rated", badgeColor: "from-[#0B1E3D] to-[#1a3a6e]",
         modules: [
@@ -178,174 +178,9 @@ const TESTIMONIALS = [
 ];
 
 
-const CourseDetailModal = ({ course, onClose, onEnroll }) => {
-    const [activeModule, setActiveModule] = useState(0);
-    if (!course) return null;
-
-    const discount = Math.round((1 - course.price / course.originalPrice) * 100);
-
-    return (
-        <AnimatePresence>
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                <motion.div
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    onClick={onClose}
-                    className="absolute inset-0 bg-[#030d1e]/85 backdrop-blur-md"
-                />
-
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.93, y: 30 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.93, y: 30 }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative z-10 w-full max-w-4xl max-h-[92vh] rounded-3xl bg-[#06142D] border border-white/12 shadow-[0_40px_120px_rgba(0,0,0,0.8)] overflow-y-auto"
-                >
-                    <div className="relative h-52 w-full overflow-hidden rounded-t-3xl">
-                        <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#06142D] via-[#06142D]/50 to-transparent" />
-                        <div className="absolute top-4 left-4">
-                            <span className={`px-3 py-1 rounded-full text-xs font-black text-white bg-gradient-to-r ${course.badgeColor} shadow-lg`}>
-                                {course.badge}
-                            </span>
-                        </div>
-                        <button
-                            onClick={onClose}
-                            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/50 border border-white/15 flex items-center justify-center text-white hover:bg-white/20 transition-all"
-                        >
-                            <X className="w-4 h-4" />
-                        </button>
-                    </div>
-
-                    <div className="p-7 md:p-10">
-                        <div className="grid md:grid-cols-12 gap-8 items-start mb-8">
-                            <div className="md:col-span-8">
-                                <span className="text-xs font-bold uppercase tracking-widest text-[#FDD34F] mb-3 block">{course.category} · {course.level}</span>
-                                <h2 className="text-2xl md:text-3xl font-black text-white mb-3 leading-tight">{course.title}</h2>
-                                <p className="text-white/55 text-sm leading-relaxed mb-5">{course.subtitle}</p>
-                                <div className="flex items-center gap-4 mb-5 text-sm">
-                                    <div className="flex items-center gap-1">
-                                        {[...Array(5)].map((_, i) => (
-                                            <Star key={i} className="w-4 h-4 fill-[#F0B429] text-[#F0B429]" />
-                                        ))}
-                                        <span className="ml-1 font-black text-white">{course.rating}</span>
-                                        <span className="text-white/35 ml-1">({course.reviewsCount.toLocaleString()} reviews)</span>
-                                    </div>
-                                    <span className="text-white/25">·</span>
-                                    <span className="text-white/50 flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {course.students} students</span>
-                                </div>
-                                <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.04] border border-white/8">
-                                    <div className="relative flex-shrink-0">
-                                        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#F0B429] to-[#804501] blur-sm opacity-70" />
-                                        <img src={course.instructor.avatar} alt={course.instructor.name} className="relative w-12 h-12 rounded-full object-cover border-2 border-white" />
-                                    </div>
-                                    <div>
-                                        <p className="text-sm font-black text-white">{course.instructor.name}</p>
-                                        <p className="text-xs text-[#FDD34F]">{course.instructor.role}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="md:col-span-4">
-                                <div className="relative">
-                                    <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-[#F0B429]/25 to-[#804501]/10 blur-sm" />
-                                    <div className="relative rounded-2xl bg-white/[0.05] border border-white/12 p-6 backdrop-blur-xl">
-                                        <div className="flex items-baseline gap-2 mb-1">
-                                            <span className="text-4xl font-black text-white">${course.price}</span>
-                                            <span className="text-sm text-white/35 line-through">${course.originalPrice}</span>
-                                        </div>
-                                        <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-xs font-bold border border-emerald-500/25 mb-4">
-                                            Save {discount}%
-                                        </span>
-                                        <p className="text-xs text-white/40 flex items-center gap-1 mb-5">
-                                            <Clock className="w-3.5 h-3.5 text-[#FDD34F]" /> {course.duration} · {course.lessonsCount} lessons
-                                        </p>
-                                        <motion.button
-                                            whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(240,180,41,0.4)' }}
-                                            whileTap={{ scale: 0.97 }}
-                                            onClick={() => { onClose(); onEnroll(course); }}
-                                            className="group w-full py-3 rounded-xl bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] font-black text-sm relative overflow-hidden mb-4 shadow-[0_8px_30px_rgba(240,180,41,0.25)]"
-                                        >
-                                            <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
-                                            <span className="relative flex items-center justify-center gap-2">
-                                                <Zap className="w-4 h-4" /> Enroll Now
-                                            </span>
-                                        </motion.button>
-                                        <div className="space-y-2 text-xs text-white/45">
-                                            {["Full Lifetime Access", "Certificate of Completion", "30-Day Refund Guarantee"].map((item) => (
-                                                <div key={item} className="flex items-center gap-2">
-                                                    <CheckCircle className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                                                    {item}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="border-t border-white/8 pt-8">
-                            <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2">
-                                <BookOpen className="w-5 h-5 text-[#FDD34F]" /> Curriculum & Syllabus Breakdown
-                            </h3>
-                            <div className="space-y-3">
-                                {course.modules.map((mod, idx) => (
-                                    <div key={idx} className={`rounded-2xl border transition-all duration-300 overflow-hidden ${activeModule === idx ? 'bg-white/[0.06] border-[#F0B429]/30' : 'bg-white/[0.02] border-white/8 hover:border-white/15'}`}>
-                                        <button
-                                            onClick={() => setActiveModule(activeModule === idx ? -1 : idx)}
-                                            className="w-full p-5 flex items-center justify-between text-left"
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm flex-shrink-0 transition-all duration-300 ${activeModule === idx ? 'bg-gradient-to-br from-[#F0B429] to-[#804501] text-white shadow-lg' : 'bg-white/8 text-white/50'}`}>
-                                                    {String(idx + 1).padStart(2, '0')}
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm font-bold text-white">{mod.title}</p>
-                                                    <p className="text-xs text-white/35 mt-0.5">{mod.lessons} lectures · {mod.duration} total</p>
-                                                </div>
-                                            </div>
-                                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300 ${activeModule === idx ? 'bg-[#F0B429]/15 rotate-180' : 'bg-white/5'}`}>
-                                                <ChevronDown className="w-4 h-4 text-[#FDD34F]" />
-                                            </div>
-                                        </button>
-                                        <motion.div
-                                            initial={false}
-                                            animate={{ height: activeModule === idx ? 'auto' : 0, opacity: activeModule === idx ? 1 : 0 }}
-                                            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                                            className="overflow-hidden"
-                                        >
-                                            <div className="px-5 pb-5 border-t border-white/6 space-y-2 pt-4">
-                                                {[
-                                                    { label: "Core Principles & Problem Modeling", time: "45 mins", unlocked: true },
-                                                    { label: "Deep Dive Practice Problem Set", time: "60 mins", unlocked: true },
-                                                    { label: "Live Mentored Doubt Clearing Session", time: "Scheduled Live", unlocked: false },
-                                                ].map((lesson, li) => (
-                                                    <div key={li} className="flex items-center justify-between py-2 border-b border-white/5 last:border-0 text-xs">
-                                                        <span className="flex items-center gap-2 text-white/60">
-                                                            {lesson.unlocked
-                                                                ? <Play className="w-3 h-3 text-[#FDD34F]" />
-                                                                : <Lock className="w-3 h-3 text-white/25" />
-                                                            }
-                                                            {li + 1}. {lesson.label}
-                                                        </span>
-                                                        <span className="text-white/30">{lesson.time}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </motion.div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-            </div>
-        </AnimatePresence>
-    );
-};
-
-
 const page = () => {
     const [selectedCategory, setSelectedCategory] = useState("All Courses");
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedCourseModal, setSelectedCourseModal] = useState(null);
     const [enrolledNotice, setEnrolledNotice] = useState(null);
 
     const filteredCourses = useMemo(() => COURSES_DATA.filter((c) => {
@@ -355,11 +190,6 @@ const page = () => {
             || c.instructor.name.toLowerCase().includes(searchQuery.toLowerCase());
         return matchCat && matchSearch;
     }), [selectedCategory, searchQuery]);
-
-    const handleEnroll = (course) => {
-        setEnrolledNotice(`Successfully enrolled in "${course.title}"! Dashboard opening...`);
-        setTimeout(() => setEnrolledNotice(null), 4500);
-    };
 
     return (
         <div className="min-h-screen bg-[#FAFAF8] text-[#1D2433] antialiased overflow-x-clip font-body">
@@ -382,20 +212,19 @@ const page = () => {
                 <div className="absolute inset-0 grid-gold" />
                 <FloatingOrb className="w-[700px] h-[700px] bg-[#F0B429]/10 blur-[180px] -top-40 left-1/2 -translate-x-1/2" delay={0} />
                 <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/12 blur-[120px] bottom-0 right-0" delay={3} />
-
-                <div className="relative max-w-7xl  px-4 sm:px-4 lg:px-8 pt-8">
+                <div className="relative max-w-7xl sm:px-4 lg:px-8 pt-8">
                     <motion.div initial="hidden" animate="visible" variants={stagger} className=" max-w-4xl ">
-                        <motion.h1 variants={fadeInUp} className="mt-6 text-5xl sm:text-5xl md:text-6xl px-4 sm:px-4 md:px-8 lg:px-10 font-black text-[#0B1E3D] leading-[1.0] tracking-tight">
+                        <motion.h1 variants={fadeInUp} className="mt-6 text-5xl sm:text-5xl md:text-6xl px-4 sm:px-4 md:px-2 lg:px-5 font-black text-[#0B1E3D] leading-[1.0] tracking-tight">
                             Master High-Stakes Exams
                             <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(253,211,79,0.3)]">
-                                & Future-Proof Careers
+                                & Future Proof Careers
                             </span>
                         </motion.h1>
 
-                        <motion.p variants={fadeInUp} className="mt-6 px-4 sm:px-4 md:px-8  lg:px-10  text-lg text-slate-500 max-w-2xl leading-relaxed">
+                        <motion.p variants={fadeInUp} className="mt-6 px-4 sm:px-4 md:px-8 lg:px-5 text-lg text-slate-500 max-w-2xl leading-relaxed">
                             Explore 50+ industry-aligned programs taught by top 1% rankers, Ivy League scholars, and senior staff engineers.
                         </motion.p>
-                        <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap px-4 sm:px-4 md:px-8 lg:px-10 gap-6">
+                        <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap px-4 sm:px-4 md:px-8 lg:px-5 gap-6">
                             {[
                                 { label: "50+ Programs", icon: <BookOpen className="w-4 h-4" /> },
                                 { label: "200+ Faculty", icon: <GraduationCap className="w-4 h-4" /> },
@@ -517,31 +346,30 @@ const page = () => {
                                             <div className="mt-auto pt-5 border-t border-[#0B1E3D]/6">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div>
-                                                        <span className="text-2xl font-black text-[#0B1E3D]">${course.price}</span>
-                                                        <span className="text-xs text-slate-400 line-through ml-2">${course.originalPrice}</span>
+                                                        <span className="text-2xl font-black text-[#0B1E3D]">₹{course.price}</span>
+                                                        <span className="text-xs text-slate-400 line-through ml-2">₹{course.originalPrice}</span>
                                                     </div>
                                                     <span className="text-xs text-slate-500 flex items-center gap-1">
-                                                        <Users className="w-3.5 h-3.5 text-[#804501]" /> {course.students}
+                                                        <Users className="w-3.5 h-3.5 text-[#804501]" />{course.students}
                                                     </span>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-3">
-                                                    <motion.button
-                                                        whileHover={{ scale: 1.03 }}
+                                                    <Link
+                                                        whileHover={{
+                                                            scale: 1.03,
+                                                            boxShadow: "0 8px 24px rgba(240,180 41 , 0.35)",
+                                                        }}
                                                         whileTap={{ scale: 0.97 }}
-                                                        onClick={() => setSelectedCourseModal(course)}
-                                                        className="py-2.5 rounded-xl text-xs font-bold text-[#0B1E3D] bg-[#F7F3EA] border border-[#0B1E3D]/12 hover:bg-[#0B1E3D] hover:text-[#FDD34F] hover:border-[#0B1E3D] transition-all duration-300"
-                                                    >
-                                                        Syllabus & Info
-                                                    </motion.button>
-                                                    <motion.button
-                                                        whileHover={{ scale: 1.03, boxShadow: '0 8px_24px_rgba(240,180,41,0.35)' }}
-                                                        whileTap={{ scale: 0.97 }}
-                                                        onClick={() => handleEnroll(course)}
-                                                        className="group/btn relative overflow-hidden py-2.5 rounded-xl text-xs font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgba(240,180,41,0.25)] transition-all"
-                                                    >
-                                                        <span className="absolute inset-0 bg-white/25 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-400 skew-x-12" />
-                                                        <span className="relative">Enroll Now</span>
-                                                    </motion.button>
+                                                        href="/contact"
+                                                        className="group/btn relative overflow-hidden inline-flex items-center justify-center w-full py-3 px-6 rounded-xl text-sm font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgbs(240,180,41,0.25)] transition-all duration-300 hover:shadow-[0_8px_24px_rgbs(240,180,41,0.35)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(240,180,41,0.35"                                          >
+                                                        <span className="absolute inset-0 bg-white/25 translate-x-[-120%] group-hover/btn:translate-x-[120%] transition-tranform duration-500 skew-x-12" />
+                                                        <span className="relative z-10 flex items-center justify-center gap-2">
+                                                            Enroll Now
+                                                            <span className="text-base transition-transform duration-300 group-hover/btn:translate-x-1">
+                                                                →
+                                                            </span>
+                                                        </span>
+                                                        </Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -691,13 +519,6 @@ const page = () => {
                     </div>
                 </div>
             </section>
-            {selectedCourseModal && (
-                <CourseDetailModal
-                    course={selectedCourseModal}
-                    onClose={() => setSelectedCourseModal(null)}
-                    onEnroll={handleEnroll}
-                />
-            )}
         </div>
     );
 };

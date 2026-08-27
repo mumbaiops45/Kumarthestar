@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import ownerPortrait from "../../../public/owner.jpeg";
-import {Users, Award, Rocket, Lightbulb, Heart, Star, Leaf, CheckCircle,CalendarCheck, GraduationCap, X, ArrowRight, Sparkles, Trophy,Zap, BookOpen, Globe, TrendingUp, Clock, Shield} from "lucide-react";
+import { Users, Award, Rocket, Lightbulb, Heart, Star, Leaf, CheckCircle, CalendarCheck, GraduationCap, X, ArrowRight, Sparkles, Trophy, Zap, BookOpen, Globe, TrendingUp, Clock, Shield } from "lucide-react";
 
 
 const fadeInUp = {
@@ -35,8 +35,8 @@ const SectionBadge = ({ children, variant = "gold" }) => {
     const map = {
         gold: "bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 text-[#804501] border-[#F0B429]/30",
         navy: "bg-[#0B1E3D]/8 text-[#0B1E3D] border-[#0B1E3D]/20",
-        red:  "bg-[#804501]/10 text-[#804501] border-[#804501]/25",
-        white:"bg-white/15 text-white border-white/25 backdrop-blur-sm",
+        red: "bg-[#804501]/10 text-[#804501] border-[#804501]/25",
+        white: "bg-white/15 text-white border-white/25 backdrop-blur-sm",
     };
     return (
         <motion.span whileHover={{ scale: 1.06 }}
@@ -268,25 +268,6 @@ const page = () => {
                             <motion.p variants={fadeInUp} className="text-lg text-slate-500 leading-relaxed max-w-xl">
                                 Whether you're preparing for competitive entrance exams, building career roadmaps, or seeking 1-on-1 academic mentorship — our expert counsellors guide you toward guaranteed excellence.
                             </motion.p>
-                            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-                                <motion.button
-                                    whileHover={{ scale: 1.04, boxShadow: '0 0 40px rgba(240,180,41,0.5)' }}
-                                    whileTap={{ scale: 0.97 }}
-                                    onClick={() => setModalOpen(true)}
-                                    className="group relative overflow-hidden inline-flex items-center gap-2 bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] px-8 py-4 rounded-2xl font-black text-base shadow-[0_8px_30px_rgba(240,180,41,0.35)]"
-                                >
-                                    <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
-                                    <CalendarCheck className="w-4 h-4 relative" />
-                                    <span className="relative">Book Free Session</span>
-                                </motion.button>
-                                <motion.button
-                                    whileHover={{ scale: 1.04 }}
-                                    whileTap={{ scale: 0.97 }}
-                                    className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-[#0B1E3D] border border-[#0B1E3D]/10 hover:border-[#F0B429]/60 bg-white backdrop-blur-sm transition-all"
-                                >
-                                    <Globe className="w-4 h-4" /> Explore Programs <ArrowRight className="w-4 h-4" />
-                                </motion.button>
-                            </motion.div>
                             <motion.div variants={fadeInUp} className="flex items-center gap-5 pt-5 border-t border-[#0B1E3D]/8">
                                 <div className="flex -space-x-3">
                                     {[
@@ -361,7 +342,7 @@ const page = () => {
                 </motion.div>
             </section>
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8] text-black">
-               
+
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#F0B429]/8 blur-[160px] -top-20 left-0" delay={0} />
                 <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/10 blur-[130px] bottom-0 right-0" delay={4} />
 
@@ -375,7 +356,7 @@ const page = () => {
                         <GlowLine />
                     </motion.div>
 
-                    <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                         {[
                             {
                                 icon: <Rocket className="w-7 h-7" />, badge: "MISSION",
@@ -611,9 +592,6 @@ const page = () => {
                     >
                         <motion.div variants={fadeInUp} className="mx-auto lg:mx-0">
                             <div className="relative w-[220px] h-[220px]">
-                                <div className="absolute -bottom-4 -right-4 w-full h-full rounded-[2rem] border-2 border-[#F0B429]/35" />
-                                <div className="absolute -inset-2 rounded-[2rem] bg-gradient-to-br from-[#F0B429] via-[#FDD34F] to-[#804501] opacity-20 blur-xl" />
-
                                 <Image
                                     src={ownerPortrait}
                                     alt="Kumara Swamy N, founder of Kumar The Star"
@@ -621,10 +599,6 @@ const page = () => {
                                     sizes="220px"
                                     className="relative w-full h-full rounded-[2rem] object-cover ring-1 ring-[#0B1E3D]/10 shadow-[0_24px_60px_rgba(11,30,61,0.18)]"
                                 />
-
-                                <span className="absolute -top-4 -left-4 grid place-items-center w-14 h-14 rounded-2xl bg-[#0B1E3D] text-[#FDD34F] shadow-[0_10px_30px_rgba(11,30,61,0.35)] ring-2 ring-[#F0B429]/40">
-                                    <Star className="w-6 h-6" />
-                                </span>
                             </div>
                         </motion.div>
 
@@ -705,27 +679,23 @@ const page = () => {
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                    <motion.button
-                                        whileHover={{ scale: 1.04, boxShadow: '0 0 50px rgba(240,180,41,0.45)' }}
-                                        whileTap={{ scale: 0.97 }}
-                                        onClick={() => setModalOpen(true)}
-                                        className="group relative overflow-hidden inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-[#F0B429] via-[#FDD34F] to-[#F0B429] text-[#06142D] font-black text-base shadow-[0_12px_40px_rgba(240,180,41,0.35)] transition-all"
+                                    <Link
+                                        href="/contact"
+                                        className="group relative overflow-hidden inline-flex items-center gap-3 px-10 py-4 cursor-pointer rounded-2xl bg-gradient-to-r from-[#F0B429] via-[#FDD34F] to-[#F0B429] text-[#06142D] font-black text-base shadow-[0_12px_40px_rgba(240,180,41,0.35)] transition-all hover:scale-[1.04]"
                                     >
-                                        <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
+                                        <span className="pointer-events-none absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
                                         <span className="relative flex items-center gap-2">
                                             <CalendarCheck className="w-5 h-5" />
                                             Claim Free 1-on-1 Guidance
                                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </span>
-                                    </motion.button>
-
-                                    <motion.button
-                                        whileHover={{ scale: 1.04 }}
-                                        whileTap={{ scale: 0.97 }}
+                                    </Link>
+                                    <Link 
+                                        href="/courses"
                                         className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-base text-[#0B1E3D] border border-[#0B1E3D]/10 hover:border-[#F0B429]/60 bg-white transition-all"
                                     >
                                         <BookOpen className="w-4 h-4" /> Browse Programs <ArrowRight className="w-4 h-4" />
-                                    </motion.button>
+                                    </Link>
                                 </div>
                             </motion.div>
                         </div>
