@@ -6,8 +6,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitReveal } from './Reveal';
 import { ArrowRight, ChevronDown, Globe, GraduationCap, Phone, Star, Sparkles, Quote, Trophy, MapPin, Target, ExternalLink } from 'lucide-react';
-import { heroSlides, services, whyUs, rankers, testimonials, faqs, serviceTabs, stats, examTicker } from "../../data/data";
+import { heroSlides, whyUs, rankers, testimonials, faqs, stats, examTicker } from "../../data/data";
+import { divisions } from "../../data/divisions";
+import { primaryPhone } from "../../data/site";
 import ContactForm from './ContactForm';
+import DivisionsShowcase from './DivisionsShowcase';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -176,7 +179,6 @@ const SectionBadge = ({ children, variant = 'gold' }) => {
 };
 
 const Home = () => {
-    const [activeTab, setActiveTab] = useState('schooleducation');
     const [faqOpen, setFaqOpen] = useState(null);
     const [activeTestimonial, setActiveTestimonial] = useState(0);
     const heroRef = useRef(null);
@@ -197,12 +199,6 @@ const Home = () => {
         document.addEventListener("visibilitychange", onVis);
         return () => { stop(); document.removeEventListener("visibilitychange", onVis); };
     }, []);
-
-    const visibleServices = useMemo(
-        () => services.filter(s => s.tab === activeTab),
-        [activeTab]
-    );
-    const activeServices = visibleServices.length ? visibleServices : services;
 
     return (
         <div className="font-body antialiased text-[#1D2433] overflow-x-clip">
@@ -254,26 +250,16 @@ const Home = () => {
                             </div>
 
                             <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-                                {/* <Link
-                                    whileHover={{ scale: 1.04, boxShadow: '0 0 40px rgba(240,180,41,0.5)' }}
-                                    whileTap={{ scale: 0.97 }}
-                                    href="/contact"
-                                    className="group relative overflow-hidden bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-2 shadow-[0_8px_30px_rgba(240,180,41,0.35)]"
+                                <Link
+                                    href="/services"
+                                    className="group relative overflow-hidden bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-2 shadow-[0_8px_30px_rgba(240,180,41,0.35)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(240,180,41,0.5)] active:scale-[0.97]"
                                 >
-                                    <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
-                                    Explore Courses <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </Link> */}
-                                <Link whileHover={{ scale: 1.04, boxShadow: '0 0 40px rgba(240,180,41,0.5)' }}
-                                    whileTap={{ scale: 0.97 }}
-                                    href="/courses"
-                                    className="group relative overflow-hidden bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-2 shadow-[0_8px_30px_rgba(240,180,41,0.35)]"
-                                >
-                                    <span className='absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] translate-transform duration-500 skew-x-12' />Explore Courses
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-
+                                    <span className='absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12' />
+                                    <span className="relative">Explore Our Services</span>
+                                    <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
-                                <motion.a 
-                                   href='tel:98765432120'
+                                <motion.a
+                                    href={`tel:+${primaryPhone.raw}`}
                                     whileHover={{ scale: 1.04 }}
                                     whileTap={{ scale: 0.97 }}
                                     className="group flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white border border-white/20 hover:border-white/50 backdrop-blur-sm bg-white/5 transition-all"
@@ -281,7 +267,7 @@ const Home = () => {
                                     <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-[#F0B429]/30 transition">
                                         <Phone className="w-4 h-4" />
                                     </div>
-                                    Free Counselling
+                                    {primaryPhone.label}
                                 </motion.a>
                             </motion.div>
                         </motion.div>
@@ -345,6 +331,27 @@ const Home = () => {
                     </motion.div>
                 </div>
             </section>
+
+            <DivisionsShowcase
+                id="what-we-do"
+                eyebrow="More Than Coaching"
+                heading="One Firm, Many Services"
+                accent=""
+                intro={`Kumarthestar is a proprietorship firm running ${divisions.length} service lines - coaching and admissions, language training, drama and short films, coffee, tea and cooking classes, corporate services, real estate, staffing and animal welfare.`}
+                showFilters={false}
+                limit={6}
+                footer={
+                    <div className="mt-14 text-center">
+                        <Link
+                            href="/services"
+                            className="shine group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#112448] px-8 py-4 text-sm font-bold text-[#FDD34F] shadow-[0_10px_28px_rgba(11,30,61,0.28)] ring-1 ring-[#F0B429]/30 transition-all duration-400 hover:ring-[#F0B429]/70"
+                        >
+                            <span className="relative">View all {divisions.length} services</span>
+                            <ArrowRight className="relative w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </Link>
+                    </div>
+                }
+            />
 
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
                 <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
@@ -424,74 +431,6 @@ const Home = () => {
                             </motion.div>
                         </motion.div>
                     </motion.div>
-                </div>
-            </section>
-
-            <section className="py-24 bg-gradient-to-b from-[#F0EBE0] to-[#F7F3EA]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="navy">Our Services</SectionBadge></motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
-                            A Complete Education{' '}
-                            <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Ecosystem</span>
-                        </motion.h2>
-                        <GlowLine />
-                        <motion.p variants={fadeInUp} className="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">
-                            Every exam, every stage — expertly designed programs that move students from preparation to podium.
-                        </motion.p>
-                    </motion.div>
-
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="flex flex-wrap justify-center gap-3 mb-12">
-                        {serviceTabs.map((tab) => (
-                            <motion.button
-                                key={tab.key}
-                                variants={fadeInUp}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => setActiveTab(tab.key)}
-                                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold transition-all duration-300 ${activeTab === tab.key
-                                    ? 'bg-[#0B1E3D] text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.3)]'
-                                    : 'bg-white/80 text-slate-600 hover:bg-white hover:shadow-lg border border-[#0B1E3D]/8'
-                                    }`}
-                            >
-                                {tab.icon}{tab.label}
-                            </motion.button>
-                        ))}
-                    </motion.div>
-
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeTab}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4 }}
-                            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                        >
-                            {activeServices.map((service, i) => (
-                                <motion.div
-                                    key={service.title}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.08 }}
-                                    whileHover={{ y: -12 }}
-                                    className="group bg-white rounded-3xl overflow-hidden shadow-[0_4px_24px_rgba(11,30,61,0.08)] hover:shadow-[0_24px_60px_rgba(11,30,61,0.18)] transition-all duration-500 border border-[#0B1E3D]/5 cursor-pointer"
-                                >
-                                    <div className="relative h-52 overflow-hidden">
-                                        <img src={service.img} alt={service.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                        <div className="absolute top-4 left-4 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-lg" style={{ background: `linear-gradient(135deg, ${service.accent}, ${service.accent}88)` }}>
-                                            {service.icon}
-                                        </div>
-                                    </div>
-                                    <div className="p-6">
-                                        <h4 className="font-black text-[#0B1E3D] text-lg mb-2 group-hover:text-[#804501] transition-colors">{service.title}</h4>
-                                        <p className="text-slate-500 text-sm leading-relaxed">{service.desc}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    </AnimatePresence>
                 </div>
             </section>
 
@@ -664,13 +603,13 @@ const Home = () => {
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
                         <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#0B1E3D]/5 text-[#804501] rounded-full text-xs font-bold uppercase tracking-widest mb-5 border border-[#804501]/20">
-                            <MapPin className="w-3.5 h-3.5" /> Learning Centres
+                            <MapPin className="w-3.5 h-3.5" /> Where We Work
                         </motion.div>
                         <motion.h2 variants={fadeInUp} className="text-2xl md:text-3xl font-black text-[#0B1E3D] mb-8">
-                            Classrooms Across Maharashtra, Plus Fully Online
+                            Based in Mysuru. Online Across India. Placements Worldwide.
                         </motion.h2>
                         <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-3">
-                            {['Thane', 'Mumbai', 'Pune', 'Nashik', 'Nagpur', 'Online — Nationwide'].map((city, i) => (
+                            {['Mysuru — Head Office', 'Karnataka', 'Online — All India', 'Overseas Placements'].map((city, i) => (
                                 <motion.span
                                     key={i}
                                     whileHover={{ scale: 1.06, y: -3 }}

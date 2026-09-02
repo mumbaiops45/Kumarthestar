@@ -355,14 +355,10 @@ const page = () => {
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-3">
                                                     <Link
-                                                        whileHover={{
-                                                            scale: 1.03,
-                                                            boxShadow: "0 8px 24px rgba(240,180 41 , 0.35)",
-                                                        }}
-                                                        whileTap={{ scale: 0.97 }}
                                                         href="/contact"
-                                                        className="group/btn relative overflow-hidden inline-flex items-center justify-center w-full py-3 px-6 rounded-xl text-sm font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgbs(240,180,41,0.25)] transition-all duration-300 hover:shadow-[0_8px_24px_rgbs(240,180,41,0.35)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(240,180,41,0.35"                                          >
-                                                        <span className="absolute inset-0 bg-white/25 translate-x-[-120%] group-hover/btn:translate-x-[120%] transition-tranform duration-500 skew-x-12" />
+                                                        className="group/btn relative overflow-hidden inline-flex items-center justify-center w-full py-3 px-6 rounded-xl text-sm font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgba(240,180,41,0.25)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(240,180,41,0.35)] active:scale-[0.97]"
+                                                    >
+                                                        <span className="absolute inset-0 bg-white/25 translate-x-[-120%] group-hover/btn:translate-x-[120%] transition-transform duration-500 skew-x-12" />
                                                         <span className="relative z-10 flex items-center justify-center gap-2">
                                                             Enroll Now
                                                             <span className="text-base transition-transform duration-300 group-hover/btn:translate-x-1">
@@ -419,7 +415,6 @@ const page = () => {
                         </motion.h2>
                         <GlowLine />
                     </motion.div>
-
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid md:grid-cols-3 gap-7">
                         {TESTIMONIALS.map((t, i) => (
                             <motion.div
@@ -453,17 +448,14 @@ const page = () => {
                     </motion.div>
                 </div>
             </section>
-
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
-
                 <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="relative rounded-3xl overflow-hidden">
                         <div className="absolute inset-0 bg-section-hero" />
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
                         <FloatingOrb className="w-[500px] h-[500px] bg-[#F0B429]/12 blur-[150px] top-0 left-1/2 -translate-x-1/2" delay={0} />
                         <div className="absolute inset-px rounded-3xl border border-[#F0B429]/35" />
-
                         <div className="relative p-12 md:p-20 text-center">
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
@@ -475,18 +467,15 @@ const page = () => {
                                     <Rocket className="w-3.5 h-3.5" />
                                     Limited Time Offer · 40% Off Ends Soon
                                 </span>
-
                                 <h2 className="text-4xl md:text-5xl font-black text-[#0B1E3D] mb-6 leading-tight tracking-tight">
                                     Start Your Journey To
                                     <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(253,211,79,0.25)]">
                                         Academic & Career Greatness
                                     </span>
                                 </h2>
-
                                 <p className="text-slate-500 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
                                     Join over 10,000+ ambitious students. Unlock 1-on-1 mentorship, live classes, and custom diagnostic reports today.
                                 </p>
-
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                                     <motion.button
                                         whileHover={{ scale: 1.04, boxShadow: '0 0 50px rgba(240,180,41,0.45)' }}
@@ -504,7 +493,6 @@ const page = () => {
                                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </span>
                                     </motion.button>
-
                                     <motion.button
                                         whileHover={{ scale: 1.04 }}
                                         whileTap={{ scale: 0.97 }}

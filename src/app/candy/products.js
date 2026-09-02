@@ -1,5 +1,5 @@
 
-export const WHATSAPP_NUMBER = "919876543210";
+export const WHATSAPP_NUMBER = "919620406020";
 export const ORDER_GREETING = "Hi Kumar The Star! I'd like to order from the Candy collection:";
 
 export const inr = (n) => `₹${n.toLocaleString("en-IN")}`;

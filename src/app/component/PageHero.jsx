@@ -115,7 +115,6 @@ export default function PageHero({
             {stats?.length > 0 && (
               <motion.div
                 variants={fadeInUp}
-                // className="grid grid-cols-1 gap-6 border-t border-[#0B1E3D]/8 pt-7 sm:grid-cols-3"
                 className="flex flex-row gap-6 border-t border-[#0B1E3D]/8 pt-7"
               >
                 {stats.map((s) => (

@@ -1,5 +1,4 @@
 "use client";
-
 import { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -287,7 +286,6 @@ export default function AdmissionContent() {
   return (
     <div className="overflow-x-clip">
       <PageHero
-        // align="center"
         badge={{
           icon: <Sparkles className="h-3.5 w-3.5 text-[#B26E02]" />,
           text: "Admissions Open · Rolling Intake",

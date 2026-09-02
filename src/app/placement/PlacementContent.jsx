@@ -144,28 +144,6 @@ export default function PlacementContent() {
         title="From Last Exam"
         accent="To First Offer"
         subtitle="Clearing the paper is half the work. Our placement desk handles the other half — the profile, the aptitude round, the panel, and the offer you finally sign."
-        stats={[
-          { value: "1,200+", label: "Students Supported" },
-          { value: "85%", label: "Placement Rate" },
-          { value: "40+", label: "Hiring Partners" },
-        ]}
-        actions={
-          <>
-            <Link
-              href="/contact"
-              className="shine group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#F0B429] to-[#FDD34F] px-8 py-4 text-base font-black text-[#06142D] shadow-[0_16px_40px_rgba(240,180,41,0.32)] transition-all hover:shadow-[0_20px_50px_rgba(240,180,41,0.48)]"
-            >
-              <span className="relative">Talk to the Placement Desk</span>
-              <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <a
-              href="#process"
-              className="inline-flex items-center gap-2 rounded-2xl border border-[#0B1E3D]/10 bg-white px-8 py-4 text-base font-bold text-[#0B1E3D] transition-all hover:border-[#F0B429]/60 hover:text-[#804501]"
-            >
-              How It Works
-            </a>
-          </>
-        }
       />
 
       <section className="relative overflow-hidden bg-section py-28">
@@ -179,7 +157,6 @@ export default function PlacementContent() {
             </h2>
             <div className="hairline-gold mx-auto mt-6 max-w-xs" />
           </Reveal>
-
           <Reveal stagger staggerAmount={0.1} className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {services.map((s, i) => (
               <article
@@ -189,11 +166,9 @@ export default function PlacementContent() {
                 <span className="pointer-events-none absolute -right-3 -top-8 font-[family-name:var(--font-display)] text-[7rem] font-black leading-none text-[#F0B429]/8 transition-transform duration-700 group-hover:scale-110">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-
                 <span className="relative grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-[#F0B429] to-[#B26E02] text-[#06142D] shadow-[0_10px_28px_rgba(240,180,41,0.32)] transition-transform duration-500 group-hover:scale-110 [&>svg]:h-6 [&>svg]:w-6">
                   {s.icon}
                 </span>
-
                 <h3 className="relative mt-6 font-[family-name:var(--font-display)] text-xl font-black text-[#0B1E3D]">
                   {s.title}
                 </h3>
@@ -205,10 +180,8 @@ export default function PlacementContent() {
           </Reveal>
         </div>
       </section>
-
       <section id="process" className="relative overflow-hidden bg-section-cream py-28">
         <div className="pointer-events-none absolute -right-40 top-1/4 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
-
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge>The Path</SectionBadge>
@@ -217,7 +190,6 @@ export default function PlacementContent() {
             </h2>
             <div className="hairline-gold mx-auto mt-6 max-w-xs" />
           </Reveal>
-
           <Reveal className="mt-14">
             <div className="flex flex-wrap justify-center gap-3">
               {process.map((p, i) => (
@@ -240,7 +212,6 @@ export default function PlacementContent() {
               ))}
             </div>
           </Reveal>
-
           <Reveal className="mt-10">
             <div className="relative overflow-hidden rounded-3xl bg-white p-10 shadow-[0_20px_60px_rgba(11,30,61,0.10)] ring-1 ring-[#0B1E3D]/6 md:p-14">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02]" />
@@ -269,7 +240,6 @@ export default function PlacementContent() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-
               <div className="mt-10 h-1 overflow-hidden rounded-full bg-[#0B1E3D]/8">
                 <motion.div
                   className="h-full rounded-full bg-gradient-to-r from-[#F0B429] to-[#B26E02]"
@@ -281,11 +251,9 @@ export default function PlacementContent() {
           </Reveal>
         </div>
       </section>
-
       <section className="relative overflow-hidden bg-[#0B1E3D] py-28">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(240,180,41,0.14),transparent_65%)]" />
         <FloatingOrb className="left-[8%] top-10 h-[380px] w-[380px] bg-[#F0B429]/10 blur-[130px]" />
-
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge variant="white">Where Students Land</SectionBadge>
@@ -294,7 +262,6 @@ export default function PlacementContent() {
               <span className="text-gold-gradient-on-dark">enter</span>
             </h2>
           </Reveal>
-
           <Reveal stagger staggerAmount={0.07} className="mt-14 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
             {sectors.map((s) => (
               <div
@@ -308,7 +275,6 @@ export default function PlacementContent() {
               </div>
             ))}
           </Reveal>
-
           <Reveal className="mt-10 text-center">
             <p className="text-sm text-white/40">
               Replace with verified hiring-partner logos once confirmed.
@@ -316,7 +282,6 @@ export default function PlacementContent() {
           </Reveal>
         </div>
       </section>
-
       <section className="relative overflow-hidden bg-section py-24">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -333,10 +298,8 @@ export default function PlacementContent() {
           </Reveal>
         </div>
       </section>
-
       <section className="relative overflow-hidden bg-section-cream py-28">
         <div className="pointer-events-none absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
-
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge>In Their Words</SectionBadge>
@@ -346,7 +309,6 @@ export default function PlacementContent() {
             </h2>
             <div className="hairline-gold mx-auto mt-6 max-w-xs" />
           </Reveal>
-
           <Reveal stagger staggerAmount={0.14} className="mt-16 grid gap-8 md:grid-cols-3">
             {stories.map((s) => (
               <figure
@@ -382,7 +344,6 @@ export default function PlacementContent() {
               <FloatingOrb className="left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 bg-[#F0B429]/12 blur-[130px]" />
               <div className="absolute inset-px rounded-3xl border border-[#F0B429]/25" />
               <div className="grain absolute inset-0 overflow-hidden rounded-3xl" />
-
               <div className="relative">
                 <h2 className="font-[family-name:var(--font-display)] text-4xl font-black leading-tight tracking-tight text-white md:text-5xl">
                   Ready to start{" "}
@@ -394,7 +355,6 @@ export default function PlacementContent() {
                   Book a session with the placement desk and leave with a
                   written plan for the next three months.
                 </p>
-
                 <div className="mt-10 flex flex-wrap justify-center gap-4">
                   <Link
                     href="/contact"

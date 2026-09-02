@@ -26,9 +26,26 @@ export const metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
-  title: "Kumar The Star — Competitive Exam Coaching",
+  title: {
+    default: "Kumarthestar — Coaching, Languages, Media, Trading & Consultancy",
+    template: "%s | Kumarthestar",
+  },
   description:
-    "Structured coaching for NTSE, JEE, NEET, Olympiads and 50+ competitive exams. 200+ verified faculty, weekly mock tests and a 98% success rate.",
+    "Kumarthestar is a proprietorship firm offering online coaching for Classes 1–12, entrance and competitive exams, defence and civil services, school and university admissions, spoken English, regional and foreign languages, drama and short movies, coffee and tea, cooking classes in Mysuru, corporate gifts, sales promotions, worldwide job consultancy, real estate, clothing and security staffing.",
+  keywords: [
+    "Kumarthestar",
+    "online coaching Classes 1 to 12",
+    "competitive exam coaching",
+    "NDA CDS AFCAT coaching",
+    "IAS IPS coaching",
+    "spoken English classes",
+    "cooking classes Mysuru",
+    "job consultancy",
+    "corporate gifts",
+    "real estate Mysuru",
+    "security and bouncers",
+    "Candy International Animal Welfare",
+  ],
 };
 
 export const viewport = {
@@ -47,7 +64,10 @@ export default function RootLayout({ children }) {
           <style>{`[data-reveal],[data-reveal] *{opacity:1!important;transform:none!important;filter:none!important}[data-hero-video]{opacity:1!important}`}</style>
         </noscript>
       </head>
-      <body className="font-[family-name:var(--font-body)] bg-brand-cream text-brand-slate antialiased">
+      <body
+        className="font-[family-name:var(--font-body)] bg-brand-cream text-brand-slate antialiased"
+        suppressHydrationWarning
+      >
         <SmoothScroll>
           <ScrollProgress />
           <Navbar />

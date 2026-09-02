@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useRef, useMemo } from "react";
 import {motion, AnimatePresence, useScroll, useTransform,useMotionValue, useSpring} from "framer-motion";
 import {GraduationCap, Award, BookOpen, Star, ArrowRight,Search, X, CheckCircle, ExternalLink, CalendarCheck, Phone,Sparkles, Trophy, Users, Zap, Globe, Target,Filter, TrendingUp, Briefcase} from "lucide-react";
@@ -198,7 +197,6 @@ const FacultyModal = ({ faculty, onClose, onBookSession }) => {
                             <X className="w-4 h-4" />
                         </button>
                     </div>
-
                     <div className="p-7 md:p-10">
                         <div className="grid md:grid-cols-12 gap-8 items-start mb-8">
                             <div className="md:col-span-4">
@@ -217,8 +215,6 @@ const FacultyModal = ({ faculty, onClose, onBookSession }) => {
                                         </div>
                                     </div>
                                 </div>
-
-                                
                                 <div className="grid grid-cols-3 gap-2 text-center">
                                     {[
                                         { val: faculty.students, label: "Students", color: "text-[#FDD34F]" },
@@ -301,11 +297,9 @@ const FacultyPage = () => {
     const [selectedFacultyModal, setSelectedFacultyModal] = useState(null);
     const [toastNotice, setToastNotice] = useState(null);
     const heroRef = useRef(null);
-
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
     const orbY1 = useTransform(scrollYProgress, [0, 1], [0, 150]);
     const orbY2 = useTransform(scrollYProgress, [0, 1], [0, -120]);
-
     const filteredFaculty = useMemo(() => FACULTY_MEMBERS.filter((f) => {
         const matchDept = selectedDepartment === "All Departments" || f.department === selectedDepartment;
         const matchSearch = f.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -313,7 +307,6 @@ const FacultyPage = () => {
             || f.bio.toLowerCase().includes(searchQuery.toLowerCase());
         return matchDept && matchSearch;
     }), [selectedDepartment, searchQuery]);
-
     const handleBookSession = (faculty) => {
         setToastNotice(`Mentorship slot requested with ${faculty.name}! Counsellor callback initiated.`);
         setTimeout(() => setToastNotice(null), 4500);
@@ -341,7 +334,6 @@ const FacultyPage = () => {
                 <motion.div style={{ y: orbY1 }} className="absolute top-10 left-1/4 w-[36rem] h-[36rem] rounded-full bg-[#F0B429]/12 blur-[140px] pointer-events-none" />
                 <motion.div style={{ y: orbY2 }} className="absolute bottom-10 right-10 w-[28rem] h-[28rem] rounded-full bg-[#804501]/15 blur-[120px] pointer-events-none" />
                 <FloatingOrb className="w-[200px] h-[200px] bg-[#FDD34F]/8 blur-[60px] top-1/3 right-1/4" delay={2} />
-
                 <div className="max-w-7xl  px-5 sm:px-6 md:px-10 lg:px-10 pt-8 relative z-10">
                     <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl ">
                         <motion.h1 variants={fadeInUp} className="mt-6 text-5xl sm:text-5xl font-black text-[#0B1E3D] leading-[1.0] tracking-tight">
@@ -350,12 +342,9 @@ const FacultyPage = () => {
                                 Distinguished Faculty
                             </span>
                         </motion.h1>
-
                         <motion.p variants={fadeInUp} className="mt-6 text-lg text-slate-500 max-w-2xl leading-relaxed">
                             Learn directly from IIT gold medalists, Ivy League scholars, AI research leaders, and Wall Street quantitative analysts dedicated to your success.
                         </motion.p>
-
-                       
                         <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap gap-6">
                             {[
                                 { label: "50+ Expert Faculty", icon: <GraduationCap className="w-4 h-4" /> },
@@ -427,7 +416,6 @@ const FacultyPage = () => {
                     </div>
                 </div>
             </section>
-
             <section className="py-16 bg-gradient-to-b from-[#F7F3EA] to-[#FAFAF8]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between mb-10 pb-4 border-b border-[#0B1E3D]/8">
@@ -442,7 +430,6 @@ const FacultyPage = () => {
                             Sorted by Highest Rated
                         </div>
                     </div>
-
                     <AnimatePresence mode="wait">
                         {filteredFaculty.length > 0 ? (
                             <motion.div
@@ -501,7 +488,6 @@ const FacultyPage = () => {
                                                         {faculty.courses} Courses
                                                     </div>
                                                 </div>
-
                                                 <div className="mt-auto grid grid-cols-2 gap-3">
                                                     <motion.button
                                                         whileHover={{ scale: 1.03 }}
@@ -522,7 +508,6 @@ const FacultyPage = () => {
                                                     </motion.button>
                                                 </div>
                                             </div>
-
                                             <div className={`h-1 bg-gradient-to-r ${faculty.badgeColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                                         </motion.div>
                                     </TiltCard>
@@ -551,7 +536,6 @@ const FacultyPage = () => {
                     </AnimatePresence>
                 </div>
             </section>
-
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
                 <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -560,24 +544,20 @@ const FacultyPage = () => {
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
                         <FloatingOrb className="w-[500px] h-[500px] bg-[#F0B429]/12 blur-[150px] top-0 left-1/2 -translate-x-1/2" delay={0} />
                         <div className="absolute inset-px rounded-3xl border border-[#F0B429]/35" />
-
                         <div className="relative p-12 md:p-20 text-center">
                             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
                                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold text-[#B26E02] bg-[#F0B429]/10 border border-[#F0B429]/30 mb-6">
                                     <Sparkles className="w-3.5 h-3.5" /> Get Matched with Your Ideal Mentor Today
                                 </span>
-
                                 <h2 className="text-4xl md:text-5xl font-black text-[#0B1E3D] mb-6 leading-tight tracking-tight">
                                     Ready to Learn from
                                     <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(253,211,79,0.25)]">
                                         World-Class Educators?
                                     </span>
                                 </h2>
-
                                 <p className="text-slate-500 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
                                     Get matched with a dedicated academic mentor in your field. Experience 1-on-1 guidance that guarantees measurable growth.
                                 </p>
-
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                                     <motion.button
                                         whileHover={{ scale: 1.04, boxShadow: '0 0 50px rgba(240,180,41,0.45)' }}
@@ -595,7 +575,6 @@ const FacultyPage = () => {
                                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </span>
                                     </motion.button>
-
                                     <motion.button
                                         whileHover={{ scale: 1.04 }}
                                         whileTap={{ scale: 0.97 }}

@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
@@ -49,12 +48,9 @@ export default function SmoothScroll({ children }) {
       lenis.scrollTo(target, { offset: -96, duration: 1.4 });
     };
     document.addEventListener("click", onAnchorClick);
-
     const refresh = () => ScrollTrigger.refresh();
-
     window.addEventListener("load", refresh);
     document.fonts?.ready.then(refresh);
-
     const media = Array.from(document.querySelectorAll("img, video"));
     media.forEach((el) => {
       el.addEventListener("load", refresh, { once: true });

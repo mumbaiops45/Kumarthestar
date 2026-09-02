@@ -5,14 +5,16 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { PhoneIcon } from "@heroicons/react/24/solid";
+import { primaryPhone } from "../../data/site";
 
 const navigation = [
   { name: "Home", href: "/" },
-   { name: "About Us", href: "/about-us" },
+  { name: "About Us", href: "/about-us" },
+  // { name: "Services", href: "/services" },
   { name: "Tutoring", href: "/courses" },
-  // { name: "Admissions", href: "/admission" },
   { name: "Placements", href: "/placement" },
-  { name: "Candy T-Shirts", href: "/candy" },
+  { name: "Candy Tees", href: "/candy" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -57,9 +59,10 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const isActive = (href) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (href) => {
+    if (href.includes("#")) return false;
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  };
 
   return (
     <Disclosure
@@ -76,7 +79,7 @@ export default function Navbar() {
               }`}
             >
               <BrandMark compact={scrolled} />
-              <div className="hidden items-center gap-9 lg:flex">
+              <div className="hidden items-center gap-6 lg:flex xl:gap-8">
                 {navigation.map((item) => {
                   const active = isActive(item.href);
                   return (
@@ -84,7 +87,7 @@ export default function Navbar() {
                       key={item.name}
                       href={item.href}
                       aria-current={active ? "page" : undefined}
-                      className={`relative text-[0.95rem] font-semibold transition-colors duration-300 after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:rounded-full after:bg-gradient-to-r after:from-[#F0B429] after:to-[#804501] after:transition-all after:duration-400 ${
+                      className={`relative whitespace-nowrap text-[0.9rem] font-semibold transition-colors duration-300 after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:rounded-full after:bg-gradient-to-r after:from-[#F0B429] after:to-[#804501] after:transition-all after:duration-400 ${
                         active
                           ? "text-[#804501] after:w-full"
                           : "text-[#0B1E3D]/75 after:w-0 hover:text-[#804501] hover:after:w-full"
@@ -96,13 +99,13 @@ export default function Navbar() {
                 })}
               </div>
               <div className="hidden lg:block">
-                <Link
-                  href="/admission"
-                  className="shine group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#112448] px-7 py-3 text-sm font-bold text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.28)] ring-1 ring-[#F0B429]/30 transition-all duration-400 hover:shadow-[0_12px_34px_rgba(240,180,41,0.35)] hover:ring-[#F0B429]/70"
+                <a
+                  href={`tel:+${primaryPhone.raw}`}
+                  className="shine group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#112448] px-6 py-3 text-sm font-bold text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.28)] ring-1 ring-[#F0B429]/30 transition-all duration-400 hover:shadow-[0_12px_34px_rgba(240,180,41,0.35)] hover:ring-[#F0B429]/70"
                 >
-                  <span className="relative">Admission</span>
-                  <span className="relative h-1.5 w-1.5 rounded-full bg-[#F0B429] shadow-[0_0_10px_rgba(240,180,41,0.9)] transition-transform duration-400 group-hover:scale-150" />
-                </Link>
+                  <PhoneIcon className="relative h-4 w-4" />
+                  <span className="relative whitespace-nowrap">{primaryPhone.label}</span>
+                </a>
               </div>
               <div className="lg:hidden">
                 <DisclosureButton className="rounded-xl border border-[#0B1E3D]/10 bg-white/70 p-2.5 text-[#0B1E3D] transition-colors hover:border-[#F0B429]/50 hover:text-[#804501]">
@@ -115,7 +118,6 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-
           <DisclosurePanel className="lg:hidden">
             <div className="border-t border-[#F0B429]/20 bg-brand-cream/95 backdrop-blur-xl shadow-[0_20px_50px_rgba(11,30,61,0.14)]">
               <div className="space-y-1 px-5 py-5">
@@ -142,13 +144,14 @@ export default function Navbar() {
                   );
                 })}
 
-                <Link
-                  href="/admission"
+                <a
+                  href={`tel:+${primaryPhone.raw}`}
                   onClick={() => close()}
-                  className="mt-4 block rounded-2xl bg-gradient-to-r from-[#F0B429] to-[#FDD34F] px-4 py-3.5 text-center text-base font-black text-[#06142D] shadow-[0_10px_28px_rgba(240,180,41,0.35)]"
+                  className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#F0B429] to-[#FDD34F] px-4 py-3.5 text-center text-base font-black text-[#06142D] shadow-[0_10px_28px_rgba(240,180,41,0.35)]"
                 >
-                  Admission
-                </Link>
+                  <PhoneIcon className="h-4 w-4" />
+                  {primaryPhone.label}
+                </a>
               </div>
             </div>
           </DisclosurePanel>

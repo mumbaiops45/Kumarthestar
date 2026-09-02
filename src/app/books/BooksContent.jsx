@@ -289,7 +289,6 @@ export default function BooksContent() {
 
       <section className="relative overflow-hidden bg-section-cream py-28">
         <div className="pointer-events-none absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
-
         <div className="relative mx-auto grid max-w-6xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-[auto_1fr] lg:px-8">
           <Reveal from="left" className="mx-auto lg:mx-0">
             <div className="relative h-[200px] w-[200px]">

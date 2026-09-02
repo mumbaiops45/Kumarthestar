@@ -1,10 +1,12 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
 import { MdArrowForward } from 'react-icons/md';
 import { GiStarsStack } from 'react-icons/gi';
 import PageHero from '../component/PageHero';
 import ContactForm from '../component/ContactForm';
+import { contact, founder, whatsappLink } from '../../data/site';
+import { divisions } from '../../data/divisions';
 
 const particles = [
   { left: '8%', top: '15%', size: 3, delay: 0, duration: 8 },
@@ -92,15 +94,15 @@ export default function ContactPage() {
       <PageHero
         badge={{
           icon: <GiStarsStack className="text-base text-[#B26E02]" />,
-          text: 'Expert Career Guidance',
+          text: 'One Firm, One Number',
         }}
-        title="Let's Build Your"
-        accent="Success Story"
-        subtitle="Whether you're preparing for your first competitive exam, exploring career opportunities, or seeking expert academic guidance, our counsellors are here to help you choose the right path with confidence."
+        title="Tell Us What"
+        accent="You Need."
+        subtitle="A tuition batch, an admission, a job, a property, a security team, a cooking class or a bulk order of coffee — whichever service you came for, the enquiry reaches the same desk and gets an answer."
         stats={[
-          { value: '50K+', label: 'Students Guided' },
-          { value: '98%', label: 'Success Rate' },
-          { value: '4.9', label: 'Rating' },
+          { value: `${divisions.length}`, label: 'Service lines' },
+          { value: '2', label: 'Direct numbers' },
+          { value: '24h', label: 'Response time' },
         ]}
       />
       <section
@@ -159,7 +161,7 @@ export default function ContactPage() {
                 className="h-1.5 w-1.5 rounded-full bg-[#F0B429]"
               />
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B26E02]">
-                Let's Connect
+                Let&apos;s Connect
               </span>
             </div>
             <h2 className="text-3xl font-black tracking-tight text-[#0B1E3D] sm:text-4xl lg:text-5xl">
@@ -169,13 +171,12 @@ export default function ContactPage() {
               </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base sm:leading-7">
-              Have questions about courses, admissions or your career path?
-              Our academic experts are here to help you make the right
-              decision.
+              Coaching, admissions, languages, drama, coffee and tea, cooking
+              classes, corporate gifting, staffing, hiring or property &mdash;
+              send the enquiry here and we will get back to you within 24 hours.
             </p>
           </motion.div>
           <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 md:gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8 xl:gap-10">
-
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -205,37 +206,69 @@ export default function ContactPage() {
                       Get In Touch
                     </span>
                     <h3 className="mt-2 text-2xl font-black leading-tight text-[#0B1E3D] sm:text-3xl">
-                      We're Here To
+                      Talk To The
                       <span className="block text-[#B26E02]">
-                        Help You.
+                        Proprietor.
                       </span>
                     </h3>
                     <p className="mt-3 text-xs leading-5 text-slate-500 sm:text-sm sm:leading-6">
-                      Speak with our academic advisors and get personalised
-                      guidance based on your goals, interests and aspirations.
+                      Coaching, admissions, languages, catering, staffing, real
+                      estate or gifting &mdash; both numbers below reach us
+                      directly during working hours.
+                    </p>
+                  </div>
+                  <div className="mb-3 rounded-xl border border-[#F0B429]/25 bg-[#F0B429]/[0.07] p-3">
+                    <p className="text-sm font-black text-[#0B1E3D]">
+                      {founder.name}
+                    </p>
+                    <p className="mt-0.5 text-[11px] font-semibold text-[#B26E02]">
+                      {founder.qualification} &middot; {founder.role}
                     </p>
                   </div>
                   <div className="space-y-3">
+                    {contact.phones.map((phone, i) => (
+                      <motion.a
+                        key={phone.raw}
+                        href={'tel:+' + phone.raw}
+                        whileHover={{ x: 4 }}
+                        transition={{ duration: 0.2 }}
+                        className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:border-[#F0B429]/40 hover:bg-[#FAFAF8]"
+                      >
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F0B429]/10 text-[#F0B429]">
+                          <FaPhone className="text-sm" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[9px] font-semibold uppercase tracking-wider text-slate-400">
+                            {i === 0 ? 'Primary Line' : 'Alternate Line'}
+                          </p>
+                          <p className="mt-0.5 truncate text-xs font-semibold text-[#0B1E3D] sm:text-sm">
+                            {phone.label}
+                          </p>
+                        </div>
+                      </motion.a>
+                    ))}
                     <motion.a
-                      href="tel:+919999999999"
+                      href={whatsappLink()}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       whileHover={{ x: 4 }}
                       transition={{ duration: 0.2 }}
-                      className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:border-[#F0B429]/40 hover:bg-[#FAFAF8]"
+                      className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:border-[#25D366]/50 hover:bg-[#25D366]/[0.06]"
                     >
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F0B429]/10 text-[#F0B429]">
-                        <FaPhone className="text-sm" />
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#25D366]/10 text-[#25D366]">
+                        <FaWhatsapp className="text-sm" />
                       </div>
                       <div className="min-w-0">
                         <p className="text-[9px] font-semibold uppercase tracking-wider text-slate-400">
-                          Call Us
+                          WhatsApp
                         </p>
                         <p className="mt-0.5 truncate text-xs font-semibold text-[#0B1E3D] sm:text-sm">
-                          +91 99999 99999
+                          Message us instantly
                         </p>
                       </div>
                     </motion.a>
                     <motion.a
-                      href="mailto:hello@example.com"
+                      href={'mailto:' + contact.email}
                       whileHover={{ x: 4 }}
                       transition={{ duration: 0.2 }}
                       className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:border-[#F0B429]/40 hover:bg-[#FAFAF8]"
@@ -248,7 +281,7 @@ export default function ContactPage() {
                           Email Us
                         </p>
                         <p className="mt-0.5 truncate text-xs font-semibold text-[#0B1E3D] sm:text-sm">
-                          hello@example.com
+                          {contact.email}
                         </p>
                       </div>
                     </motion.a>
@@ -262,10 +295,10 @@ export default function ContactPage() {
                       </div>
                       <div className="min-w-0">
                         <p className="text-[9px] font-semibold uppercase tracking-wider text-slate-400">
-                          Visit Us
+                          Based In
                         </p>
                         <p className="mt-0.5 truncate text-xs font-semibold text-[#0B1E3D] sm:text-sm">
-                          Your Office Address
+                          {contact.address.full}
                         </p>
                       </div>
                     </motion.div>
@@ -308,8 +341,10 @@ export default function ContactPage() {
                 className="group relative min-h-[240px] overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_15px_50px_rgba(15,23,42,0.10)] sm:rounded-[28px] md:min-h-0"
               >
                 <iframe
-                  title="Our Location"
-                  src="https://www.google.com/maps?q=India&output=embed"
+                  title={`Our location — ${contact.address.full}`}
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(
+                    contact.address.full
+                  )}&output=embed`}
                   className="absolute inset-0 h-full w-full grayscale-[20%] transition-all duration-700 group-hover:grayscale-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -325,7 +360,7 @@ export default function ContactPage() {
                         Our Location
                       </p>
                       <p className="truncate text-[10px] font-bold text-[#0B1E3D] sm:text-xs">
-                        Your Office Address
+                        {contact.address.full}
                       </p>
                     </div>
                   </div>
@@ -402,17 +437,17 @@ export default function ContactPage() {
                   >
                     <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#F0B429]/25 bg-[#F0B429]/10 px-3 py-1.5">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#F0B429]" />
-                      <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#B26E02]">Free Consultation</span>
+                      <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#B26E02]">No Obligation</span>
                     </div>
                     <h3 className="text-2xl font-extrabold tracking-tight text-[#0B1E3D] sm:text-3xl lg:text-4xl">
-                      Request{' '}
+                      Send an{' '}
                       <span className="bg-gradient-to-r from-[#A47C2B] via-[#F0B429] to-[#9B762E] bg-clip-text text-transparent">
-                        Free Counselling
+                        Enquiry
                       </span>
                     </h3>
                     <p className="mt-2 max-w-lg text-xs leading-5 text-slate-500 sm:text-sm sm:leading-6">
-                      Fill in your details and our academic advisor will
-                      contact you within 24 hours.
+                      Pick the service from the dropdown, leave your number, and
+                      we will call you back within 24 hours.
                     </p>
                   </motion.div>
                   <div className="min-h-0 flex-1">
