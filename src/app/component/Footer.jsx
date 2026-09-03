@@ -118,14 +118,6 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/services"
-                  className="inline-flex items-center gap-1.5 text-sm font-bold text-[#804501] transition-colors hover:text-[#0B1E3D]"
-                >
-                  View all {divisions.length} services
-                </Link>
-              </li>
             </ul>
           </div>
           <div>

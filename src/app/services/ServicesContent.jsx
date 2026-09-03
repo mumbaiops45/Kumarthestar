@@ -1,5 +1,4 @@
 "use client";
-
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -25,7 +24,6 @@ const categoryBlurbs = {
   impact: "Our animal welfare initiative - rescue, treatment and rehoming.",
 };
 
-
 const audiences = [
   {
     icon: Users,
@@ -46,7 +44,6 @@ const audiences = [
     lines: ["Real estate", "Cooking classes", "Clothing", "Coffee & tea"],
   },
 ];
-
 
 const process = [
   {
@@ -77,7 +74,6 @@ const process = [
 
 function CategoryCard({ cat, count, isActive, onSelect }) {
   const theme = categoryTheme[cat.key];
-
   return (
     <motion.button
       type="button"
@@ -121,13 +117,10 @@ export default function ServicesContent() {
     for (const d of divisions) map[d.category] = (map[d.category] ?? 0) + 1;
     return map;
   }, []);
-
   const selectCategory = useCallback((key) => {
     setActive((current) => (current === key ? "all" : key));
-
     const el = document.getElementById("catalogue");
     if (!el) return;
-
     if (window.__lenis) window.__lenis.scrollTo(el, { offset: -96, duration: 1.4 });
     else el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
@@ -177,74 +170,18 @@ export default function ServicesContent() {
           </div>
         </div>
       </section>
-      {/* <DivisionsShowcase
+      <DivisionsShowcase
         id="catalogue"
         eyebrow="The Full List"
-        heading="Every service line,"
-        accent="in detail."
+        heading="Every service line, in detail."
+        accent=""
         intro="Each card carries what the service covers, who it is for and how to start. Filter with the pills, or send one message and we will point you to the right desk."
         category={active}
         onCategoryChange={setActive}
         className="text-left"
-      /> */}
-      <section className="relative overflow-hidden bg-[#f7f2e5] px-5 py-[55px] text-center sm:px-6 sm:py-[70px] lg:py-[90px]">
-        <div className="pointer-events-none absolute inset-0  bg-[linear-gradient(to_right,rgba(25,48,76,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(25,48,76,0.045)_1px,transparent_1px)]
-      bg-[size:55px_55px]
-      sm:bg-[size:72px_72px]       [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.8),rgba(0,0,0,0.25))] "/>
-    
-    <div className="relative z-10 mx-auto w-full max-w-[900px]">
-      <div className="inline-flex min-h-[32px] items-center justify-center rounded-full border border-[#e8c96e] bg-[#fff9e5]/90 px-[17px] text-[10px] font-bold
-        uppercase
-        tracking-[1.2px]
-        text-[#895b0a]
-        shadow-[0_2px_8px_rgba(120,83,15,0.08)]
-        sm:min-h-[34px]
-        sm:px-[21px]
-        sm:text-[11px]">
-             THE FULL LIST
-      </div>
-      <h1 className="mt-[23px]
-        font-serif
-        text-[45px]
-        font-bold
-        leading-[0.95]
-        tracking-[-1.8px]
-        text-[#0d2342]
-        sm:text-[58px]
-        sm:tracking-[-2px]
-        lg:mt-[27px]
-        lg:text-[67px]
-        lg:tracking-[-3px]">Every service line , <br/> 
-      <span className="text-[#e5a31a]">in detail.</span>
-      </h1>
-
-      <div className="mx-auto mt-[22px]
-        h-[4px]
-        w-[96px]
-        rounded-full
-        bg-[#d99508]
-        shadow-[0_1px_3px_rgba(169,111,0,0.2)]
-        lg:mt-[25px]"/>
-       
-       <p className="mx-auto mt-[24px]
-        max-w-[780px]
-        text-[14px]
-        leading-[1.65]
-        tracking-[0.05px]
-        text-[#557298]
-        sm:text-[15px]
-        lg:text-[17px]
-        lg:leading-[1.75]"> 
-               Each card carries what the service covers, who it is for
-      and how to start. Filter with the pills, or send one message
-      and we will point you to the right desk.
-        </p>
-
-
-    </div>
-        
-      </section>
-      <section className="relative overflow-hidden bg-[#FAFAF8] py-20 sm:py-28">
+      />
+     
+      <section className="relative overflow-hidden bg-[#FAFAF8] py-20 sm:py-8">
         <div className="pointer-events-none absolute -right-40 top-20 h-[520px] w-[520px] rounded-full bg-[#804501]/8 blur-[160px]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal from="up" className="mx-auto max-w-3xl text-center">
@@ -271,13 +208,10 @@ export default function ServicesContent() {
                   <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-[#0B1E3D] to-[#1a3a6e] text-[#FDD34F] shadow-[0_10px_26px_rgba(11,30,61,0.22)] transition-transform duration-500 group-hover:scale-105">
                     <audience.icon className="h-5 w-5" strokeWidth={1.9} />
                   </span>
-
                   <h3 className="mt-5 font-[family-name:var(--font-display)] text-xl font-extrabold text-[#0B1E3D] transition-colors duration-500 group-hover:text-[#804501]">
                     {audience.title}
                   </h3>
-
                   <p className="mt-3 text-sm leading-6 text-slate-500">{audience.desc}</p>
-
                   <div className="mt-5 flex flex-wrap gap-2">
                     {audience.lines.map((line) => (
                       <span
@@ -302,8 +236,8 @@ export default function ServicesContent() {
               How It Works
             </span>
             <h2 className="mt-6 font-[family-name:var(--font-display)] text-4xl font-black leading-[1.08] tracking-tight text-[#0B1E3D] sm:text-5xl">
-              From first call
-              <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent">
+              From first call {" "}
+              <span className=" bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent">
                 to finished job.
               </span>
             </h2>

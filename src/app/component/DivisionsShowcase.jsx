@@ -268,7 +268,7 @@ export default function DivisionsShowcase({
           </motion.div>
         </AnimatePresence>
 
-        {footer ?? (
+        {/* {footer ?? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -299,7 +299,7 @@ export default function DivisionsShowcase({
               </a>
             </div>
           </motion.div>
-        )}
+        )} */}
       </div>
     </section>
   );

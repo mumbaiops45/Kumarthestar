@@ -11,7 +11,7 @@ import { primaryPhone } from "../../data/site";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about-us" },
-  // { name: "Services", href: "/services" },
+  { name: "Services", href: "/services" },
   { name: "Tutoring", href: "/courses" },
   { name: "Placements", href: "/placement" },
   { name: "Candy Tees", href: "/candy" },

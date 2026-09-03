@@ -340,17 +340,6 @@ const Home = () => {
                 intro={`Kumarthestar is a proprietorship firm running ${divisions.length} service lines - coaching and admissions, language training, drama and short films, coffee, tea and cooking classes, corporate services, real estate, staffing and animal welfare.`}
                 showFilters={false}
                 limit={6}
-                footer={
-                    <div className="mt-14 text-center">
-                        <Link
-                            href="/services"
-                            className="shine group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#112448] px-8 py-4 text-sm font-bold text-[#FDD34F] shadow-[0_10px_28px_rgba(11,30,61,0.28)] ring-1 ring-[#F0B429]/30 transition-all duration-400 hover:ring-[#F0B429]/70"
-                        >
-                            <span className="relative">View all {divisions.length} services</span>
-                            <ArrowRight className="relative w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                        </Link>
-                    </div>
-                }
             />
 
             <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
@@ -434,7 +423,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
+            <section className="relative py-12 overflow-hidden bg-[#FAFAF8]">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(240,180,41,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(128,69,1,0.06),transparent_60%)]" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
@@ -470,7 +459,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative py-28 overflow-hidden bg-section">
+            <section className="relative py-12 overflow-hidden bg-section">
                 <div className="absolute inset-0 grid-gold" />
                 <FloatingOrb className="w-[600px] h-[600px] bg-[#F0B429]/14 blur-[160px] top-0 left-0" delay={0} />
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#804501]/10 blur-[140px] bottom-0 right-0" delay={4} />
@@ -623,7 +612,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative py-28 overflow-hidden bg-gradient-to-b from-[#F0EBE0] to-[#FAFAF8]">
+            <section className="relative py-18 overflow-hidden bg-gradient-to-b from-[#F0EBE0] to-[#FAFAF8]">
                 <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#F0B429]/10 blur-[160px] pointer-events-none" />
                 <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#804501]/8 blur-[160px] pointer-events-none" />
 
@@ -671,11 +660,10 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative py-28 overflow-hidden bg-section-hero">
+            <section className="relative py-18 overflow-hidden bg-section-hero">
                 <div className="absolute inset-0 grid-gold" />
                 <FloatingOrb className="w-[600px] h-[600px] bg-[#F0B429]/16 blur-[180px] -top-40 -left-40" delay={0} />
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#804501]/10 blur-[160px] -bottom-40 -right-40" delay={3} />
-
                 <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-14">
                         <motion.div variants={fadeInUp}><SectionBadge variant="red">Get Started</SectionBadge></motion.div>

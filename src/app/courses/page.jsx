@@ -14,7 +14,6 @@ const stagger = {
     visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
 };
 
-
 const FloatingOrb = ({ className, delay = 0 }) => (
     <motion.div
         className={`absolute rounded-full pointer-events-none ${className}`}
@@ -43,7 +42,6 @@ const SectionBadge = ({ children, variant = "gold" }) => {
         </motion.span>
     );
 };
-
 
 const COURSES_DATA = [
     {
@@ -176,7 +174,6 @@ const TESTIMONIALS = [
         text: "Sophia's essay strategy and college application guidance made my Ivy application shine. Received full scholarship offers from 3 top US universities!"
     }
 ];
-
 
 const page = () => {
     const [selectedCategory, setSelectedCategory] = useState("All Courses");
@@ -353,19 +350,18 @@ const page = () => {
                                                         <Users className="w-3.5 h-3.5 text-[#804501]" />{course.students}
                                                     </span>
                                                 </div>
-                                                <div className="grid grid-cols-2 gap-3">
+                                                <div className="w-full">
                                                     <Link
                                                         href="/contact"
-                                                        className="group/btn relative overflow-hidden inline-flex items-center justify-center w-full py-3 px-6 rounded-xl text-sm font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgba(240,180,41,0.25)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(240,180,41,0.35)] active:scale-[0.97]"
+                                                        className="group/btn relative overflow-hidden inline-flex items-center justify-center w-full py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgba(240,180,41,0.25)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(240,180,41,0.35)] active:scale-[0.97]"
                                                     >
-                                                        <span className="absolute inset-0 bg-white/25 translate-x-[-120%] group-hover/btn:translate-x-[120%] transition-transform duration-500 skew-x-12" />
+                                                        <span className="absolute inset-0 bg-white/25 translate-x-[-120%] group-hover/btn:translate-x-[120%] transition-transform duration-500 shew-x-12 " />
                                                         <span className="relative z-10 flex items-center justify-center gap-2">
-                                                            Enroll Now
-                                                            <span className="text-base transition-transform duration-300 group-hover/btn:translate-x-1">
-                                                                →
-                                                            </span>
+                                                            <span>Enroll Now</span>
+                                                            <span className="text-base sm:text-lg transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
                                                         </span>
-                                                        </Link>
+                                                    </Link>
+
                                                 </div>
                                             </div>
                                         </div>
