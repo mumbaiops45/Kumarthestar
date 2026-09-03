@@ -4,11 +4,11 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Users, BookOpen, CheckCircle, Filter, Quote, Rocket, Phone, Search, ArrowRight, Trophy, Zap, GraduationCap, Globe, Award, Briefcase, Target } from "lucide-react";
 
-
 const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
 };
+
 const stagger = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
@@ -392,13 +392,13 @@ const page = () => {
                     </AnimatePresence>
                 </div>
             </section>
-            <section className="relative py-28 overflow-hidden bg-[#FAFAF8] text-black">
+            <section className="relative py-18 overflow-hidden bg-[#FAFAF8] text-black">
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#F0B429]/8 blur-[160px] top-0 left-0" delay={0} />
                 <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/10 blur-[130px] bottom-0 right-0" delay={4} />
 
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
+                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-6">
                         <motion.div variants={fadeInUp}>
                             <SectionBadge variant="gold">
                                 <Trophy className="w-3.5 h-3.5 text-[#FDD34F]" />
@@ -444,7 +444,7 @@ const page = () => {
                     </motion.div>
                 </div>
             </section>
-            <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
+            <section className="relative py-18 overflow-hidden bg-[#FAFAF8]">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
                 <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="relative rounded-3xl overflow-hidden">
@@ -463,7 +463,7 @@ const page = () => {
                                     <Rocket className="w-3.5 h-3.5" />
                                     Limited Time Offer · 40% Off Ends Soon
                                 </span>
-                                <h2 className="text-4xl md:text-5xl font-black text-[#0B1E3D] mb-6 leading-tight tracking-tight">
+                                <h2 className="text-4xl md:text-3xl font-black text-[#0B1E3D] mb-6 leading-tight tracking-tight">
                                     Start Your Journey To
                                     <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(253,211,79,0.25)]">
                                         Academic & Career Greatness

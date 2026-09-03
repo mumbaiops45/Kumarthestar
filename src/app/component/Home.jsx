@@ -202,25 +202,13 @@ const Home = () => {
 
     return (
         <div className="font-body antialiased text-[#1D2433] overflow-x-clip">
-            <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-[#06142D]">
-                <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_25%_15%,#12305c_0%,#0B1E3D_45%,#06142D_100%)]" />
-                    <FloatingOrb className="w-[600px] h-[600px] bg-[#F0B429]/12 blur-[130px] top-[-100px] left-[-100px]" delay={0} />
-                    <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/15 blur-[100px] bottom-0 right-[10%]" delay={3} />
-                </div>
-
+            <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden ">
                 <div className="absolute inset-0 overflow-hidden">
                     <HeroVideo />
                 </div>
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-[#06142D]/25" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#06142D]/92 via-[#06142D]/55 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#F0EBE0] via-[#F0EBE0]/70 to-transparent" />
-                    <div className="vignette absolute inset-0" />
-                    <div className="grain absolute inset-0 overflow-hidden" />
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.03)_1px,transparent_1px)] bg-[size:80px_80px]" />
+                    <div className="absolute inset-0 bg-black/25" />
                 </div>
-
                 <div ref={heroCopyRef} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36 w-full">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <motion.div initial="hidden" animate="visible" variants={stagger} className="space-y-8">
@@ -342,7 +330,7 @@ const Home = () => {
                 limit={6}
             />
 
-            <section className="relative py-28 overflow-hidden bg-[#FAFAF8]">
+            <section className="relative py-8 overflow-hidden bg-[#FAFAF8]">
                 <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#804501]/6 to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -427,7 +415,9 @@ const Home = () => {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(240,180,41,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(128,69,1,0.06),transparent_60%)]" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="gold">Why Choose Us</SectionBadge></motion.div>
+                        <motion.div variants={fadeInUp}>
+                            <SectionBadge variant="gold">Why Choose Us</SectionBadge>
+                        </motion.div>
                         <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
                             What Actually{' '}
                             <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Moves a Rank</span>
@@ -505,16 +495,6 @@ const Home = () => {
                                 </div>
                             </motion.div>
                         ))}
-                    </motion.div>
-
-                    <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="mt-16 text-center">
-                        <motion.button
-                            whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(253,211,79,0.5)' }}
-                            whileTap={{ scale: 0.97 }}
-                            className="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-[#FDD34F] to-[#F0B429] text-[#06142D] font-black text-base shadow-[0_20px_40px_rgba(240,180,41,0.3)] transition-all"
-                        >
-                            View All Rankers <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </motion.button>
                     </motion.div>
                 </div>
             </section>

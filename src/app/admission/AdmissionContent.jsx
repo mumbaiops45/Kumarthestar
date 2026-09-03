@@ -313,7 +313,7 @@ export default function AdmissionContent() {
       />
 
 
-      <section id="process" className="relative overflow-hidden bg-section py-28">
+      <section id="process" className="relative overflow-hidden bg-section py-18">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -326,7 +326,7 @@ export default function AdmissionContent() {
           <ProcessTimeline />
         </div>
       </section>
-      <section className="relative overflow-hidden bg-section-cream py-28">
+      <section className="relative overflow-hidden bg-section-cream py-18">
         <div className="pointer-events-none absolute -right-40 top-1/3 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -383,11 +383,9 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-   
-      <section className="relative overflow-hidden bg-[#0B1E3D] py-28">
+      <section className="relative overflow-hidden bg-[#0B1E3D] py-18">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(240,180,41,0.14),transparent_65%)]" />
         <FloatingOrb className="right-[8%] top-10 h-[380px] w-[380px] bg-[#F0B429]/10 blur-[130px]" />
-
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge variant="white">
@@ -426,7 +424,7 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-section py-28">
+      <section className="relative overflow-hidden bg-section py-18">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -454,7 +452,7 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      <section id="enquire" className="relative overflow-hidden bg-section-cream py-28">
+      <section id="enquire" className="relative overflow-hidden bg-section-cream py-18">
         <div className="pointer-events-none absolute -left-40 top-1/4 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
 
         <div className="relative mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:px-8">
@@ -504,7 +502,7 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-section py-28">
+      <section className="relative overflow-hidden bg-section py-18">
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <SectionBadge>Questions</SectionBadge>
@@ -518,7 +516,7 @@ export default function AdmissionContent() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-section-cream py-24">
+      <section className="relative overflow-hidden bg-section-cream py-18">
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal from="scale">
             <div className="relative overflow-hidden rounded-3xl bg-[#06142D] p-12 text-center md:p-20">

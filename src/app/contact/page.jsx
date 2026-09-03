@@ -96,14 +96,14 @@ export default function ContactPage() {
           icon: <GiStarsStack className="text-base text-[#B26E02]" />,
           text: 'One Firm, One Number',
         }}
-        title="Tell Us What"
-        accent="You Need."
+        title="Tell Us What You Need."
+        accent=""
         subtitle="A tuition batch, an admission, a job, a property, a security team, a cooking class or a bulk order of coffee — whichever service you came for, the enquiry reaches the same desk and gets an answer."
-        stats={[
-          { value: `${divisions.length}`, label: 'Service lines' },
-          { value: '2', label: 'Direct numbers' },
-          { value: '24h', label: 'Response time' },
-        ]}
+        // stats={[
+        //   { value: `${divisions.length}`, label: 'Service lines' },
+        //   { value: '2', label: 'Direct numbers' },
+        //   { value: '24h', label: 'Response time' },
+        // ]}
       />
       <section
         id="contact"
@@ -338,32 +338,35 @@ export default function ContactPage() {
                   duration: 0.6,
                 }}
                 whileHover={{ y: -3 }}
-                className="group relative min-h-[240px] overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_15px_50px_rgba(15,23,42,0.10)] sm:rounded-[28px] md:min-h-0"
+                className="group relative block min-h-[220px] w-full overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_15px_50px_rgba(15,23,42,0.10)] sm:min-h-[260px] sm:rounded-[24px] md:hidden"
               >
                 <iframe
                   title={`Our location — ${contact.address.full}`}
                   src={`https://www.google.com/maps?q=${encodeURIComponent(
                     contact.address.full
                   )}&output=embed`}
-                  className="absolute inset-0 h-full w-full grayscale-[20%] transition-all duration-700 group-hover:grayscale-0"
+                  className="absolute inset-0 h-full w-full border-0 grayscale-[20%] transition-all duration-700 group-hover:grayscale-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06142D]/35 via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-3 rounded-xl border border-white/50 bg-white/90 p-2.5 shadow-xl backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:p-3">
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06142D]/40 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 rounded-xl border border-white/50 bg-white/90 p-2.5 shadow-xl backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:p-3">
                   <div className="flex min-w-0 items-center gap-2.5">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#F0B429]/15 text-[#B26E02]">
                       <FaMapMarkerAlt className="text-sm" />
                     </div>
+
                     <div className="min-w-0">
                       <p className="text-[8px] font-bold uppercase tracking-wider text-slate-400">
                         Our Location
                       </p>
+
                       <p className="truncate text-[10px] font-bold text-[#0B1E3D] sm:text-xs">
                         {contact.address.full}
                       </p>
                     </div>
                   </div>
+
                   <motion.div
                     animate={{
                       x: [0, 3, 0],
@@ -378,6 +381,7 @@ export default function ContactPage() {
                   </motion.div>
                 </div>
               </motion.div>
+
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 30 }}

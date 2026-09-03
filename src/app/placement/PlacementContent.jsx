@@ -146,7 +146,7 @@ export default function PlacementContent() {
         subtitle="Clearing the paper is half the work. Our placement desk handles the other half — the profile, the aptitude round, the panel, and the offer you finally sign."
       />
 
-      <section className="relative overflow-hidden bg-section py-28">
+      <section className="relative overflow-hidden bg-section py-18">
         <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -180,7 +180,7 @@ export default function PlacementContent() {
           </Reveal>
         </div>
       </section>
-      <section id="process" className="relative overflow-hidden bg-section-cream py-28">
+      <section id="process" className="relative overflow-hidden bg-section-cream py-18">
         <div className="pointer-events-none absolute -right-40 top-1/4 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -251,7 +251,7 @@ export default function PlacementContent() {
           </Reveal>
         </div>
       </section>
-      <section className="relative overflow-hidden bg-[#0B1E3D] py-28">
+      <section className="relative overflow-hidden bg-[#0B1E3D] py-18">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(240,180,41,0.14),transparent_65%)]" />
         <FloatingOrb className="left-[8%] top-10 h-[380px] w-[380px] bg-[#F0B429]/10 blur-[130px]" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -298,7 +298,7 @@ export default function PlacementContent() {
           </Reveal>
         </div>
       </section>
-      <section className="relative overflow-hidden bg-section-cream py-28">
+      <section className="relative overflow-hidden bg-section-cream py-18">
         <div className="pointer-events-none absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-[#F0B429]/10 blur-[150px]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
