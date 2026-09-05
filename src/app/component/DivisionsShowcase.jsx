@@ -267,39 +267,6 @@ export default function DivisionsShowcase({
             ))}
           </motion.div>
         </AnimatePresence>
-
-        {/* {footer ?? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-14 flex flex-col items-center justify-center gap-4 rounded-3xl border border-[#0B1E3D]/8 bg-white p-7 text-center shadow-[0_20px_50px_rgba(11,30,61,0.08)] sm:flex-row sm:text-left"
-          >
-            <p className="flex-1 text-sm leading-6 text-slate-600">
-              <span className="font-bold text-[#0B1E3D]">Not sure which service you need?</span>{" "}
-              Tell us the problem in one sentence and we will point you to the right desk.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#112448] px-6 py-3 text-sm font-bold text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.28)] transition-all duration-300 hover:shadow-[0_12px_34px_rgba(240,180,41,0.32)]"
-              >
-                <Phone className="h-4 w-4" />
-                Contact us
-              </Link>
-              <a
-                href={whatsappLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-2xl border border-[#0B1E3D]/10 bg-white px-6 py-3 text-sm font-bold text-[#0B1E3D] transition-all duration-300 hover:border-[#25D366]/50 hover:bg-[#25D366]/8"
-              >
-                <FaWhatsapp className="text-base text-[#25D366]" />
-                WhatsApp
-              </a>
-            </div>
-          </motion.div>
-        )} */}
       </div>
     </section>
   );

@@ -4,27 +4,22 @@ import Link from 'next/link';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitReveal } from './Reveal';
+import { SplitReveal, Reveal } from './Reveal';
 import { ArrowRight, ChevronDown, Globe, GraduationCap, Phone, Star, Sparkles, Quote, Trophy, MapPin, Target, ExternalLink } from 'lucide-react';
 import { heroSlides, whyUs, rankers, testimonials, faqs, stats, examTicker } from "../../data/data";
 import { divisions } from "../../data/divisions";
 import { primaryPhone } from "../../data/site";
 import ContactForm from './ContactForm';
 import DivisionsShowcase from './DivisionsShowcase';
+import FeaturedServices from './FeaturedServices';
+import Magnetic from './Magnetic';
+import RankersShowcase from './RankersShowcase';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } }
-};
-const fadeInLeft = {
-    hidden: { opacity: 0, x: -60 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } }
-};
-const fadeInRight = {
-    hidden: { opacity: 0, x: 60 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } }
 };
 const stagger = {
     hidden: { opacity: 0 },
@@ -238,25 +233,29 @@ const Home = () => {
                             </div>
 
                             <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-                                <Link
-                                    href="/services"
-                                    className="group relative overflow-hidden bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-2 shadow-[0_8px_30px_rgba(240,180,41,0.35)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(240,180,41,0.5)] active:scale-[0.97]"
-                                >
-                                    <span className='absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12' />
-                                    <span className="relative">Explore Our Services</span>
-                                    <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                                <motion.a
-                                    href={`tel:+${primaryPhone.raw}`}
-                                    whileHover={{ scale: 1.04 }}
-                                    whileTap={{ scale: 0.97 }}
-                                    className="group flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white border border-white/20 hover:border-white/50 backdrop-blur-sm bg-white/5 transition-all"
-                                >
-                                    <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-[#F0B429]/30 transition">
-                                        <Phone className="w-4 h-4" />
-                                    </div>
-                                    {primaryPhone.label}
-                                </motion.a>
+                                <Magnetic strength={0.35}>
+                                    <Link
+                                        href="/services"
+                                        className="group relative overflow-hidden bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] px-8 py-4 rounded-2xl font-bold text-base flex items-center gap-2 shadow-[0_8px_30px_rgba(240,180,41,0.35)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_40px_rgba(240,180,41,0.5)] active:scale-[0.97]"
+                                    >
+                                        <span className='absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12' />
+                                        <span className="relative">Explore Our Services</span>
+                                        <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    </Link>
+                                </Magnetic>
+                                <Magnetic strength={0.35}>
+                                    <motion.a
+                                        href={`tel:+${primaryPhone.raw}`}
+                                        whileHover={{ scale: 1.04 }}
+                                        whileTap={{ scale: 0.97 }}
+                                        className="group flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white border border-white/20 hover:border-white/50 backdrop-blur-sm bg-white/5 transition-all"
+                                    >
+                                        <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-[#F0B429]/30 transition">
+                                            <Phone className="w-4 h-4" />
+                                        </div>
+                                        {primaryPhone.label}
+                                    </motion.a>
+                                </Magnetic>
                             </motion.div>
                         </motion.div>
                     </div>
@@ -299,13 +298,9 @@ const Home = () => {
 
             <section className="py-16 bg-section-alt">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        initial="hidden" whileInView="visible" viewport={{ once: true }}
-                        variants={stagger}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
-                    >
+                    <Reveal stagger staggerAmount={0.1} className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                         {stats.map((s, i) => (
-                            <motion.div key={i} variants={fadeInUp} whileHover={{ y: -6 }} className="group relative">
+                            <motion.div key={i} whileHover={{ y: -6 }} className="group relative">
                                 <div className="card-light relative p-6 rounded-2xl overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-br from-[#F0B429]/8 to-[#804501]/6 opacity-0 group-hover:opacity-100 transition" />
                                     <div className="relative">
@@ -316,9 +311,11 @@ const Home = () => {
                                 </div>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </Reveal>
                 </div>
             </section>
+
+            <FeaturedServices />
 
             <DivisionsShowcase
                 id="what-we-do"
@@ -335,12 +332,8 @@ const Home = () => {
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#804501]/6 to-transparent rounded-full blur-3xl pointer-events-none" />
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-                    <motion.div
-                        initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
-                        variants={stagger}
-                        className="grid lg:grid-cols-2 gap-20 items-center"
-                    >
-                        <motion.div variants={fadeInLeft}>
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <Reveal from="left">
                             <SectionBadge variant="red">About Us</SectionBadge>
                             <h2 className="mt-6 text-4xl md:text-5xl font-black leading-[1.05] text-[#0B1E3D] tracking-tight">
                                 Built For Every Stage
@@ -349,7 +342,7 @@ const Home = () => {
                             <p className="mt-6 text-lg leading-relaxed text-slate-500 max-w-lg">
                                 From kindergarten admissions to professional certifications, we bridge the gap between where a student is today and where their ambition can take them tomorrow.
                             </p>
-                            <div className="mt-10 space-y-4">
+                            <Reveal stagger staggerAmount={0.12} from="left" className="mt-10 space-y-4">
                                 {[
                                     { label: "50+ competitive exams covered end to end", icon: <Target className="w-4 h-4" /> },
                                     { label: "200+ faculty verified for subject expertise", icon: <GraduationCap className="w-4 h-4" /> },
@@ -358,10 +351,6 @@ const Home = () => {
                                 ].map((item, i) => (
                                     <motion.div
                                         key={i}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.12 }}
-                                        viewport={{ once: true }}
                                         whileHover={{ x: 8 }}
                                         className="group flex items-center gap-4 p-4 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 cursor-default border border-transparent hover:border-[#F0B429]/15"
                                     >
@@ -371,67 +360,70 @@ const Home = () => {
                                         <span className="text-slate-700 font-semibold">{item.label}</span>
                                     </motion.div>
                                 ))}
-                            </div>
-                            <motion.button
-                                whileHover={{ scale: 1.04, boxShadow: '0 20px 40px rgba(128,69,1,0.25)' }}
-                                whileTap={{ scale: 0.97 }}
-                                className="mt-10 inline-flex items-center gap-2 bg-[#804501] text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:bg-[#985801] transition-all"
-                            >
-                                Our Story <ExternalLink className="w-4 h-4" />
-                            </motion.button>
-                        </motion.div>
+                            </Reveal>
+                            <Magnetic strength={0.3} className="mt-10">
+                                <motion.button
+                                    whileHover={{ scale: 1.04, boxShadow: '0 20px 40px rgba(128,69,1,0.25)' }}
+                                    whileTap={{ scale: 0.97 }}
+                                    className="inline-flex items-center gap-2 bg-[#804501] text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:bg-[#985801] transition-all"
+                                >
+                                    Our Story <ExternalLink className="w-4 h-4" />
+                                </motion.button>
+                            </Magnetic>
+                        </Reveal>
 
-                        <motion.div variants={fadeInRight} className="relative">
+                        <div className="relative">
                             <div className="absolute -inset-6 bg-gradient-to-r from-[#F0B429]/15 to-[#804501]/10 rounded-[3rem] blur-2xl" />
-                            <motion.div
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ duration: 0.5 }}
-                                className="relative rounded-[2.5rem] overflow-hidden shadow-[0_40px_100px_rgba(11,30,61,0.2)] border border-white"
-                            >
-                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&h=700&fit=crop" alt="Students learning" loading="lazy" className="w-full h-[560px] object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1E3D]/85 via-[#0B1E3D]/20 to-transparent" />
-                                <div className="absolute bottom-8 left-8 right-8">
-                                    <p className="text-4xl font-black text-white">10+ Years</p>
-                                    <p className="text-white/70 text-lg mt-1">Transforming Student Careers</p>
-                                    <div className="mt-4 flex gap-3">
-                                        {['JEE', 'NEET', 'CA', 'NDA', 'IELTS'].map((tag) => (
-                                            <span key={tag} className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white text-xs font-bold border border-white/20">{tag}</span>
-                                        ))}
+                            <Reveal from="scale" delay={0.15}>
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="relative rounded-[2.5rem] overflow-hidden shadow-[0_40px_100px_rgba(11,30,61,0.2)] border border-white"
+                                >
+                                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&h=700&fit=crop" alt="Students learning" loading="lazy" className="w-full h-[560px] object-cover" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B1E3D]/85 via-[#0B1E3D]/20 to-transparent" />
+                                    <div className="absolute bottom-8 left-8 right-8">
+                                        <p className="text-4xl font-black text-white">10+ Years</p>
+                                        <p className="text-white/70 text-lg mt-1">Transforming Student Careers</p>
+                                        <div className="mt-4 flex gap-3">
+                                            {['JEE', 'NEET', 'CA', 'NDA', 'IELTS'].map((tag) => (
+                                                <span key={tag} className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white text-xs font-bold border border-white/20">{tag}</span>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            </motion.div>
+                                </motion.div>
+                            </Reveal>
                             <motion.div animate={{ y: [-6, 6, -6] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} className="absolute -top-6 -right-6 bg-white rounded-2xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-[#F0B429]/20">
                                 <div className="flex items-center gap-3">
                                     <div className="w-12 h-12 bg-gradient-to-br from-[#F0B429] to-[#804501] rounded-xl flex items-center justify-center"><Trophy className="w-6 h-6 text-white" /></div>
                                     <div><p className="font-black text-[#0B1E3D] text-xl">98%</p><p className="text-slate-500 text-xs font-medium">Success Rate</p></div>
                                 </div>
                             </motion.div>
-                        </motion.div>
-                    </motion.div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <section className="relative py-12 overflow-hidden bg-[#FAFAF8]">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(240,180,41,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(128,69,1,0.06),transparent_60%)]" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
-                        <motion.div variants={fadeInUp}>
+                    <Reveal stagger staggerAmount={0.15} className="text-center mb-16">
+                        <div>
                             <SectionBadge variant="gold">Why Choose Us</SectionBadge>
-                        </motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
+                        </div>
+                        <h2 className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
                             What Actually{' '}
                             <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Moves a Rank</span>
-                        </motion.h2>
+                        </h2>
                         <GlowLine />
-                        <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
+                        <p className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
                             A powerful combination of expert mentors, personalised learning and proven strategies.
-                        </motion.p>
-                    </motion.div>
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        </p>
+                    </Reveal>
+                    <Reveal stagger staggerAmount={0.1} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {whyUs.map((item, i) => (
                             <motion.div
                                 key={i}
-                                variants={fadeInUp}
                                 whileHover={{ y: -10, scale: 1.02 }}
                                 transition={{ type: 'spring', stiffness: 200 }}
                                 className="group relative p-8 rounded-3xl bg-white border border-[#0B1E3D]/6 shadow-[0_4px_24px_rgba(11,30,61,0.06)] hover:shadow-[0_24px_60px_rgba(11,30,61,0.14)] transition-all duration-500 overflow-hidden"
@@ -445,70 +437,44 @@ const Home = () => {
                                 <p className="text-slate-500 leading-relaxed">{item.desc}</p>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </Reveal>
                 </div>
             </section>
 
             <section className="relative py-12 overflow-hidden bg-section">
-                <div className="absolute inset-0 grid-gold" />
-                <FloatingOrb className="w-[600px] h-[600px] bg-[#F0B429]/14 blur-[160px] top-0 left-0" delay={0} />
-                <FloatingOrb className="w-[500px] h-[500px] bg-[#804501]/10 blur-[140px] bottom-0 right-0" delay={4} />
-
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-20">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="gold"><Trophy className="w-3.5 h-3.5 text-[#804501]" />Wall of Rankers</SectionBadge></motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-black leading-tight tracking-tight text-[#0B1E3D]">
+                    <Reveal stagger staggerAmount={0.15} className="text-center mb-20">
+                        <div>
+                            <SectionBadge variant="gold">
+                                <Trophy className="w-3.5 h-3.5 text-[#804501]" />
+                                Wall of Rankers</SectionBadge>
+                        </div>
+                        <h2 className="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-black leading-tight tracking-tight text-[#0B1E3D]">
                             Meet Our{' '}
                             <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Top Rankers</span>
-                        </motion.h2>
+                        </h2>
                         <GlowLine />
-                        <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
+                        <p className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
                             Celebrating exceptional achievements dedication transformed into remarkable success.
-                        </motion.p>
-                    </motion.div>
+                        </p>
+                    </Reveal>
 
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {rankers.map((r, i) => (
-                            <motion.div
-                                key={i}
-                                variants={fadeInUp}
-                                whileHover={{ y: -14, scale: 1.03 }}
-                                transition={{ duration: 0.4 }}
-                                className="card-light group relative overflow-hidden rounded-3xl p-7"
-                            >
-                                <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-[#F0B429]/12 to-transparent skew-x-12 pointer-events-none" />
-                                <div className="absolute top-5 right-5">
-                                    <span className="px-3 py-1 rounded-full bg-gradient-to-r from-[#F0B429] to-[#FDD34F] text-[#06142D] text-xs font-black shadow-md">{r.tag}</span>
-                                </div>
-                                <div className="flex justify-center">
-                                    <div className="relative">
-                                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#FDD34F] to-[#F0B429] blur-sm opacity-50 group-hover:opacity-90 transition" />
-                                        <img src={r.img} alt={r.name} loading="lazy" className="relative w-24 h-24 rounded-full object-cover border-2 border-white shadow-[0_8px_24px_rgba(11,30,61,0.18)]" />
-                                    </div>
-                                </div>
-                                <div className="mt-6 text-center">
-                                    <h3 className="text-lg font-black tracking-wide text-[#0B1E3D]">{r.name}</h3>
-                                    <p className="text-slate-500 text-sm mt-1">{r.exam}</p>
-                                    <div className="mt-4 py-2 px-4 rounded-2xl bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 border border-[#F0B429]/25">
-                                        <p className="text-[#804501] text-sm font-bold">{r.score}</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </motion.div>
+                    <Reveal from="up">
+                        <RankersShowcase rankers={rankers} />
+                    </Reveal>
                 </div>
             </section>
 
             <section className="py-24 bg-[#F7F3EA] overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="red">Testimonials</SectionBadge></motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
+                    <Reveal stagger staggerAmount={0.15} className="text-center mb-16">
+                        <div><SectionBadge variant="red">Testimonials</SectionBadge></div>
+                        <h2 className="mt-5 text-4xl md:text-5xl font-black text-[#0B1E3D] tracking-tight">
                             What Our Students{' '}
                             <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Say</span>
-                        </motion.h2>
+                        </h2>
                         <GlowLine />
-                    </motion.div>
+                    </Reveal>
 
                     <div className="relative max-w-4xl mx-auto mb-12">
                         <AnimatePresence mode="wait">
@@ -545,11 +511,10 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Reveal stagger staggerAmount={0.08} className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                         {testimonials.map((t, i) => (
                             <motion.div
                                 key={i}
-                                variants={fadeInUp}
                                 whileHover={{ y: -6 }}
                                 onClick={() => setActiveTestimonial(i)}
                                 className={`group p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${i === activeTestimonial ? 'bg-[#0B1E3D] border-[#F0B429]/40 shadow-xl' : 'bg-white border-[#0B1E3D]/8 hover:shadow-lg hover:border-[#F0B429]/25'}`}
@@ -564,20 +529,20 @@ const Home = () => {
                                 <div className="flex gap-0.5 mt-3">{[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-[#F0B429] text-[#F0B429]" />)}</div>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </Reveal>
                 </div>
             </section>
 
             <section className="py-16 bg-white border-y border-[#0B1E3D]/8">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-                        <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#0B1E3D]/5 text-[#804501] rounded-full text-xs font-bold uppercase tracking-widest mb-5 border border-[#804501]/20">
+                    <Reveal stagger staggerAmount={0.15}>
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#0B1E3D]/5 text-[#804501] rounded-full text-xs font-bold uppercase tracking-widest mb-5 border border-[#804501]/20">
                             <MapPin className="w-3.5 h-3.5" /> Where We Work
-                        </motion.div>
-                        <motion.h2 variants={fadeInUp} className="text-2xl md:text-3xl font-black text-[#0B1E3D] mb-8">
+                        </div>
+                        <h2 className="text-2xl md:text-3xl font-black text-[#0B1E3D] mb-8">
                             Based in Mysuru. Online Across India. Placements Worldwide.
-                        </motion.h2>
-                        <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-3">
+                        </h2>
+                        <div className="flex flex-wrap justify-center gap-3">
                             {['Mysuru — Head Office', 'Karnataka', 'Online — All India', 'Overseas Placements'].map((city, i) => (
                                 <motion.span
                                     key={i}
@@ -587,8 +552,8 @@ const Home = () => {
                                     {city}
                                 </motion.span>
                             ))}
-                        </motion.div>
-                    </motion.div>
+                        </div>
+                    </Reveal>
                 </div>
             </section>
 
@@ -597,24 +562,23 @@ const Home = () => {
                 <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#804501]/8 blur-[160px] pointer-events-none" />
 
                 <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="gold">FAQ</SectionBadge></motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-6 text-4xl md:text-6xl font-black text-[#0B1E3D] tracking-tight leading-tight">
+                    <Reveal stagger staggerAmount={0.15} className="text-center mb-16">
+                        <div><SectionBadge variant="gold">FAQ</SectionBadge></div>
+                        <h2 className="mt-6 text-4xl md:text-6xl font-black text-[#0B1E3D] tracking-tight leading-tight">
                             Everything You Need
                             <br />
                             <span className="bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#804501] bg-clip-text text-transparent">To Know Before Joining</span>
-                        </motion.h2>
+                        </h2>
                         <GlowLine />
-                        <motion.p variants={fadeInUp} className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
+                        <p className="mt-4 max-w-2xl mx-auto text-slate-500 text-lg">
                             Find answers about courses, exams, teaching methods, fees and everything related to your preparation journey.
-                        </motion.p>
-                    </motion.div>
+                        </p>
+                    </Reveal>
 
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="max-w-4xl mx-auto space-y-4">
+                    <Reveal stagger staggerAmount={0.08} className="max-w-4xl mx-auto space-y-4">
                         {faqs.map((faq, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                variants={fadeInUp}
                                 className={`group rounded-3xl border transition-all duration-400 overflow-hidden ${faqOpen === i ? 'bg-white border-[#F0B429]/40 shadow-[0_20px_60px_rgba(11,30,61,0.12)]' : 'bg-white/60 border-[#0B1E3D]/8 hover:bg-white hover:shadow-lg hover:border-[#F0B429]/20'}`}
                             >
                                 <button onClick={() => setFaqOpen(faqOpen === i ? null : i)} aria-expanded={faqOpen === i} className="w-full flex items-center gap-5 p-6 md:p-7 text-left">
@@ -634,9 +598,9 @@ const Home = () => {
                                 >
                                     <div className="px-7 pb-7 ml-0 md:ml-[4.2rem] text-slate-600 leading-relaxed border-t border-[#0B1E3D]/6 pt-5">{faq.answer}</div>
                                 </motion.div>
-                            </motion.div>
+                            </div>
                         ))}
-                    </motion.div>
+                    </Reveal>
                 </div>
             </section>
 
@@ -645,14 +609,14 @@ const Home = () => {
                 <FloatingOrb className="w-[600px] h-[600px] bg-[#F0B429]/16 blur-[180px] -top-40 -left-40" delay={0} />
                 <FloatingOrb className="w-[500px] h-[500px] bg-[#804501]/10 blur-[160px] -bottom-40 -right-40" delay={3} />
                 <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-14">
-                        <motion.div variants={fadeInUp}><SectionBadge variant="red">Get Started</SectionBadge></motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-6 font-[family-name:var(--font-display)] text-4xl md:text-5xl font-black tracking-tight text-[#0B1E3D]">
+                    <Reveal stagger staggerAmount={0.15} className="text-center mb-14">
+                        <div><SectionBadge variant="red">Get Started</SectionBadge></div>
+                        <h2 className="mt-6 font-[family-name:var(--font-display)] text-4xl md:text-5xl font-black tracking-tight text-[#0B1E3D]">
                             Request a Free{' '}
                             <span className="bg-gradient-to-r from-[#804501] to-[#F0B429] bg-clip-text text-transparent">Consultation</span>
-                        </motion.h2>
-                        <motion.p variants={fadeInUp} className="mt-4 text-slate-500 text-lg max-w-xl mx-auto">Fill in your details and a counsellor will reach out within 24 hours.</motion.p>
-                    </motion.div>
+                        </h2>
+                        <p className="mt-4 text-slate-500 text-lg max-w-xl mx-auto">Fill in your details and a counsellor will reach out within 24 hours.</p>
+                    </Reveal>
                     <ContactForm />
                 </div>
             </section>

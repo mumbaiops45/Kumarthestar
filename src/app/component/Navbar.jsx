@@ -7,6 +7,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { PhoneIcon } from "@heroicons/react/24/solid";
 import { primaryPhone } from "../../data/site";
+import Magnetic from "./Magnetic";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -99,13 +100,15 @@ export default function Navbar() {
                 })}
               </div>
               <div className="hidden lg:block">
-                <a
-                  href={`tel:+${primaryPhone.raw}`}
-                  className="shine group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#112448] px-6 py-3 text-sm font-bold text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.28)] ring-1 ring-[#F0B429]/30 transition-all duration-400 hover:shadow-[0_12px_34px_rgba(240,180,41,0.35)] hover:ring-[#F0B429]/70"
-                >
-                  <PhoneIcon className="relative h-4 w-4" />
-                  <span className="relative whitespace-nowrap">{primaryPhone.label}</span>
-                </a>
+                <Magnetic strength={0.25}>
+                  <a
+                    href={`tel:+${primaryPhone.raw}`}
+                    className="shine group relative inline-flex items-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-[#0B1E3D] to-[#112448] px-6 py-3 text-sm font-bold text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.28)] ring-1 ring-[#F0B429]/30 transition-all duration-400 hover:shadow-[0_12px_34px_rgba(240,180,41,0.35)] hover:ring-[#F0B429]/70"
+                  >
+                    <PhoneIcon className="relative h-4 w-4" />
+                    <span className="relative whitespace-nowrap">{primaryPhone.label}</span>
+                  </a>
+                </Magnetic>
               </div>
               <div className="lg:hidden">
                 <DisclosureButton className="rounded-xl border border-[#0B1E3D]/10 bg-white/70 p-2.5 text-[#0B1E3D] transition-colors hover:border-[#F0B429]/50 hover:text-[#804501]">
