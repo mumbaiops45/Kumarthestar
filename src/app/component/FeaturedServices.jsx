@@ -46,16 +46,6 @@ export default function FeaturedServices({
             <FeaturedServiceCard key={division.slug} division={division} index={i} />
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 rounded-2xl bg-[#0B1E3D] px-8 py-4 text-sm font-bold text-[#FDD34F] shadow-[0_16px_40px_rgba(11,30,61,0.25)] transition-transform duration-300 hover:scale-[1.03]"
-          >
-            See all {divisions.length} services
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
       </div>
     </section>
   );

@@ -459,9 +459,58 @@ const Home = () => {
                         </p>
                     </Reveal>
 
-                    <Reveal from="up">
-                        <RankersShowcase rankers={rankers} />
-                    </Reveal>
+                    <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+                        {rankers.map((ranker, index) => (
+                            <Reveal
+                                key={ranker.name}
+                                from="up"
+                            >
+                                <article
+                                    className="group relative h-full overflow-hidden rounded-[28px] border border-[#0B1E3D]/8 bg-white p-5 shadow-[0_12px_40px_rgba(11,30,61,0.06)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-3 hover:border-[#F0B429]/30 hover:shadow-[0_25px_60px_rgba(11,30,61,0.13)]"
+                                >
+                                    <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-0 transition-all duration-1000 group-hover:left-[130%] group-hover:opacity-100"/>
+                                    <div className="absolute left-6 right-6 top-0 h-1 rounded-b-full bg-gradient-to-r from-[#F0B429] via-[#FDD34F] to-[#F0B429] opacity-70 transition-all duration-500 group-hover:left-4 group-hover:right-4 group-hover:opacity-100"/>
+                                    <div className="absolute right-5 top-5 z-10">
+                                        <span className="inline-flex items-center rounded-full border border-[#F0B429]/25 bg-gradient-to-r from-[#F0B429] to-[#FDD34F] px-3 py-1.5 text-[11px] font-black tracking-wide text-[#06142D] shadow-[0_6px_18px_rgba(240,180,41,0.25)] transition-transform duration-500 group-hover:scale-105">
+                                            {ranker.tag}
+                                        </span>
+                                    </div>
+                                    <div className="relative flex justify-center pt-7">
+                                        <div className="absolute top-5 h-28 w-28 rounded-full bg-gradient-to-br from-[#FDD34F] to-[#F0B429] opacity-20 blur-xl transition-all duration-500 group-hover:scale-125 group-hover:opacity-40"/>
+                                        <div className="relative rounded-full bg-gradient-to-br from-[#FDD34F] to-[#F0B429] p-[3px] shadow-[0_12px_30px_rgba(240,180,41,0.2)] transition-transform duration-500 group-hover:scale-105">
+                                            <div className="rounded-full bg-white p-1">
+                                                <img
+                                                    src={ranker.img}
+                                                    alt={ranker.name}
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                    className="h-24 w-24 rounded-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="relative mt-6 text-center">
+                                        <h3 className="font-[family-name:var(--font-display)] text-lg font-black tracking-tight text-[#0B1E3D] transition-colors duration-300 group-hover:text-[#804501]">
+                                            {ranker.name}
+                                        </h3>
+                                        <p className="mt-1 text-xs font-medium text-slate-400">
+                                            {ranker.exam}
+                                        </p>
+                                        <div className="mt-5 rounded-2xl border border-[#F0B429]/20 bg-gradient-to-br from-[#F0B429]/12 via-[#FDD34F]/8 to-transparent px-4 py-3 transition-all duration-500 group-hover:border-[#F0B429]/40 group-hover:shadow-[0_8px_25px_rgba(240,180,41,0.10)]">
+                                            <span className="block text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                                                Achievement
+                                            </span>
+                                            <span className="mt-1 block font-[family-name:var(--font-display)] text-base font-black text-[#804501]"
+                                            >
+                                                {ranker.score}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </article>
+                            </Reveal>
+                        ))}
+
+                    </div>
                 </div>
             </section>
 
