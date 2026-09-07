@@ -13,7 +13,6 @@ import ContactForm from './ContactForm';
 import DivisionsShowcase from './DivisionsShowcase';
 import FeaturedServices from './FeaturedServices';
 import Magnetic from './Magnetic';
-import RankersShowcase from './RankersShowcase';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -314,19 +313,7 @@ const Home = () => {
                     </Reveal>
                 </div>
             </section>
-
             <FeaturedServices />
-
-            <DivisionsShowcase
-                id="what-we-do"
-                eyebrow="More Than Coaching"
-                heading="One Firm, Many Services"
-                accent=""
-                intro={`Kumarthestar is a proprietorship firm running ${divisions.length} service lines - coaching and admissions, language training, drama and short films, coffee, tea and cooking classes, corporate services, real estate, staffing and animal welfare.`}
-                showFilters={false}
-                limit={6}
-            />
-
             <section className="relative py-8 overflow-hidden bg-[#FAFAF8]">
                 <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-[#F0B429]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#804501]/6 to-transparent rounded-full blur-3xl pointer-events-none" />

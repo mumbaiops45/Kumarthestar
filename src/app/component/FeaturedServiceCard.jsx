@@ -81,14 +81,6 @@ export default function FeaturedServiceCard({ division, index }) {
         >
           {String(index + 1).padStart(2, "0")}
         </span>
-
-        <span
-          data-card-fade
-          className="absolute -bottom-7 left-7 z-10 grid h-14 w-14 place-items-center rounded-2xl text-white shadow-[0_14px_34px_rgba(6,20,45,0.35)] ring-4 ring-white transition-transform duration-500 ease-premium group-hover:-translate-y-1 group-hover:scale-105"
-          style={{ background: `linear-gradient(135deg, ${theme.from}, ${theme.to})` }}
-        >
-          <Icon className="h-6 w-6" strokeWidth={1.9} />
-        </span>
       </div>
 
       <div

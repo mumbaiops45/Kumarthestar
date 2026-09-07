@@ -12,13 +12,13 @@ export default function FeaturedServices({
   eyebrow = "Signature Services",
   heading = "A Closer Look At",
   accent = "What We Do Best",
-  intro = "Four service lines that show the range of the firm - from the classroom to the stage to the site visit. The full catalogue is one scroll away.",
+  intro = "Four service lines that show the range of the firm from the classroom to the stage to the site visit. The full catalogue is one scroll away.",
 }) {
   const items = slugs.map((slug) => divisions.find((d) => d.slug === slug)).filter(Boolean);
   if (!items.length) return null;
 
   return (
-    <section className="relative overflow-hidden bg-[#FAFAF8] py-20 sm:py-28">
+    <section className="relative overflow-hidden bg-[#FAFAF8] py-10 sm:py-18">
       <div className="pointer-events-none absolute -right-40 top-10 h-[520px] w-[520px] rounded-full bg-[#F0B429]/8 blur-[170px]" />
       <div className="pointer-events-none absolute -left-40 bottom-0 h-[480px] w-[480px] rounded-full bg-[#804501]/6 blur-[160px]" />
 
@@ -30,15 +30,15 @@ export default function FeaturedServices({
           </span>
 
           <h2 className="mt-6 font-[family-name:var(--font-display)] text-4xl font-black leading-[1.08] tracking-tight text-[#0B1E3D] sm:text-5xl">
-            {heading}
-            <span className="block bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent">
+            {heading} {" "}
+            <span className=" bg-gradient-to-r from-[#804501] via-[#F0B429] to-[#B26E02] bg-clip-text text-transparent">
               {accent}
             </span>
           </h2>
 
-          <div className="mx-auto my-5 h-1 w-24 rounded-full bg-gradient-to-r from-[#F0B429] to-[#804501] shadow-[0_0_12px_rgba(240,180,41,0.6)]" />
+          {/* <div className="mx-auto my-5 h-1 w-24 rounded-full bg-gradient-to-r from-[#F0B429] to-[#804501] shadow-[0_0_12px_rgba(240,180,41,0.6)]" /> */}
 
-          <p className="text-base leading-7 text-slate-500">{intro}</p>
+          <p className="text-base mt-4 leading-7 text-slate-500">{intro}</p>
         </Reveal>
 
         <div className="mt-16 flex flex-col gap-14 lg:gap-20">
