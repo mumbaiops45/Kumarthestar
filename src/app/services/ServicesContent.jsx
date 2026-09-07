@@ -136,7 +136,6 @@ export default function ServicesContent() {
       />
 
       <section className="relative overflow-hidden bg-section-alt py-20 sm:py-24">
-        <div className="pointer-events-none absolute inset-0 grid-gold opacity-60" />
         <div className="pointer-events-none absolute -left-40 top-10 h-[480px] w-[480px] rounded-full bg-[#F0B429]/10 blur-[160px]" />
         <div className="relative max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal from="up" className=" max-w-3xl">
@@ -181,7 +180,7 @@ export default function ServicesContent() {
         className="text-left"
       />
      
-      <section className="relative overflow-hidden bg-[#FAFAF8] py-20 sm:py-8">
+      <section className="relative overflow-hidden bg-[#FAFAF8] py-10 sm:py-8">
         <div className="pointer-events-none absolute -right-40 top-20 h-[520px] w-[520px] rounded-full bg-[#804501]/8 blur-[160px]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal from="up" className="mx-auto max-w-3xl text-center">
@@ -228,8 +227,7 @@ export default function ServicesContent() {
           </div>
         </div>
       </section>
-      <section className="relative overflow-hidden bg-section-alt py-20 sm:py-28">
-        <div className="pointer-events-none absolute inset-0 grid-gold opacity-50" />
+      <section className="relative overflow-hidden bg-section-alt py-10 sm:py-18">
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal from="up" className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#F0B429]/30 bg-gradient-to-r from-[#F0B429]/15 to-[#FDD34F]/10 px-5 py-2 text-xs font-bold uppercase tracking-widest text-[#804501] shadow-sm">
@@ -263,12 +261,10 @@ export default function ServicesContent() {
         </div>
       </section>
       <section className="relative overflow-hidden bg-section-hero py-20 sm:py-28">
-        <div className="pointer-events-none absolute inset-0 grid-gold" />
         <div className="pointer-events-none absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#F0B429]/12 blur-[170px]" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal from="up">
             <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0B1E3D] to-[#06142D] p-8 shadow-[0_30px_80px_rgba(6,20,45,0.32)] sm:p-12">
-              <div className="pointer-events-none absolute inset-0 grid-gold opacity-20" />
               <div className="relative text-center">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FDD34F]">
                   One Message Is Enough

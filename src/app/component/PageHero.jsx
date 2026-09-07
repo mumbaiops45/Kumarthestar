@@ -42,7 +42,6 @@ export default function PageHero({
       ref={ref}
       className="relative overflow-hidden bg-section-hero pb-28 pt-24"
     >
-      <div className="pointer-events-none absolute inset-0 grid-gold" />
       <motion.div
         style={{ y: orbY1 }}
         className="pointer-events-none absolute left-1/4 top-10 h-[36rem] w-[36rem] rounded-full bg-[#F0B429]/12 blur-[140px]"

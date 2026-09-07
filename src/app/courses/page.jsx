@@ -1,8 +1,9 @@
+
 "use client";
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Users, BookOpen, CheckCircle, Filter, Quote, Rocket, Phone, Search, ArrowRight, Trophy, Zap, GraduationCap, Globe, Award, Briefcase, Target } from "lucide-react";
+import {Star, Users, BookOpen, CheckCircle, Filter, Quote, Rocket, Phone, Search,ArrowRight, Trophy, Zap, GraduationCap, Globe, Award, Briefcase, Target, Clock, PlayCircle} from "lucide-react";
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
@@ -12,6 +13,31 @@ const fadeInUp = {
 const stagger = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
+};
+
+
+const rowVariants = (reversed) => ({
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.12 }
+    }
+});
+
+const imageVariants = (reversed) => ({
+    hidden: { opacity: 0, x: reversed ? 60 : -60, scale: 0.94 },
+    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+});
+
+const contentVariants = (reversed) => ({
+    hidden: { opacity: 0, x: reversed ? -60 : 60 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+});
+
+const itemFade = {
+    hidden: { opacity: 0, y: 14 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
 };
 
 const FloatingOrb = ({ className, delay = 0 }) => (
@@ -69,7 +95,7 @@ const COURSES_DATA = [
         subtitle: "High-yield NCERT line-by-line coverage, 3D anatomical simulations & Biology drills.",
         rating: 4.95, reviewsCount: 1890, students: "4,200+", duration: "18 Months", lessonsCount: 420,
         image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80",
-        instructor: { name: "Dr. Ananya Roy", role: "AIIMS Gold Medalist & Biology Specialist", avatar: "https://instagram.fbom33-1.fna.fbcdn.net/v/t51.82787-15/779158660_18476032135119166_8938442415517528101_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=1&ig_cache_key=Mzk2OTI4MjgxMzQ1ODAwNTE4OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjMxNi5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=bi68Z_426CwQ7kNvwGtTBzg&_nc_oc=Adq3-IYmO3DfL06pIhRyVmSYLq52P8h5VukSt3YRGmznw0BL2u1A-aLuu99oaGEWgTTtzAuswRym4dXhmnE0ykc_&_nc_zt=23&_nc_ht=instagram.fbom33-1.fna&_nc_gid=ZV00Xjp7NqKxLNu9LCHcYQ&_nc_ss=7b289&oh=00_AQHGFH6Zp2n50LbGAQ1Le1HfXp0ZivVL6hl6t6M_98qi9w&oe=6A9608A7" },
+        instructor: { name: "Dr. Ananya Roy", role: "AIIMS Gold Medalist & Biology Specialist", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" },
         highlights: ["NCERT 3D Interactive Visualizer", "Daily 30-Min High-Yield Quiz Drills", "Medical College Application Counselling"],
         price: 449, originalPrice: 799, badge: "Top Rated", badgeColor: "from-[#0B1E3D] to-[#1a3a6e]",
         modules: [
@@ -145,7 +171,42 @@ const COURSES_DATA = [
             { title: "Module 2: Supervised & Unsupervised ML", lessons: 18, duration: "24h" },
             { title: "Module 3: PyTorch Deep Learning & Computer Vision", lessons: 16, duration: "22h" }
         ]
-    }
+    },
+    {
+        id: "mbaisfunda-books",
+        category: "Books",
+        level: "All Levels",
+        title: "MBAisFunda Books Collection",
+        subtitle: "Practical MBA, management, business and career-focused books designed for students, professionals and aspiring leaders.",
+        rating: 4.9,
+        reviewsCount: 320,
+        students: "1,500+",
+        duration: "Self-Paced",
+        lessonsCount: 0,
+        image: "/services/mbafoundation.jpeg",
+        instructor: {
+            name: "MBAisFunda",
+            role: "Business Education & Career Learning",
+            avatar: "/services/courses.jpeg"
+        },
+        highlights: [
+            "Practical Business & Management Concepts",
+            "Career & MBA Preparation Resources",
+            "Easy-to-Understand Real-World Examples"
+        ],
+        price: 699,
+        originalPrice: 899,
+        badge: "Popular",
+        badgeColor: "from-[#804501] to-[#F0B429]",
+        modules: [
+            { title: "Business & Management Fundamentals", lessons: 10, duration: "Self-Paced" },
+            { title: "MBA & Career Development", lessons: 8, duration: "Self-Paced" },
+            { title: "Practical Case Studies & Frameworks", lessons: 12, duration: "Self-Paced" }
+        ],
+        productType: "book",
+        format: "Paperback",
+        availability: "In Stock"
+    },
 ];
 
 const CATEGORIES = [
@@ -157,23 +218,121 @@ const CATEGORIES = [
     { label: "Business & Finance", icon: <Briefcase className="w-3.5 h-3.5" /> },
 ];
 
-const TESTIMONIALS = [
-    {
-        name: "Rohan Kapoor", role: "JEE Advanced AIR 42", score: "99.89 Percentile",
-        image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80",
-        text: "The 1-on-1 mentorship and instant doubt-clearing sessions transformed my JEE prep completely. The mock tests mirror the exact difficulty of the real exam."
-    },
-    {
-        name: "Priya Sundaram", role: "NEET Score 710 / 720", score: "Admitted to AIIMS Delhi",
-        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80",
-        text: "NCERT 3D visualizers helped me retain organic chemistry and biology diagrams effortlessly. I jumped from 580 to 710 in less than 6 months!"
-    },
-    {
-        name: "Daniel Kovacs", role: "SAT Score 1560", score: "Stanford University '30",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-        text: "Sophia's essay strategy and college application guidance made my Ivy application shine. Received full scholarship offers from 3 top US universities!"
-    }
-];
+
+const CourseRow = ({ course, index }) => {
+    const reversed = index % 2 === 1;
+
+    return (
+        <motion.div
+            variants={rowVariants(reversed)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            className={`group relative flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"
+                } items-stretch gap-0 bg-white rounded-[2rem] overflow-hidden border border-[#0B1E3D]/6 shadow-[0_4px_24px_rgba(11,30,61,0.06)] hover:shadow-[0_30px_70px_rgba(11,30,61,0.16)] transition-shadow duration-500`}
+        >
+            <motion.div
+                variants={imageVariants(reversed)}
+                className="relative w-full md:w-1/2 aspect-[16/10] md:aspect-auto overflow-hidden bg-slate-100"
+            >
+                <motion.img
+                    src={course.image}
+                    alt={course.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    whileHover={{ scale: 1.06 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1E3D]/60 via-transparent to-transparent pointer-events-none" />
+
+                <span
+                    className={`absolute top-5 ${reversed ? "md:right-5" : "left-5"} left-5 md:left-auto ${reversed ? "" : "md:left-5"
+                        } px-3 py-1.5 rounded-full text-xs font-black text-white bg-gradient-to-r ${course.badgeColor} shadow-lg`}
+                >
+                    {course.badge}
+                </span>
+
+                <div className="absolute bottom-5 right-5 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-xs font-bold text-white">
+                    <Star className="w-3 h-3 fill-[#F0B429] text-[#F0B429]" />
+                    {course.rating}
+                    <span className="text-white/40">({course.reviewsCount})</span>
+                </div>
+
+                <div className="absolute bottom-5 left-5 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 backdrop-blur-sm border border-white/20 text-white text-[11px] font-bold tracking-wide">
+                    <Clock className="w-3 h-3" />
+                    {course.duration}
+                </div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileHover={{ opacity: 1, scale: 1 }}
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                >
+                    <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center">
+                        <PlayCircle className="w-8 h-8 text-white" />
+                    </div>
+                </motion.div>
+            </motion.div>
+            <motion.div
+                variants={contentVariants(reversed)}
+                className="w-full md:w-1/2 p-8 sm:p-10 md:p-12 flex flex-col justify-center"
+            >
+                <motion.p variants={itemFade} className="text-[#804501] text-xs font-bold uppercase tracking-widest mb-3">
+                    {course.category} &middot; {course.level}
+                </motion.p>
+
+                <motion.h3 variants={itemFade} className="text-[#0B1E3D] font-black text-2xl md:text-3xl leading-snug mb-4 group-hover:text-[#804501] transition-colors duration-300">
+                    {course.title}
+                </motion.h3>
+
+                <motion.p variants={itemFade} className="text-slate-500 text-sm leading-relaxed mb-6">
+                    {course.subtitle}
+                </motion.p>
+
+                <motion.div variants={itemFade} className="flex items-center gap-3 mb-6">
+                    <div className="relative">
+                        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#F0B429] to-[#804501] blur-sm opacity-0 group-hover:opacity-70 transition" />
+                        <img src={course.instructor.avatar} alt={course.instructor.name} className="relative w-9 h-9 rounded-full object-cover border border-[#F0B429]/40" />
+                    </div>
+                    <div>
+                        <p className="text-slate-700 text-sm font-bold leading-none">{course.instructor.name}</p>
+                        <p className="text-slate-400 text-xs mt-1">{course.instructor.role}</p>
+                    </div>
+                </motion.div>
+
+                <motion.div variants={itemFade} className="space-y-2.5 mb-7">
+                    {course.highlights.map((h, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-slate-600">
+                            <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                            <span>{h}</span>
+                        </div>
+                    ))}
+                </motion.div>
+
+                <motion.div variants={itemFade} className="mt-auto pt-6 border-t border-[#0B1E3D]/6">
+                    <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+                        <div>
+                            <span className="text-3xl font-black text-[#0B1E3D]">₹{course.price}</span>
+                            <span className="text-sm text-slate-400 line-through ml-2">₹{course.originalPrice}</span>
+                        </div>
+                        <span className="text-xs text-slate-500 flex items-center gap-1">
+                            <Users className="w-3.5 h-3.5 text-[#804501]" />{course.students} enrolled
+                        </span>
+                    </div>
+
+                    <Link
+                        href="/contact"
+                        className="group/btn relative overflow-hidden inline-flex items-center justify-center w-full sm:w-auto py-3 px-8 rounded-xl text-sm sm:text-base font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgba(240,180,41,0.25)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(240,180,41,0.35)] active:scale-[0.97]"
+                    >
+                        <span className="absolute inset-0 bg-white/25 translate-x-[-120%] group-hover/btn:translate-x-[120%] transition-transform duration-500 skew-x-12" />
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                            <span>Enroll Now</span>
+                            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                        </span>
+                    </Link>
+                </motion.div>
+            </motion.div>
+        </motion.div>
+    );
+};
 
 const page = () => {
     const [selectedCategory, setSelectedCategory] = useState("All Courses");
@@ -217,7 +376,6 @@ const page = () => {
                                 & Future Proof Careers
                             </span>
                         </motion.h1>
-
                         <motion.p variants={fadeInUp} className="mt-6 px-4 sm:px-4 md:px-8 lg:px-5 text-lg text-slate-500 max-w-2xl leading-relaxed">
                             Explore 50+ industry-aligned programs taught by top 1% rankers, Ivy League scholars, and senior staff engineers.
                         </motion.p>
@@ -237,6 +395,7 @@ const page = () => {
                     </motion.div>
                 </div>
             </section>
+
             <section className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-[#0B1E3D]/8 shadow-[0_4px_30px_rgba(11,30,61,0.06)]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div className="flex items-center justify-between gap-4 overflow-x-auto no-scrollbar">
@@ -264,9 +423,8 @@ const page = () => {
                     </div>
                 </div>
             </section>
-
             <section className="py-16 bg-gradient-to-b from-[#F7F3EA] to-[#FAFAF8]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between mb-10 pb-4 border-b border-[#0B1E3D]/8">
                         <div>
                             <p className="text-slate-500 text-sm">
@@ -284,88 +442,14 @@ const page = () => {
                         {filteredCourses.length > 0 ? (
                             <motion.div
                                 key={selectedCategory + searchQuery}
-                                initial={{ opacity: 0, y: 16 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -16 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
                                 transition={{ duration: 0.35 }}
-                                className="grid md:grid-cols-2 lg:grid-cols-3 gap-7"
+                                className="flex flex-col gap-10 md:gap-14"
                             >
                                 {filteredCourses.map((course, i) => (
-                                    <motion.div
-                                        key={course.id}
-                                        initial={{ opacity: 0, y: 30 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5, delay: i * 0.08 }}
-                                        whileHover={{ y: -10 }}
-                                        className="group bg-white rounded-3xl overflow-hidden shadow-[0_4px_24px_rgba(11,30,61,0.08)] hover:shadow-[0_24px_60px_rgba(11,30,61,0.18)] transition-all duration-500 border border-[#0B1E3D]/5 flex flex-col"
-                                    >
-                                        <div className="relative h-52 overflow-hidden">
-                                            <img
-                                                src={course.image}
-                                                alt={course.title}
-                                                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1E3D]/70 via-transparent to-transparent" />
-                                            <span className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-black text-white bg-gradient-to-r ${course.badgeColor} shadow-lg`}>
-                                                {course.badge}
-                                            </span>
-                                            <div className="absolute bottom-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-xs font-bold text-white">
-                                                <Star className="w-3 h-3 fill-[#F0B429] text-[#F0B429]" />
-                                                {course.rating}
-                                                <span className="text-white/40">({course.reviewsCount})</span>
-                                            </div>
-                                            <div className="absolute bottom-4 left-4 px-2.5 py-1 rounded-lg bg-white/15 backdrop-blur-sm border border-white/20 text-white text-[10px] font-bold tracking-wide">
-                                                {course.duration}
-                                            </div>
-                                        </div>
-                                        <div className="p-6 flex flex-col flex-1">
-                                            <p className="text-[#804501] text-xs font-bold uppercase tracking-widest mb-2">{course.category}</p>
-                                            <h3 className="text-[#0B1E3D] font-black text-lg leading-snug mb-2 group-hover:text-[#804501] transition-colors duration-300">
-                                                {course.title}
-                                            </h3>
-                                            <p className="text-slate-500 text-xs leading-relaxed mb-5 line-clamp-2">{course.subtitle}</p>
-                                            <div className="flex items-center gap-2 mb-5">
-                                                <div className="relative">
-                                                    <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#F0B429] to-[#804501] blur-sm opacity-0 group-hover:opacity-70 transition" />
-                                                    <img src={course.instructor.avatar} alt={course.instructor.name} className="relative w-7 h-7 rounded-full object-cover border border-[#F0B429]/40" />
-                                                </div>
-                                                <p className="text-slate-600 text-xs font-semibold truncate">{course.instructor.name}</p>
-                                            </div>
-                                            <div className="space-y-2 mb-6">
-                                                {course.highlights.map((h, idx) => (
-                                                    <div key={idx} className="flex items-center gap-2 text-xs text-slate-600">
-                                                        <CheckCircle className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                                                        <span className="truncate">{h}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-
-                                            <div className="mt-auto pt-5 border-t border-[#0B1E3D]/6">
-                                                <div className="flex items-center justify-between mb-4">
-                                                    <div>
-                                                        <span className="text-2xl font-black text-[#0B1E3D]">₹{course.price}</span>
-                                                        <span className="text-xs text-slate-400 line-through ml-2">₹{course.originalPrice}</span>
-                                                    </div>
-                                                    <span className="text-xs text-slate-500 flex items-center gap-1">
-                                                        <Users className="w-3.5 h-3.5 text-[#804501]" />{course.students}
-                                                    </span>
-                                                </div>
-                                                <div className="w-full">
-                                                    <Link
-                                                        href="/contact"
-                                                        className="group/btn relative overflow-hidden inline-flex items-center justify-center w-full py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base font-black text-[#06142D] bg-gradient-to-r from-[#F0B429] to-[#FDD34F] shadow-[0_4px_16px_rgba(240,180,41,0.25)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(240,180,41,0.35)] active:scale-[0.97]"
-                                                    >
-                                                        <span className="absolute inset-0 bg-white/25 translate-x-[-120%] group-hover/btn:translate-x-[120%] transition-transform duration-500 shew-x-12 " />
-                                                        <span className="relative z-10 flex items-center justify-center gap-2">
-                                                            <span>Enroll Now</span>
-                                                            <span className="text-base sm:text-lg transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
-                                                        </span>
-                                                    </Link>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </motion.div>
+                                    <CourseRow key={course.id} course={course} index={i} />
                                 ))}
                             </motion.div>
                         ) : (
@@ -390,58 +474,6 @@ const page = () => {
                             </motion.div>
                         )}
                     </AnimatePresence>
-                </div>
-            </section>
-            <section className="relative py-18 overflow-hidden bg-[#FAFAF8] text-black">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(240,180,41,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(240,180,41,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
-                <FloatingOrb className="w-[500px] h-[500px] bg-[#F0B429]/8 blur-[160px] top-0 left-0" delay={0} />
-                <FloatingOrb className="w-[400px] h-[400px] bg-[#804501]/10 blur-[130px] bottom-0 right-0" delay={4} />
-
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-6">
-                        <motion.div variants={fadeInUp}>
-                            <SectionBadge variant="gold">
-                                <Trophy className="w-3.5 h-3.5 text-[#FDD34F]" />
-                                Proof of Excellence
-                            </SectionBadge>
-                        </motion.div>
-                        <motion.h2 variants={fadeInUp} className="mt-6 text-4xl md:text-5xl font-black text-black tracking-tight">
-                            Loved by{' '}
-                            <span className="bg-gradient-to-r from-[#FDD34F] to-[#F0B429] bg-clip-text text-transparent">Top Rankers Worldwide</span>
-                        </motion.h2>
-                        <GlowLine />
-                    </motion.div>
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid md:grid-cols-3 gap-7">
-                        {TESTIMONIALS.map((t, i) => (
-                            <motion.div
-                                key={i}
-                                variants={fadeInUp}
-                                whileHover={{ y: -10, scale: 1.02 }}
-                                className="card-light group relative p-8 rounded-3xl transition-all duration-500 overflow-hidden"
-                            >
-                                <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/8 to-transparent skew-x-12 pointer-events-none" />
-                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#F0B429] to-[#804501] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                                <Quote className="w-10 h-10 text-[#FDD34F] mb-5" />
-                                <p className="text-slate-800 text-sm leading-relaxed mb-8 italic">"{t.text}"</p>
-
-                                <div className="flex items-center gap-4 pt-5 border-t border-white/8">
-                                    <div className="relative flex-shrink-0">
-                                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#FDD34F] to-[#F0B429] blur-sm opacity-50 group-hover:opacity-100 transition" />
-                                        <img src={t.image} alt={t.name} className="relative w-12 h-12 rounded-full object-cover border-2 border-[#FDD34F]" />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-sm font-black text-black">{t.name}</h4>
-                                        <p className="text-xs text-[#FDD34F] font-semibold">{t.role}</p>
-                                        <p className="text-xs text-white/35 mt-0.5">{t.score}</p>
-                                    </div>
-                                    <div className="ml-auto flex gap-0.5">
-                                        {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-[#F0B429] text-[#F0B429]" />)}
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </motion.div>
                 </div>
             </section>
             <section className="relative py-18 overflow-hidden bg-[#FAFAF8]">

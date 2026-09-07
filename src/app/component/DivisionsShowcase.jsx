@@ -194,7 +194,7 @@ export default function DivisionsShowcase({
   }, []);
 
   return (
-    <section id={id} className="relative overflow-hidden bg-section-alt py-20 sm:py-28">
+    <section id={id} className="relative overflow-hidden bg-section-alt py-10 sm:py-18">
       <div className="pointer-events-none absolute inset-0 grid-gold opacity-60" />
       <div className="pointer-events-none absolute -left-40 top-20 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[160px]" />
       <div className="pointer-events-none absolute -right-40 bottom-0 h-[520px] w-[520px] rounded-full bg-[#804501]/8 blur-[160px]" />

@@ -40,7 +40,6 @@ const Footer = () => {
       <div className="hairline-gold absolute left-0 right-0 top-0" />
       <div className="pointer-events-none absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#F0B429]/10 blur-[170px]" />
       <div className="pointer-events-none absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-[#804501]/12 blur-[170px]" />
-      <div className="pointer-events-none absolute inset-0 grid-gold" />
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>

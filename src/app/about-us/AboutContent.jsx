@@ -261,9 +261,8 @@ export default function AboutContent() {
       <CandyWelfare id="candy-international" />
       <section
         id="contact-founder"
-        className="relative overflow-hidden bg-section-hero py-20 sm:py-28"
+        className="relative overflow-hidden bg-section-hero py-10 sm:py-18"
       >
-        <div className="pointer-events-none absolute inset-0 grid-gold" />
         <div className="pointer-events-none absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#F0B429]/12 blur-[170px]" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal from="up" className="text-center">
