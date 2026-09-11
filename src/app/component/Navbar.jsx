@@ -16,6 +16,7 @@ const navigation = [
   { name: "Tutoring", href: "/courses" },
   { name: "Placements", href: "/placement" },
   { name: "Candy Tees", href: "/candy" },
+  { name: "Advertise", href: "/advertisement" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -30,7 +31,7 @@ function BrandMark({ compact = false }) {
       >
         <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(240,180,41,0.32),transparent_68%)]" />
         <img
-          src="/logo.png"
+          src="/logo1.png"
           alt="Kumar The Star logo"
           className={`relative object-contain mix-blend-screen transition-transform duration-500 group-hover:scale-110 ${
             compact ? "h-9 w-9" : "h-11 w-11"

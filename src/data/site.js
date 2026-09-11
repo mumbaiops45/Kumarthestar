@@ -61,5 +61,6 @@ export const routes = [
   { name: "Tutoring", href: "/courses" },
   { name: "Placements", href: "/placement" },
   { name: "Candy T-Shirts", href: "/candy" },
+  { name: "Advertise With Us", href: "/advertisement" },
   { name: "Contact", href: "/contact" },
 ];

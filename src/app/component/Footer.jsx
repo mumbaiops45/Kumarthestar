@@ -18,6 +18,7 @@ const quickLinks = [
   { name: "Tutoring", href: "/courses" },
   { name: "Placements", href: "/placement" },
   { name: "Candy Tees", href: "/candy" },
+  { name: "Advertise With Us", href: "/advertisement" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -47,7 +48,7 @@ const Footer = () => {
               <span className="relative grid h-12 w-12 place-items-center rounded-full bg-[#06142D] ring-1 ring-[#F0B429]/45 shadow-[0_6px_18px_rgba(11,30,61,0.25)]">
                 <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(240,180,41,0.3),transparent_68%)]" />
                 <img
-                  src="/logo.png"
+                  src="/logo1.png"
                   alt={site.displayName + " logo"}
                   className="relative h-9 w-9 object-contain mix-blend-screen"
                 />
