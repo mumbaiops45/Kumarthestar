@@ -136,11 +136,10 @@ function AdsGrid() {
             key={tab}
             type="button"
             onClick={() => setActive(tab)}
-            className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all ${
-              active === tab
+            className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all ${active === tab
                 ? "bg-[#0B1E3D] text-[#FDD34F] shadow-[0_8px_24px_rgba(11,30,61,0.3)]"
                 : "border border-[#0B1E3D]/8 bg-white text-slate-600 hover:border-[#F0B429]/40"
-            }`}
+              }`}
           >
             {tab === "Academic Institution" ? "Academic Institutions" : tab === "Company" ? "Companies" : tab}
           </button>
@@ -160,9 +159,9 @@ function AdsGrid() {
           ))}
         </motion.div>
       ) : (
-        <div className="mt-12 rounded-3xl border border-dashed border-[#0B1E3D]/15 bg-white/60 py-16 text-center">
-          <p className="text-slate-500">
-            No placements listed here yet. Check back soon.
+        <div className="mt-12 rounded-3xl border border-dashed border-[#0B1E3D]/15 bg-white/60 py-32 text-center">
+          <p className="font-[family-name:var(--font-display)] text-6xl font-black uppercase tracking-wide text-[#0B1E3D] md:text-8xl">
+            Coming <span className="text-gold-gradient">Soon</span>
           </p>
         </div>
       )}
